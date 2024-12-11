@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const deleteButtons = document.querySelectorAll(".delete");
   deleteButtons.forEach((button) => {
     button.addEventListener("click", function () {
-      console.log("Delete button clicked");
       const row = this.closest("tr"); // Get the parent row of the clicked button
       const userId = this.getAttribute("data-user-id");
       // Get the user ID from the button
@@ -18,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       if (confirmDeletion) {
         // Send DELETE request to the server
-        console.log("Sending DELETE request for user ID:", userId);
         fetch("../actions/user_actions.php", {
           method: "DELETE",
           headers: {

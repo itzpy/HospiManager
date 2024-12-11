@@ -20,11 +20,6 @@
             <li><a href="../index.php#contactus" class="link">Contact Us</a></li>
           </ul>
         </div>
-        <div class="nav-button">
-          <a href="../view/register.php">
-            <button class="btn">Sign Up</button>
-          </a>
-        </div>
       </nav>
       <div class="form-box">
         <div class="login-container">
@@ -58,8 +53,11 @@
 
             <button type="submit" class="submit">Login</button>
           </form>
-          <div class="top">
+          <!-- <div class="top">
             <span>Don't have an account? <a href="./register.php">Register</a></span>
+          </div> -->
+          <div class="top">
+            <span><a href="./forgot_password.php">Forgot Password?</a></span>
           </div>
         </div>
       </div>

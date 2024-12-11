@@ -1,61 +1,58 @@
 <?php
+require_once '../db/database.php';
+
 function getUserById($user_id) {
-    global $conn; // Assuming you have a database connection variable
+    global $db; // Assuming you have a database connection variable
     $query = "SELECT * FROM users WHERE user_id = ?";
-    $stmt = $conn->prepare($query);
+    $stmt = $db->prepare($query);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     return $stmt->get_result()->fetch_assoc();
 }
 
 function getUserAnalytics($user_Id) {
-    global $conn; // Assuming you have a database connection variable
+    global $db; // Assuming you have a database connection variable
     $query = "SELECT COUNT(*) as total_recipes FROM recipes WHERE recipe_id = ?";
-    $stmt = $conn->prepare($query);
+    $stmt = $db->prepare($query);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     return $stmt->get_result()->fetch_assoc();
 }
 
-
 function getAllUsers() {
-    global $conn; // Use the global connection variable
-    
-    // Prepare the SQL query to fetch all users
-    $query = "SELECT user_id, fname, lname, email, role, created_at FROM users";
-    
-    // Execute the query
-    $result = mysqli_query($conn, $query);
-    
-    // Check for errors in the query
-    if (!$result) {
-        die("Database query failed: " . mysqli_error($conn));
-    }
+    global $db;
+    $query = "SELECT id, first_name, last_name, email, role, created_at FROM users";
+    $result = $db->query($query);
+    return $result->fetchAll(PDO::FETCH_ASSOC);
+}
 
-    // Initialize an array to hold user data
-    $users = [];
+function addUser($firstName, $lastName, $email, $password, $role = 'admin') {
+    global $db;
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+    $query = "INSERT INTO users (first_name, last_name, email, password, role) VALUES (:first_name, :last_name, :email, :password, :role)";
+    $stmt = $db->prepare($query);
+    return $stmt->execute([
+        ':first_name' => $firstName,
+        ':last_name' => $lastName,
+        ':email' => $email,
+        ':password' => $hashedPassword,
+        ':role' => $role
+    ]);
+}
 
-    // Fetch each row as an associative array and add it to the users array
-    while ($row = mysqli_fetch_assoc($result)) {
-        $users[] = [
-            'user_id' => $row['user_id'],
-            'full_name' => $row['fname'] . ' ' . $row['lname'], // Combine first and last name
-            'email' => $row['email'],
-            'role' => $row['role'],
-            'created_at' => $row['created_at']
-        ];
-    }
-
-    // Return the array of users
-    return $users;
+function deleteUser($id) {
+    global $db;
+    $query = "DELETE FROM users WHERE id = :id";
+    $stmt = $db->prepare($query);
+    return $stmt->execute([':id' => $id]);
 }
 
 function getPendingUserApprovals() {
-    global $conn;
+    global $db;
     // Implement the logic to fetch pending user approvals
     $query = "SELECT COUNT(*) as pending_count FROM users WHERE approval_status = 'pending'";
-    $result = mysqli_query($conn, $query);
-    $data = mysqli_fetch_assoc($result);
+    $result = $db->query($query);
+    $data = $result->fetch(PDO::FETCH_ASSOC);
     return $data['pending_count'];
 }
 
@@ -64,9 +61,7 @@ function getPendingUserApprovals() {
 //     // Fetch user list data here
 // }
 
-
-
 function getRecipeList($userId) {
-    global $conn;
+    global $db;
     // Fetch recipe list data here
 }

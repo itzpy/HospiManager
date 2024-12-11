@@ -5,7 +5,7 @@ require '../functions/auth_functions.php'; // Include your authentication functi
 require '../functions/user_functions.php'; // Include your user functions
 
 // Check if user is logged in and has the correct role (super admin)
-if (!isLoggedIn() || $_SESSION['user_role'] != 1) {
+if (!isLoggedIn() || $_SESSION['user_role'] != 'superadmin') {
     echo json_encode(['success' => false, 'message' => 'Unauthorized action.']);
     exit();
 }

@@ -79,3 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo json_encode($response);
     exit();
 }
+
+$password = 'Adminpassword10!';
+$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+echo $hashedPassword;
+?>

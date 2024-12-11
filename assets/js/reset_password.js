@@ -1,37 +1,35 @@
 document
-  .getElementById("loginForm")
+  .getElementById("resetPasswordForm")
   .addEventListener("submit", async function (event) {
     event.preventDefault(); // Prevent default form submission
 
     // Input fields and error spans
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-
-    const emailError = document.getElementById("emailError");
+    const token = document.getElementById("token").value;
+    const newPassword = document.getElementById("newPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
     const passwordError = document.getElementById("passwordError");
+    const confirmPasswordError = document.getElementById(
+      "confirmPasswordError"
+    );
 
     // Clear previous error messages
-    emailError.textContent = "";
     passwordError.textContent = "";
+    confirmPasswordError.textContent = "";
 
     // Validation flags
     let valid = true;
 
-    // Email validation
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!email) {
-      emailError.textContent = "Email cannot be empty.";
-      valid = false;
-    } else if (!email.match(emailPattern)) {
-      emailError.textContent = "Please enter a valid email address.";
+    // Password validation
+    const passwordPattern = /^(?=.*[A-Z])(?=.*\d{2,})(?=.*[!@#$%^&*]).{8,}$/;
+    if (!newPassword.match(passwordPattern)) {
+      passwordError.textContent =
+        "Password must contain at least 8 characters, 1 uppercase letter, 2 digits, and 1 special character.";
       valid = false;
     }
 
-    // Password validation
-    const passwordPattern = /^(?=.*[A-Z])(?=.*\d{2,})(?=.*[!@#$%^&*]).{8,}$/;
-    if (!password.match(passwordPattern)) {
-      passwordError.textContent =
-        "Password must contain at least 8 characters, 1 uppercase letter, 2 digits, and 1 special character.";
+    // Confirm Password validation
+    if (newPassword !== confirmPassword) {
+      confirmPasswordError.textContent = "Passwords do not match.";
       valid = false;
     }
 
@@ -40,11 +38,12 @@ document
       try {
         // Prepare form data
         const formData = new FormData();
-        formData.append("email", email);
-        formData.append("password", password);
+        formData.append("token", token);
+        formData.append("newPassword", newPassword);
+        formData.append("confirmPassword", confirmPassword);
 
         // Send the form data using fetch API
-        const response = await fetch("../actions/login_user.php", {
+        const response = await fetch("../actions/reset_password.php", {
           method: "POST",
           body: formData,
         });
@@ -53,11 +52,10 @@ document
         const data = await response.json();
 
         if (data.success) {
-          // Redirect to the appropriate dashboard
-          window.location.href = "../view/admin/dashboard.php";
+          alert("Password has been reset successfully.");
+          window.location.href = "./login.php"; // Redirect to login page
         } else {
-          // Display error from the server
-          alert(data.message);
+          alert(data.message || data.errors.general);
         }
       } catch (error) {
         // Log and display fetch errors

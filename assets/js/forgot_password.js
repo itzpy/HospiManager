@@ -1,18 +1,14 @@
 document
-  .getElementById("loginForm")
+  .getElementById("forgotPasswordForm")
   .addEventListener("submit", async function (event) {
     event.preventDefault(); // Prevent default form submission
 
     // Input fields and error spans
     const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-
     const emailError = document.getElementById("emailError");
-    const passwordError = document.getElementById("passwordError");
 
     // Clear previous error messages
     emailError.textContent = "";
-    passwordError.textContent = "";
 
     // Validation flags
     let valid = true;
@@ -27,24 +23,15 @@ document
       valid = false;
     }
 
-    // Password validation
-    const passwordPattern = /^(?=.*[A-Z])(?=.*\d{2,})(?=.*[!@#$%^&*]).{8,}$/;
-    if (!password.match(passwordPattern)) {
-      passwordError.textContent =
-        "Password must contain at least 8 characters, 1 uppercase letter, 2 digits, and 1 special character.";
-      valid = false;
-    }
-
     // Proceed if the form is valid
     if (valid) {
       try {
         // Prepare form data
         const formData = new FormData();
         formData.append("email", email);
-        formData.append("password", password);
 
         // Send the form data using fetch API
-        const response = await fetch("../actions/login_user.php", {
+        const response = await fetch("../actions/forgot_password.php", {
           method: "POST",
           body: formData,
         });
@@ -53,11 +40,9 @@ document
         const data = await response.json();
 
         if (data.success) {
-          // Redirect to the appropriate dashboard
-          window.location.href = "../view/admin/dashboard.php";
+          alert("Password reset link has been sent to your email.");
         } else {
-          // Display error from the server
-          alert(data.message);
+          alert(data.message || data.errors.general);
         }
       } catch (error) {
         // Log and display fetch errors
