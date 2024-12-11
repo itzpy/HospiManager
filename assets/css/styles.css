@@ -1,0 +1,642 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600&family=Lemon&family=Patua+One&family=Poppins:wght@200;400;500;600;700;800;900&display=swap");
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+/* General Styles */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  background-image: url("../images/background.jpg"); /* Add your background image path here */
+  background-size: cover; /* Ensure the background covers the entire area */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent the background from repeating */
+}
+
+header {
+  background: rgba(0, 123, 255, 0.8); /* Semi-transparent background */
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+body {
+  background: url("../assets/images/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  width: 100%;
+  overflow-x: hidden;
+  height: auto;
+  position: relative;
+}
+
+/* nav{
+    z-index: 10;
+    position: sticky;
+    top: 0;
+    margin-top: 10px;
+    
+} */
+nav {
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 100px;
+  line-height: 100px;
+  background: linear-gradient(rgba(39, 39, 39, 0.6), transparent);
+  z-index: 100;
+}
+nav .nav-logo p {
+  color: rgb(161, 142, 224);
+  font-size: 2rem;
+  font-weight: 600;
+}
+nav .nav-button .btn {
+  width: 130px;
+  height: 40px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-right: rgba(82, 177, 222, 0.4);
+}
+nav .nav-button .btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+nav .nav-container {
+  width: 100%;
+  height: 100%;
+  margin: 0 60px;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+nav .nav-container img {
+  width: 60px;
+}
+
+nav .nav-menu ul {
+  display: flex;
+}
+
+.nav-menu ul li {
+  list-style-type: none;
+}
+
+.nav-menu ul li .link {
+  text-decoration: none;
+  font-weight: 500;
+  color: #fff;
+  padding-bottom: 15px;
+  margin: 0 25px;
+}
+
+.link:hover,
+.active {
+  border-bottom: 2px solid #fff;
+}
+
+nav .nav-container .search {
+  margin-right: 20px;
+  width: 200px;
+  height: 5vh;
+  display: flex;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid #fff;
+}
+nav .nav-container .search input {
+  width: 86%;
+  padding-left: 15px;
+  font-size: 1 rem;
+  height: 100%;
+  background-color: transparent;
+  color: white;
+  border: none;
+  outline: none;
+}
+nav .nav-container .search i {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  width: 14%;
+  cursor: pointer;
+  height: 100%;
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav .btn {
+  background: #28a745;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+nav .btn:hover {
+  background: #218838;
+}
+
+main {
+  padding: 20px;
+}
+
+.item-management,
+.transaction-history {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.item-management h2,
+.transaction-history h2 {
+  margin-top: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background: #007bff;
+  color: #fff;
+}
+
+.btn {
+  background: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #0056b3;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  margin-bottom: 5px;
+}
+
+form input {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+form button {
+  align-self: flex-start;
+}
+
+/* Login and Register Form Styles */
+.form-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.input-icon {
+  position: relative;
+}
+
+.input-icon ion-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.input-icon input {
+  padding-left: 30px;
+}
+
+.error {
+  color: red;
+  font-size: 0.9em;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+section {
+  width: 100%;
+  height: 120vh;
+  overflow: hidden;
+}
+
+/* landing page */
+
+.landingpage {
+  background-image: url("../../assets/images/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landingpage::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(20, 20, 20, 0.6);
+  z-index: 1;
+}
+
+.landingpage .content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  margin-top: 150px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.landingpage .content .heading {
+  margin-top: -100px;
+  max-width: 460px;
+  width: 100%;
+}
+
+.landingpage .content .heading h1 {
+  color: #fff;
+  line-height: 1.2;
+  font-size: 4.5rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.landingpage .content .heading p {
+  color: #fff;
+  font-size: 1.2rem;
+  text-align: none;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.landingpage .content .heading .button-container {
+  display: flex;
+  gap: 0px;
+}
+
+.landingpage .content .heading .button-container .btn {
+  font-weight: 600;
+  padding: 10px 10px;
+  width: 220px;
+  height: 50px;
+  margin: 10px;
+  cursor: pointer;
+  letter-spacing: 1.5px;
+  word-spacing: 5px;
+  background: rgba(255, 255, 255, 0.4);
+  color: white;
+  border-radius: 20px;
+  border: none;
+  transition: 0.5s linear;
+}
+
+.landingpage .content .heading .button-container .btn:hover {
+  scale: 1.05;
+  color: #000;
+  font-weight: 700;
+}
+
+.landingpage .content .image img {
+  width: 700px;
+  transform: rotate(40deg);
+}
+
+/* about us */
+.aboutus {
+  position: relative;
+  background-image: url("../images/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.aboutus .container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+}
+
+.aboutus .container .aboutus-content {
+  color: white;
+  width: 30%;
+}
+
+.aboutus .container .aboutus-content h1 {
+  text-align: justify;
+  margin-bottom: 20px;
+  color: #fff;
+  letter-spacing: 1px;
+  font-size: 2rem;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.aboutus .container .aboutus-content p {
+  font-size: 1.4rem;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Services Details */
+.details-services {
+  position: relative;
+  background-image: url("../images/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.details-services::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.details-services .title {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin: 30px 0;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.details-services .title h1 {
+  margin-top: 100px;
+  font-size: 3rem;
+  color: white;
+  text-align: center;
+  width: 40%;
+}
+
+.details-services .services {
+  position: relative;
+  z-index: 2;
+  margin: 0 40px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.details-services .services .card {
+  color: #fff;
+  margin: 0 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 600px;
+  height: 400px;
+  overflow: visible;
+}
+
+.details-services .services:hover .card {
+  scale: 1.1;
+  transition: 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.details-services .services:hover .card:not(:hover) {
+  opacity: 0.2;
+  backdrop-filter: blur(10px);
+  scale: 1;
+}
+
+.details-services .services .card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px 10px 0 0;
+}
+
+.details-services .services .card .description {
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.details-services .services .card .description h1 {
+  letter-spacing: 1px;
+  margin: 8px 0;
+  text-align: center;
+}
+
+.details-services .services .card .description p {
+  float: left;
+  margin: 10px 0;
+}
+
+.details-services .services .card .description .price {
+  float: right;
+  font-family: "Lemon", serif;
+  margin: 10px 20px 10px 0;
+}
+
+/* Contact Us Section */
+.contactus {
+  position: relative;
+  background-image: url("../images/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.contactus .container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+}
+
+.contactus .container .contactus-content {
+  color: white;
+  width: 30%;
+}
+
+.contactus .container .contactus-content h1 {
+  text-align: justify;
+  margin-bottom: 20px;
+  color: #fff;
+  letter-spacing: 1px;
+  font-size: 2rem;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.contactus .container .contactus-content p {
+  font-size: 1.4rem;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.contactus .container .contact-info {
+  list-style: none;
+  padding: 0;
+}
+
+.contactus .container .contact-info li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+contactus .container .contact-info ion-icon {
+  margin-right: 10px;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+/* Fade from the right */
+@keyframes fadeRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Fade from the left */
+@keyframes fadeLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Zoom in effect */
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Classes for triggering animations */
+.animate-fade-right {
+  opacity: 0;
+  animation: fadeRight 2s ease forwards;
+}
+
+.animate-fade-left {
+  opacity: 0;
+  animation: fadeLeft 2s ease forwards;
+}
+
+.animate-zoom-in {
+  opacity: 0;
+  animation: zoomIn 2s ease forwards;
+}
+
+.animate-zoom-in-up {
+  opacity: 0;
+  animation: zoomIn 2s ease forwards;
+}
+
+/* Delay for staggered animations */
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+.delay-600 {
+  animation-delay: 600ms;
+}
+
+.duration-1000 {
+  animation-duration: 1000ms;
+}
