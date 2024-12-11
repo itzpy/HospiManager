@@ -22,13 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hashedPassword = password_hash($defaultPassword, PASSWORD_BCRYPT);
 
     // Prepare the SQL INSERT statement
-    $stmt = $conn->prepare("INSERT INTO users (fname, lname, email, password, role) VALUES (?, ?, ?, ?, 'admin')");
+    $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, ?)");
     if (!$stmt) {
         die("Prepare failed: " . $conn->error);
     }
 
     // Bind the parameters
-    $stmt->bind_param("ssss", $firstName, $lastName, $email, $hashedPassword);
+    $role = 'admin';
+    $stmt->bind_param("sssss", $firstName, $lastName, $email, $hashedPassword, $role);
 
     // Execute the statement
     if ($stmt->execute()) {

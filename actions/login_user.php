@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Start session and set user data
     session_start();
-    $_SESSION['user_id'] = $user['user_id'];
+    $_SESSION['user_id'] = $user['id'];
     $_SESSION['user_email'] = $user['email'];
     $_SESSION['user_role'] = $user['role'];
 
@@ -79,8 +79,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo json_encode($response);
     exit();
 }
-
-$password = 'Adminpassword10!';
-$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-echo $hashedPassword;
-?>

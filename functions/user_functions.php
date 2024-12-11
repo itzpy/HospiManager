@@ -1,29 +1,29 @@
 <?php
-require_once '../db/database.php';
+require_once dirname(__DIR__) . '/db/database.php';
 
 function getUserById($user_id) {
-    global $db; // Assuming you have a database connection variable
-    $query = "SELECT * FROM users WHERE user_id = ?";
-    $stmt = $db->prepare($query);
+    global $conn; // Assuming you have a database connection variable
+    $query = "SELECT * FROM users WHERE id = ?";
+    $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     return $stmt->get_result()->fetch_assoc();
 }
 
 function getUserAnalytics($user_Id) {
-    global $db; // Assuming you have a database connection variable
+    global $conn; // Assuming you have a database connection variable
     $query = "SELECT COUNT(*) as total_recipes FROM recipes WHERE recipe_id = ?";
-    $stmt = $db->prepare($query);
+    $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     return $stmt->get_result()->fetch_assoc();
 }
 
 function getAllUsers() {
-    global $db;
+    global $conn;
     $query = "SELECT id, first_name, last_name, email, role, created_at FROM users";
-    $result = $db->query($query);
-    return $result->fetchAll(PDO::FETCH_ASSOC);
+    $result = $conn->query($query);
+    return $result->fetch_all(MYSQLI_ASSOC);
 }
 
 function addUser($firstName, $lastName, $email, $password, $role = 'admin') {

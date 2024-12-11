@@ -16,20 +16,14 @@ $response = [
 ];
 
 // Check if form is submitted via POST
-if (isset($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize and validate inputs
-    // Change these to match the form input names exactly
     $first_name = mysqli_real_escape_string($conn, trim($_POST['first-name']));
     $last_name = mysqli_real_escape_string($conn, trim($_POST['last-name']));
     $email = mysqli_real_escape_string($conn, trim($_POST['email']));
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm-password'];
 
-    // Debug: Print out received POST data
-    error_log("Received POST data:");
-    error_log(print_r($_POST, true));
-
-    // Rest of the code remains the same...
     // Validation
     $errors = [];
 
@@ -88,20 +82,18 @@ if (isset($_POST)) {
 
     // Prepare SQL insert statement
     $insert_query = "INSERT INTO users (
-        fname, 
-        lname, 
+        first_name, 
+        last_name, 
         email, 
         password, 
         role, 
-        created_at, 
-        updated_at
+        created_at
     ) VALUES (
         '$first_name', 
         '$last_name', 
         '$email', 
         '$hashed_password', 
-        2, 
-        NOW(), 
+        '', 
         NOW()
     )";
 
@@ -117,10 +109,10 @@ if (isset($_POST)) {
         echo json_encode($response);
         exit();
     }
-}else{
+} else {
     // If not a POST request
     $response['errors']['general'] = "Invalid request method";
     echo json_encode($response);
     exit();
 }
-
+?>
