@@ -4,6 +4,7 @@ define('BASE_DIR', dirname(__DIR__, 2)); // This sets the base directory to RECI
 require_once BASE_DIR . '/db/database.php';
 require_once BASE_DIR . '/functions/auth_functions.php';
 require_once BASE_DIR . '/functions/user_functions.php';
+require_once BASE_DIR . '/functions/item_functions.php';
 
 // Check if user is logged in
 if (!isLoggedIn()) {
@@ -27,6 +28,10 @@ if ($userRole == 'superadmin') { // Super Admin
     $totalUsers = count(getAllUsers());
     $recentUsers = getAllUsers(); // Fetch all users
 }
+
+// Fetch categories and items
+$categories = getAllCategories();
+$items = getAllItems();
 ?>
 
 <!DOCTYPE html>
@@ -56,20 +61,95 @@ if ($userRole == 'superadmin') { // Super Admin
         </section>
 
         <?php if ($userRole == 'superadmin'): // Super Admin ?>
-            <!-- User Management Section -->
-            <section class="user-management">
-                <h2>User Management</h2>
-                <p><a href="../users.php" class="btn">Manage Users</a></p>
+            <!-- Category Management Section -->
+            <section class="category-management">
+                <h2>Category Management</h2>
+                <form id="addCategoryForm" method="POST" action="../../actions/add_category.php">
+                    <label for="categoryName">Category Name</label>
+                    <input type="text" id="categoryName" name="categoryName" required>
+                    <button type="submit" class="btn">Add Category</button>
+                </form>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($categories as $category): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($category['id']) ?></td>
+                                <td><?= htmlspecialchars($category['name']) ?></td>
+                                <td>
+                                    <button class="btn edit" data-category-id="<?= $category['id'] ?>">Edit</button>
+                                    <button class="btn delete" data-category-id="<?= $category['id'] ?>">Delete</button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </section>
 
-                <h2>Add New Admin</h2>
-                <form id="addAdminForm" method="POST" action="../../actions/add_admin.php">
-                    <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" required>
-                    <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" required>
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                    <button type="submit" class="btn">Add Admin</button>
+            <!-- Item Management Section -->
+            <section class="item-management">
+                <h2>Item Management</h2>
+                <form id="addItemForm" method="POST" action="../../actions/add_item.php">
+                    <label for="itemName">Item Name</label>
+                    <input type="text" id="itemName" name="itemName" required>
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <?php foreach ($categories as $category): ?>
+                            <option value="<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <label for="quantity">Quantity</label>
+                    <input type="number" id="quantity" name="quantity" required>
+                    <button type="submit" class="btn">Add Item</button>
+                </form>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($items as $item): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($item['id']) ?></td>
+                                <td><?= htmlspecialchars($item['name']) ?></td>
+                                <td><?= htmlspecialchars($item['category']) ?></td>
+                                <td><?= htmlspecialchars($item['quantity']) ?></td>
+                                <td>
+                                    <button class="btn edit" data-item-id="<?= $item['id'] ?>">Edit</button>
+                                    <button class="btn delete" data-item-id="<?= $item['id'] ?>">Delete</button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </section>
+        <?php endif; ?>
+
+        <?php if ($userRole == 'admin'): // Regular Admin ?>
+            <!-- Stock Management Section -->
+            <section class="stock-management">
+                <h2>Stock Management</h2>
+                <form id="deductItemForm" method="POST" action="../../actions/deduct_item.php">
+                    <label for="item">Item</label>
+                    <select id="item" name="item" required>
+                        <?php foreach ($items as $item): ?>
+                            <option value="<?= $item['id'] ?>"><?= htmlspecialchars($item['name']) ?> (<?= $item['quantity'] ?> available)</option>
+                        <?php endforeach; ?>
+                    </select>
+                    <label for="quantity">Quantity to Deduct</label>
+                    <input type="number" id="quantity" name="quantity" required>
+                    <button type="submit" class="btn">Deduct Item</button>
                 </form>
             </section>
         <?php endif; ?>
@@ -78,5 +158,7 @@ if ($userRole == 'superadmin') { // Super Admin
     <footer>
         <p>&copy; 2024 Hospital Management. All Rights Reserved.</p>
     </footer>
+
+    <script src="../../assets/js/dashboard.js"></script>
 </body>
 </html>
