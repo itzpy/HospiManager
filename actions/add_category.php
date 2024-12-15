@@ -1,35 +1,59 @@
 <?php
 session_start();
-require '../db/database.php'; // Include your database connection file
-require '../functions/auth_functions.php'; // Include your authentication functions
+require_once '../db/database.php';
 
-// Check if user is logged in and has the correct role (super admin)
-if (!isLoggedIn() || $_SESSION['user_role'] != 'superadmin') {
-    echo json_encode(['success' => false, 'message' => 'Unauthorized action.']);
+// Ensure JSON response
+header('Content-Type: application/json');
+
+// Check if user is logged in and is superadmin
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'superadmin') {
+    http_response_code(403);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Access denied'
+    ]);
     exit();
 }
 
-// Handle POST request
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get the form data
-    $categoryName = mysqli_real_escape_string($conn, trim($_POST['categoryName']));
-
-    // Prepare the SQL INSERT statement
-    $stmt = $conn->prepare("INSERT INTO categories (name) VALUES (?)");
-    if (!$stmt) {
-        die("Prepare failed: " . $conn->error);
-    }
-
-    // Bind the parameters
-    $stmt->bind_param("s", $categoryName);
-
-    // Execute the statement
-    if ($stmt->execute()) {
-        echo json_encode(['success' => true, 'message' => 'Category added successfully.']);
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Failed to add category.']);
-    }
-} else {
-    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+// Validate input
+if (!isset($_POST['name']) || !isset($_POST['description'])) {
+    http_response_code(400);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Name and description are required'
+    ]);
+    exit();
 }
-?>
+
+try {
+    $name = trim($_POST['name']);
+    $description = trim($_POST['description']);
+    
+    // Check if category name already exists
+    $stmt = $conn->prepare("SELECT category_id FROM categories WHERE name = ?");
+    $stmt->bind_param("s", $name);
+    $stmt->execute();
+    if ($stmt->get_result()->num_rows > 0) {
+        throw new Exception('Category name already exists');
+    }
+    
+    // Insert new category
+    $stmt = $conn->prepare("INSERT INTO categories (name, description) VALUES (?, ?)");
+    $stmt->bind_param("ss", $name, $description);
+    
+    if (!$stmt->execute()) {
+        throw new Exception('Failed to add category');
+    }
+    
+    echo json_encode([
+        'success' => true,
+        'message' => 'Category added successfully'
+    ]);
+
+} catch (Exception $e) {
+    http_response_code(400);
+    echo json_encode([
+        'success' => false,
+        'message' => $e->getMessage()
+    ]);
+}

@@ -24,6 +24,7 @@
       <div class="form-box">
         <div class="login-container">
           <header>Login</header>
+          <div id="loginError" class="error-message"></div>
           <form id="loginForm">
             <div class="input-box">
               <ion-icon name="mail-outline"></ion-icon>
@@ -35,8 +36,8 @@
                 placeholder="Enter your email"
                 required
               />
+              <span id="emailError" class="error-message"></span>
             </div>
-            <span id="emailError" class="error-message"></span>
 
             <div class="input-box">
               <ion-icon name="lock-closed-outline"></ion-icon>
@@ -47,15 +48,14 @@
                 class="input-field"
                 placeholder="Enter your password"
                 required
+                minlength="6"
+                autocomplete="current-password"
               />
+              <span id="passwordError" class="error-message"></span>
             </div>
-            <span id="passwordError" class="error-message"></span>
 
             <button type="submit" class="submit">Login</button>
           </form>
-          <!-- <div class="top">
-            <span>Don't have an account? <a href="./register.php">Register</a></span>
-          </div> -->
           <div class="top">
             <span><a href="./forgot_password.php">Forgot Password?</a></span>
           </div>

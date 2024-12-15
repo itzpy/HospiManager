@@ -159,7 +159,7 @@ header {
 
 .input-box {
   position: relative;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .input-box ion-icon {
@@ -239,9 +239,26 @@ header {
 }
 
 .error-message {
-  color: red;
-  font-size: 0.9em;
-  margin-top: 5px;
+  color: #ff4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+  text-align: left;
+}
+
+#loginError {
+  color: #ff4444;
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: rgba(255, 68, 68, 0.1);
+  border-radius: 0.375rem;
+  display: none;
+}
+
+#loginError:not(:empty) {
+  display: block;
 }
 
 @media only screen and (max-width: 786px) {

@@ -1,0 +1,8 @@
+# Delete Item Debug Log
+# This log captures detailed information about item deletion attempts
+# Format: [TIMESTAMP] - Action - Details
+[2024-12-15 03:30:19] Deletion Attempt - Item ID: 29
+[2024-12-15 03:30:19] Item Details - Name: Advil 250g, Quantity: 10
+[2024-12-15 03:30:19] Activity Logs Deleted for Item ID: 29
+[2024-12-15 03:30:19] Item Deleted - Item ID: 29, Name: Advil 250g
+[2024-12-15 03:30:19] Delete Item Error: Cannot add or update a child row: a foreign key constraint fails (`hospital_management`.`activity_log`, CONSTRAINT `activity_log_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`))

@@ -20,15 +20,13 @@ html {
   width: 100%;
   height: 100%;
   font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  background-image: url("../images/background.jpg"); /* Add your background image path here */
-  background-size: cover; /* Ensure the background covers the entire area */
-  background-position: center; /* Center the background image */
-  background-repeat: no-repeat; /* Prevent the background from repeating */
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
 }
 
 header {
-  background: rgba(0, 123, 255, 0.8); /* Semi-transparent background */
+  background: rgba(0, 123, 255, 0.8);
   color: #fff;
   padding: 10px 0;
   text-align: center;
@@ -38,15 +36,13 @@ header h1 {
   margin: 0;
 }
 
-body {
-  background: url("../assets/images/background.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  width: 100%;
-  overflow-x: hidden;
-  height: auto;
-  position: relative;
+main {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 20px;
+  backdrop-filter: blur(10px);
 }
 
 /* nav{
@@ -168,11 +164,7 @@ nav .btn:hover {
   background: #218838;
 }
 
-main {
-  padding: 20px;
-}
-
-.item-management,
+/* item-management,
 .transaction-history {
   background: #fff;
   padding: 20px;
@@ -283,7 +275,7 @@ section {
 /* landing page */
 
 .landingpage {
-  background-image: url("../../assets/images/background.jpg");
+  background-image: url("/Hospital_Management/assets/images/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -371,7 +363,7 @@ section {
 /* about us */
 .aboutus {
   position: relative;
-  background-image: url("../images/background.jpg");
+  background-image: url("/Hospital_Management/assets/images/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -412,7 +404,7 @@ section {
 /* Services Details */
 .details-services {
   position: relative;
-  background-image: url("../images/background.jpg");
+  background-image: url("/Hospital_Management/assets/images/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -513,7 +505,7 @@ section {
 /* Contact Us Section */
 .contactus {
   position: relative;
-  background-image: url("../images/background.jpg");
+  background-image: url("/Hospital_Management/assets/images/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;

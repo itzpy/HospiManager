@@ -1,35 +1,38 @@
 <?php
 session_start();
-require '../db/database.php'; // Include your database connection file
-require '../functions/auth_functions.php'; // Include your authentication functions
+require_once '../db/database.php';
+require_once '../functions/auth_functions.php';
+require_once '../functions/category_functions.php';
 
-// Check if user is logged in and has the correct role (super admin)
-if (!isLoggedIn() || $_SESSION['user_role'] != 'superadmin') {
-    echo json_encode(['success' => false, 'message' => 'Unauthorized action.']);
+// Check if user is logged in and has the correct role (superadmin)
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'superadmin') {
+    $_SESSION['error_message'] = 'Unauthorized action';
+    header('Location: ../view/admin/dashboard.php');
     exit();
 }
 
-// Handle DELETE request
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    // Get the category ID from the request
-    $categoryId = mysqli_real_escape_string($conn, trim($_GET['id']));
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    try {
+        $categoryId = isset($_POST['category_id']) ? (int)$_POST['category_id'] : 0;
 
-    // Prepare the SQL DELETE statement
-    $stmt = $conn->prepare("DELETE FROM categories WHERE id = ?");
-    if (!$stmt) {
-        die("Prepare failed: " . $conn->error);
-    }
+        if (empty($categoryId)) {
+            throw new Exception('Category ID is required');
+        }
 
-    // Bind the parameters
-    $stmt->bind_param("i", $categoryId);
-
-    // Execute the statement
-    if ($stmt->execute()) {
-        echo json_encode(['success' => true, 'message' => 'Category deleted successfully.']);
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Failed to delete category.']);
+        // Use the deleteCategory function from category_functions.php
+        if (deleteCategory($conn, $categoryId)) {
+            $_SESSION['success_message'] = 'Category deleted successfully';
+        } else {
+            error_log("Failed to delete category: ID $categoryId");
+            throw new Exception('Failed to delete category');
+        }
+    } catch (Exception $e) {
+        $_SESSION['error_message'] = $e->getMessage();
     }
 } else {
-    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+    $_SESSION['error_message'] = 'Invalid request method';
 }
-?>
+
+// Redirect back to dashboard
+header('Location: ../view/admin/dashboard.php');
+exit();

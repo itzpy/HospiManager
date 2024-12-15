@@ -1,36 +1,47 @@
 <?php
 session_start();
-require '../db/database.php'; // Include your database connection file
-require '../functions/auth_functions.php'; // Include your authentication functions
+require_once '../db/database.php';
+require_once '../functions/auth_functions.php';
+require_once '../functions/category_functions.php';
 
-// Check if user is logged in and has the correct role (super admin)
-if (!isLoggedIn() || $_SESSION['user_role'] != 'superadmin') {
-    echo json_encode(['success' => false, 'message' => 'Unauthorized action.']);
+// Check if user is logged in and has the correct role (superadmin)
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'superadmin') {
+    header('Content-Type: application/json');
+    echo json_encode(['success' => false, 'message' => 'Unauthorized action']);
     exit();
 }
 
-// Handle POST request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get the form data
-    $categoryId = mysqli_real_escape_string($conn, trim($_POST['id']));
-    $categoryName = mysqli_real_escape_string($conn, trim($_POST['name']));
+    try {
+        $categoryId = isset($_POST['category_id']) ? (int)$_POST['category_id'] : 0;
+        $name = trim($_POST['name']);
+        $description = trim($_POST['description'] ?? '');
+        $icon = trim($_POST['icon'] ?? 'category');
 
-    // Prepare the SQL UPDATE statement
-    $stmt = $conn->prepare("UPDATE categories SET name = ? WHERE id = ?");
-    if (!$stmt) {
-        die("Prepare failed: " . $conn->error);
-    }
+        if (empty($categoryId)) {
+            throw new Exception('Category ID is required');
+        }
 
-    // Bind the parameters
-    $stmt->bind_param("si", $categoryName, $categoryId);
+        if (empty($name)) {
+            throw new Exception('Category name is required');
+        }
 
-    // Execute the statement
-    if ($stmt->execute()) {
-        echo json_encode(['success' => true, 'message' => 'Category updated successfully.']);
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Failed to update category.']);
+        // Update function to include icon
+        if (updateCategory($conn, $categoryId, $name, $description, $icon)) {
+            $_SESSION['success_message'] = 'Category updated successfully';
+            header('Location: ../view/admin/dashboard.php');
+            exit();
+        } else {
+            error_log("Failed to update category: ID $categoryId, Name $name");
+            throw new Exception('Failed to update category');
+        }
+    } catch (Exception $e) {
+        $_SESSION['error_message'] = $e->getMessage();
+        header('Location: ../view/admin/dashboard.php');
+        exit();
     }
 } else {
-    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+    $_SESSION['error_message'] = 'Invalid request method';
+    header('Location: ../view/admin/dashboard.php');
+    exit();
 }
-?>

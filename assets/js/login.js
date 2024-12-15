@@ -1,70 +1,84 @@
 document
   .getElementById("loginForm")
   .addEventListener("submit", async function (event) {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault();
 
-    // Input fields and error spans
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-
-    const emailError = document.getElementById("emailError");
-    const passwordError = document.getElementById("passwordError");
+    // Get form elements
+    const form = document.getElementById("loginForm");
+    const email = form.querySelector("#email").value.trim();
+    const password = form.querySelector("#password").value;
+    const emailError = form.querySelector("#emailError");
+    const passwordError = form.querySelector("#passwordError");
+    const loginError = document.getElementById("loginError");
 
     // Clear previous error messages
-    emailError.textContent = "";
-    passwordError.textContent = "";
+    if (emailError) emailError.textContent = "";
+    if (passwordError) passwordError.textContent = "";
+    if (loginError) loginError.textContent = "";
 
     // Validation flags
     let valid = true;
 
     // Email validation
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!email) {
-      emailError.textContent = "Email cannot be empty.";
+      if (emailError) emailError.textContent = "Email is required";
       valid = false;
-    } else if (!email.match(emailPattern)) {
-      emailError.textContent = "Please enter a valid email address.";
+    } else if (!email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
+      if (emailError) emailError.textContent = "Please enter a valid email address";
       valid = false;
     }
 
     // Password validation
-    const passwordPattern = /^(?=.*[A-Z])(?=.*\d{2,})(?=.*[!@#$%^&*]).{8,}$/;
-    if (!password.match(passwordPattern)) {
-      passwordError.textContent =
-        "Password must contain at least 8 characters, 1 uppercase letter, 2 digits, and 1 special character.";
+    if (!password) {
+      if (passwordError) passwordError.textContent = "Password is required";
       valid = false;
     }
 
-    // Proceed if the form is valid
     if (valid) {
       try {
-        // Prepare form data
         const formData = new FormData();
         formData.append("email", email);
         formData.append("password", password);
 
-        // Send the form data using fetch API
         const response = await fetch("../actions/login_user.php", {
           method: "POST",
-          body: formData,
+          body: formData
         });
 
-        // Handle the JSON response
-        const data = await response.json();
+        let data;
+        const contentType = response.headers.get("content-type");
+        
+        if (contentType && contentType.includes("application/json")) {
+          try {
+            data = await response.json();
+          } catch (e) {
+            console.error("JSON Parse Error:", e);
+            throw new Error("Invalid response from server");
+          }
+        } else {
+          throw new Error("Invalid response type from server");
+        }
 
         if (data.success) {
-          // Redirect to the appropriate dashboard
-          window.location.href = "../view/admin/dashboard.php";
+          // Redirect to dashboard or specified URL
+          window.location.href = data.redirect || "../view/admin/dashboard.php";
         } else {
-          // Display error from the server
-          alert(data.message);
+          // Display error message
+          const errorMessage = data.message || "Login failed. Please try again.";
+          if (loginError) {
+            loginError.textContent = errorMessage;
+          } else {
+            alert(errorMessage);
+          }
         }
       } catch (error) {
-        // Log and display fetch errors
-        console.log("Error:", error);
-        alert(
-          "An error occurred while processing your request. Please try again."
-        );
+        console.error("Login error:", error);
+        const errorMessage = error.message || "An error occurred. Please try again later.";
+        if (loginError) {
+          loginError.textContent = errorMessage;
+        } else {
+          alert(errorMessage);
+        }
       }
     }
   });

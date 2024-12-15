@@ -1,35 +1,147 @@
 <?php
+// Strict error handling
+ini_set('display_errors', 0);
+error_reporting(0);
+
+// Prevent any output before headers
+ob_start();
+
+// Start session
 session_start();
-require '../db/database.php'; // Include your database connection file
-require '../functions/auth_functions.php'; // Include your authentication functions
 
-// Check if user is logged in and has the correct role (super admin)
-if (!isLoggedIn() || $_SESSION['user_role'] != 'superadmin') {
-    echo json_encode(['success' => false, 'message' => 'Unauthorized action.']);
-    exit();
+// Disable output buffering and error display
+@ini_set('output_buffering', 'off');
+@ini_set('zlib.output_compression', 'Off');
+@ini_set('display_errors', 0);
+@error_reporting(0);
+
+// Clear any existing output
+while (ob_get_level()) {
+    ob_end_clean();
 }
 
-// Handle DELETE request
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    // Get the item ID from the request
-    $itemId = mysqli_real_escape_string($conn, trim($_GET['id']));
+// Absolute path check
+define('ABSPATH', true);
 
-    // Prepare the SQL DELETE statement
-    $stmt = $conn->prepare("DELETE FROM items WHERE id = ?");
-    if (!$stmt) {
-        die("Prepare failed: " . $conn->error);
+// Require necessary files
+require_once '../db/database.php';
+require_once '../functions/auth_functions.php';
+require_once '../functions/item_functions.php';
+
+// Set headers immediately
+header('Content-Type: application/json; charset=utf-8');
+header('X-Content-Type-Options: nosniff');
+header('Cache-Control: no-cache, no-store, must-revalidate');
+header('Pragma: no-cache');
+header('Expires: 0');
+
+// Function to send JSON response and exit
+function sendJsonResponse($success, $message, $additionalData = []) {
+    // Ensure no previous output
+    while (ob_get_level()) {
+        ob_end_clean();
     }
+    
+    // Prepare response
+    $response = array_merge([
+        'success' => $success,
+        'message' => $message
+    ], $additionalData);
+    
+    // Output JSON
+    echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    exit(0);
+}
 
-    // Bind the parameters
-    $stmt->bind_param("i", $itemId);
+// Validate request method
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    sendJsonResponse(false, 'Invalid request method');
+}
 
-    // Execute the statement
-    if ($stmt->execute()) {
-        echo json_encode(['success' => true, 'message' => 'Item deleted successfully.']);
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    sendJsonResponse(false, 'User not logged in', [
+        'debug' => [
+            'session_data' => $_SESSION,
+            'server_data' => $_SERVER
+        ]
+    ]);
+}
+
+// Check user role (allow both admin and superadmin)
+$allowedRoles = ['admin', 'superadmin'];
+if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowedRoles)) {
+    sendJsonResponse(false, 'Unauthorized: Insufficient permissions', [
+        'debug' => [
+            'current_role' => $_SESSION['role'] ?? 'No role set',
+            'allowed_roles' => $allowedRoles
+        ]
+    ]);
+}
+
+// Validate database connection
+if (!$conn || $conn->connect_error) {
+    sendJsonResponse(false, 'Database connection failed', [
+        'debug' => [
+            'connection_error' => $conn ? $conn->connect_error : 'Connection object is null'
+        ]
+    ]);
+}
+
+// Get and validate item ID
+$itemId = isset($_POST['item_id']) ? (int)$_POST['item_id'] : 0;
+
+if (empty($itemId)) {
+    sendJsonResponse(false, 'Item ID is required', [
+        'debug' => [
+            'post_data' => $_POST
+        ]
+    ]);
+}
+
+try {
+    // Verify item exists
+    $checkQuery = "SELECT * FROM items WHERE item_id = ?";
+    $checkStmt = $conn->prepare($checkQuery);
+    $checkStmt->bind_param("i", $itemId);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+    
+    if ($checkResult->num_rows === 0) {
+        sendJsonResponse(false, 'Item not found', [
+            'debug' => [
+                'item_id' => $itemId
+            ]
+        ]);
+    }
+    
+    // Fetch item details
+    $itemDetails = $checkResult->fetch_assoc();
+
+    // Attempt to delete the item
+    $deleteResult = deleteItem($conn, $itemId);
+    
+    if ($deleteResult) {
+        sendJsonResponse(true, 'Item deleted successfully', [
+            'item_details' => $itemDetails
+        ]);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Failed to delete item.']);
+        sendJsonResponse(false, 'Failed to delete item', [
+            'debug' => [
+                'item_id' => $itemId,
+                'item_details' => $itemDetails,
+                'last_error' => $conn->error
+            ]
+        ]);
     }
-} else {
-    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+} catch (Exception $e) {
+    sendJsonResponse(false, 'An error occurred while deleting the item', [
+        'debug' => [
+            'exception_message' => $e->getMessage(),
+            'item_id' => $itemId
+        ]
+    ]);
 }
-?>
+
+// Ensure no additional output
+exit(0);

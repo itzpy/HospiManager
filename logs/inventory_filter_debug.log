@@ -1,0 +1,1081 @@
+[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: 6[Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Category Check Count: 1[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.category_id = ? ORDER BY status asc[Inventory Filter Debug] Param Types: i[Inventory Filter Debug] Param Count: 1[Inventory Filter Debug] Items Retrieved: 4[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: 6[Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Category Check Count: 1[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.category_id = ? ORDER BY status asc[Inventory Filter Debug] Param Types: i[Inventory Filter Debug] Param Count: 1[Inventory Filter Debug] Items Retrieved: 4[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: 6[Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Category Check Count: 1[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.category_id = ? ORDER BY status asc[Inventory Filter Debug] Param Types: i[Inventory Filter Debug] Param Count: 1[Inventory Filter Debug] Items Retrieved: 4[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: 6[Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Category Check Count: 1[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.category_id = ? ORDER BY status asc[Inventory Filter Debug] Param Types: i[Inventory Filter Debug] Param Count: 1[Inventory Filter Debug] Items Retrieved: 4[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: 6[Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Category Check Count: 1[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.category_id = ? ORDER BY status asc[Inventory Filter Debug] Param Types: i[Inventory Filter Debug] Param Count: 1[Inventory Filter Debug] Items Retrieved: 4[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: 6[Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Category Check Count: 1[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.category_id = ? ORDER BY status asc[Inventory Filter Debug] Param Types: i[Inventory Filter Debug] Param Count: 1[Inventory Filter Debug] Items Retrieved: 4[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: 6[Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Category Check Count: 1[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.category_id = ? ORDER BY status asc[Inventory Filter Debug] Param Types: i[Inventory Filter Debug] Param Count: 1[Inventory Filter Debug] Items Retrieved: 4[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: 6[Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Category Check Count: 1[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.category_id = ? ORDER BY status asc[Inventory Filter Debug] Param Types: i[Inventory Filter Debug] Param Count: 1[Inventory Filter Debug] Items Retrieved: 4[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: available[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: available[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 25[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: available[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: available[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 25[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: available[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: available[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 25[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: available[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: available[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 25[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: available[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: available[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 25[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: available[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: available[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 25[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: available[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: available[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 25[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: available[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: available[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 25[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: out[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: out[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity = 0 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 1[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: out[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: out[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity = 0 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 1[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: out[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: out[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity = 0 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 1[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: out[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: out[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity = 0 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 1[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: out[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: out[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity = 0 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 1[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: out[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: out[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity = 0 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 1[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: out[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: out[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity = 0 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 1[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: out[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: out[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity = 0 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 1[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: [Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 29[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: category_name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY c.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: category_name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY c.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: category_name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY c.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: category_name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY c.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: category_name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY c.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: category_name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY c.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: category_name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY c.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: category_name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY c.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: quantity[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.quantity asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: quantity[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.quantity asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: quantity[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.quantity asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: quantity[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.quantity asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: quantity[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.quantity asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: quantity[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.quantity asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: quantity[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.quantity asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: quantity[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.quantity asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: unit[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.unit asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: unit[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.unit asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: unit[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.unit asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: unit[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.unit asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: unit[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.unit asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: unit[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.unit asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: unit[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.unit asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: unit[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.unit asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: last_updated[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.last_updated asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: status[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY status asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3[Inventory Filter Debug] Search Query: [Inventory Filter Debug] Category Filter: [Inventory Filter Debug] Stock Filter: low[Inventory Filter Debug] Sort Column: name[Inventory Filter Debug] Sort Order: asc[Inventory Filter Debug] Applying Stock Filter: low[Inventory Filter Debug] Final Query: SELECT i.*, c.name as category_name, 
+          CASE 
+              WHEN i.quantity = 0 THEN 'Out of Stock'
+              WHEN i.quantity <= 10 THEN 'Low Stock'
+              ELSE 'In Stock'
+          END as status
+          FROM items i 
+          LEFT JOIN categories c ON i.category_id = c.category_id 
+          WHERE 1=1 AND i.quantity > 0 AND i.quantity <= 10 ORDER BY i.name asc[Inventory Filter Debug] Param Types: [Inventory Filter Debug] Param Count: 0[Inventory Filter Debug] Items Retrieved: 3
