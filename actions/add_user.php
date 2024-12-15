@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         // Validate role
-        if (!in_array($role, ['admin', 'superadmin'])) {
+        if (!in_array($role, ['admin', 'superadmin', 'staff'])) {
             throw new Exception('Invalid role');
         }
         
