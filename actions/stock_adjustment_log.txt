@@ -1,0 +1,387 @@
+2024-12-15 20:34:58 - Incoming Request:
+Array
+(
+    [item_id] => 29
+    [quantity] => 10
+    [adjust_type] => remove
+    [notes] => For a 10 patients
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 20:34:58 - Processed Data:
+Item ID: 29
+Action: remove
+Quantity: 10
+Notes: For a 10 patients
+User Role: admin
+
+2024-12-15 20:34:58 - Stock Adjustment Successful
+Item ID: 29
+Action: remove
+Quantity: 10
+
+2024-12-15 21:45:09 - Incoming Request:
+Array
+(
+    [item_id] => 13
+    [quantity] => 1
+    [adjust_type] => add
+    [notes] => 
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 21:45:09 - Processed Data:
+Item ID: 13
+Action: add
+Quantity: 1
+Notes: 
+User Role: admin
+
+2024-12-15 21:45:09 - Error: Notes are required
+
+2024-12-15 21:45:17 - Incoming Request:
+Array
+(
+    [item_id] => 13
+    [quantity] => 1
+    [adjust_type] => add
+    [notes] => update
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 21:45:17 - Processed Data:
+Item ID: 13
+Action: add
+Quantity: 1
+Notes: update
+User Role: admin
+
+2024-12-15 21:45:17 - Stock Adjustment Successful
+Item ID: 13
+Action: remove
+Quantity: 1
+
+2024-12-15 21:46:02 - Incoming Request:
+Array
+(
+    [item_id] => 13
+    [quantity] => 1
+    [adjust_type] => add
+    [notes] => restock
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 21:46:02 - Processed Data:
+Item ID: 13
+Action: add
+Quantity: 1
+Notes: restock
+User Role: admin
+
+2024-12-15 21:46:02 - Stock Adjustment Successful
+Item ID: 13
+Action: remove
+Quantity: 1
+
+2024-12-15 22:04:10 - Incoming Request:
+Array
+(
+    [item_id] => 29
+    [adjust_type] => add
+    [quantity] => 100
+    [notes] => 
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 22:04:10 - Processed Data:
+Item ID: 29
+Action: add
+Quantity: 100
+Notes: 
+User Role: admin
+
+2024-12-15 22:04:10 - Error: Notes are required
+
+2024-12-15 22:04:10 - Incoming Request:
+Array
+(
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 22:04:10 - Invalid Request Method
+
+2024-12-15 22:04:10 - Incoming Request:
+Array
+(
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 22:04:10 - Invalid Request Method
+
+2024-12-15 22:04:10 - Incoming Request:
+Array
+(
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 22:04:10 - Invalid Request Method
+
+2024-12-15 22:04:10 - Incoming Request:
+Array
+(
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 22:04:10 - Invalid Request Method
+
+2024-12-15 22:04:23 - Incoming Request:
+Array
+(
+    [item_id] => 29
+    [adjust_type] => add
+    [quantity] => 10
+    [notes] => update
+
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 22:04:23 - Processed Data:
+Item ID: 29
+Action: add
+Quantity: 10
+Notes: update
+User Role: admin
+
+2024-12-15 22:04:23 - Stock Adjustment Successful
+Item ID: 29
+Action: add
+Quantity: 10
+
+2024-12-15 22:04:23 - Incoming Request:
+Array
+(
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 22:04:23 - Invalid Request Method
+
+2024-12-15 22:04:23 - Incoming Request:
+Array
+(
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 22:04:23 - Invalid Request Method
+
+2024-12-15 22:04:23 - Incoming Request:
+Array
+(
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 22:04:23 - Invalid Request Method
+
+2024-12-15 22:04:24 - Incoming Request:
+Array
+(
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 22:04:24 - Invalid Request Method
+
+2024-12-15 22:07:22 - Incoming Request:
+Array
+(
+    [item_id] => 29
+    [quantity] => 5
+    [adjust_type] => add
+    [notes] => 
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 22:07:22 - Processed Data:
+Item ID: 29
+Action: add
+Quantity: 5
+Notes: 
+User Role: admin
+
+2024-12-15 22:07:22 - Error: Notes are required
+
+2024-12-15 22:07:31 - Incoming Request:
+Array
+(
+    [item_id] => 29
+    [quantity] => 5
+    [adjust_type] => add
+    [notes] => Restock 
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [email] => Admin@gmail.com
+    [role] => admin
+    [first_name] => Regular
+    [last_name] => Admin
+)
+
+
+2024-12-15 22:07:31 - Processed Data:
+Item ID: 29
+Action: add
+Quantity: 5
+Notes: Restock
+User Role: admin
+

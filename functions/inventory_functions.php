@@ -103,27 +103,25 @@ function adjustStock($conn, $itemId, $quantity, $adjustType, $notes) {
         $stmt->bind_param("ii", $newQuantity, $itemId);
         
         if (!$stmt->execute()) {
-            throw new Exception("Failed to update quantity for item ID: $itemId");
+            throw new Exception("Failed to update stock for item ID: $itemId");
         }
         
         // Log the activity
-        $action = $adjustType === 'add' ? 'stock_in' : 'stock_out';
-        $logResult = logActivity($conn, $_SESSION['user_id'], $action, $itemId, $quantity, $notes);
-        
-        if (!$logResult) {
-            throw new Exception("Failed to log activity for item ID: $itemId");
-        }
+        $userId = $_SESSION['user_id'] ?? 0;
+        logActivity($conn, $userId, $adjustType, $itemId, $quantity, $notes);
         
         // Commit transaction
         $conn->commit();
-        return true;
         
+        return true;
     } catch (Exception $e) {
-        // Rollback on error
+        // Rollback transaction
         $conn->rollback();
-        // Log the error for debugging
+        
+        // Log the error
         error_log("Stock Adjustment Error: " . $e->getMessage());
-        throw $e;
+        
+        return false;
     }
 }
 

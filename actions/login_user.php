@@ -63,7 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode([
             'success' => true,
             'message' => 'Login successful',
-            'redirect' => '../view/admin/dashboard.php'
+            'redirect' => $user['role'] === 'admin' 
+                ? '../view/admin/admin_dashboard.php' 
+                : '../view/admin/dashboard.php'
         ]);
         exit();
 

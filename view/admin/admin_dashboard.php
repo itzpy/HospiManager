@@ -27,18 +27,11 @@ $userId = $_SESSION['user_id'];
 $userRole = $_SESSION['role'];
 $fullName = $_SESSION['full_name'] ?? 'User';
 
-// Restrict access to superadmin only
-if ($userRole !== 'superadmin') {
-    // Redirect to admin dashboard for regular admin
-    header('Location: admin_dashboard.php');
-    exit();
-}
-
 // Get dashboard statistics
 $stats = getDashboardStats($conn);
 
-// Get recent activities
-$recentActivities = getRecentActivities($conn);
+// Get recent activities for the current user
+$recentActivities = getRecentActivities($conn, $userId);
 $recentActivities = array_map(function($activity) {
     return [
         'title' => $activity['user_name'] . ' ' . $activity['action'] . ' ' . $activity['item_name'],
@@ -74,20 +67,6 @@ $categories = getAllCategories($conn);
 // Get quick actions
 $quickActions = [
     [
-        'title' => 'Add Item',
-        'description' => 'Add a new item to the inventory',
-        'icon' => 'add_box',
-        'color' => '#4CAF50',
-        'onclick' => 'openModal("addItemModal")'
-    ],
-    [
-        'title' => 'Add Category',
-        'description' => 'Add a new category to the inventory',
-        'icon' => 'category',
-        'color' => '#03A9F4',
-        'onclick' => 'openModal("addCategoryModal")'
-    ],
-    [
         'title' => 'View Inventory',
         'description' => 'View all items in the inventory',
         'icon' => 'inventory',
@@ -106,6 +85,7 @@ $quickActions = $quickActions ?: [
     ]
 ];
 
+// Only add Add User action for superadmin
 if ($userRole === 'superadmin') {
     $quickActions[] = [
         'title' => 'Add User',
@@ -117,6 +97,25 @@ if ($userRole === 'superadmin') {
 }
 
 // Ensure analytics data is properly populated
+$stats = getDashboardStats($conn);
+$items = getAllItems($conn);
+$items = $items ?: [];
+
+// Calculate out of stock items
+$outOfStockCount = 0;
+foreach ($items as $item) {
+    if ($item['quantity'] == 0) {
+        $outOfStockCount++;
+    }
+}
+
+$lowStockCount = 0;
+foreach ($items as $item) {
+    if ($item['quantity'] <= 10) {
+        $lowStockCount++;
+    }
+}
+
 $analyticsData = [
     [
         'title' => 'Total Items',
@@ -124,15 +123,17 @@ $analyticsData = [
         'icon' => 'inventory_2',
         'color' => '#4CAF50',
         'trend' => 'up',
-        'trendPercentage' => 12
+        'trendPercentage' => 12,
+        'onclick' => 'window.location.href="inventory.php"'
     ],
     [
         'title' => 'Low Stock Items',
-        'value' => isset($stats['low_stock_items']) ? $stats['low_stock_items'] : 0,
+        'value' => isset($stats['low_stock_items']) ? $stats['low_stock_items'] : $lowStockCount,
         'icon' => 'warning_amber',
         'color' => '#FF9800',
         'trend' => 'down',
-        'trendPercentage' => 5
+        'trendPercentage' => 5,
+        'onclick' => 'window.location.href="admin_inventory.php?stock=low"'
     ],
     [
         'title' => 'Total Categories',
@@ -140,21 +141,32 @@ $analyticsData = [
         'icon' => 'category',
         'color' => '#2196F3',
         'trend' => 'up',
-        'trendPercentage' => 8
+        'trendPercentage' => 8,
+        'onclick' => 'document.querySelector(".categories-overview").scrollIntoView({behavior: "smooth"})'
     ],
     [
+        'title' => 'Out of Stock Items',
+        'value' => isset($stats['out_of_stock_items']) ? $stats['out_of_stock_items'] : $outOfStockCount,
+        'icon' => 'block',
+        'color' => '#FF5722',
+        'trend' => 'down',
+        'trendPercentage' => 3,
+        'onclick' => 'window.location.href="admin_inventory.php?stock=out"'
+    ]
+];
+
+// For superadmin, add total users card
+if ($userRole === 'superadmin') {
+    $analyticsData[] = [
         'title' => 'Total Users',
         'value' => isset($stats['total_users']) ? $stats['total_users'] : 0,
         'icon' => 'group',
         'color' => '#9C27B0',
         'trend' => 'up',
-        'trendPercentage' => 15
-    ]
-];
-
-// Get items for category counting
-$items = getAllItems($conn);
-$items = $items ?: [];
+        'trendPercentage' => 15,
+        'onclick' => 'window.location.href="users.php"'
+    ];
+}
 
 ?>
 
@@ -498,29 +510,15 @@ $items = $items ?: [];
             </div>
             <ul class="nav-menu">
                 <li class="active">
-                    <a href="dashboard.php">
+                    <a href="admin_dashboard.php">
                         <span class="material-icons">dashboard</span>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="inventory.php">
+                    <a href="admin_inventory.php">
                         <span class="material-icons">inventory</span>
                         <span>Inventory</span>
-                    </a>
-                </li>
-                <?php if ($userRole === 'superadmin'): ?>
-                <li>
-                    <a href="users.php">
-                        <span class="material-icons">people</span>
-                        <span>Users</span>
-                    </a>
-                </li>
-                <?php endif; ?>
-                <li>
-                    <a href="settings.php">
-                        <span class="material-icons">settings</span>
-                        <span>Settings</span>
                     </a>
                 </li>
             </ul>
@@ -547,42 +545,17 @@ $items = $items ?: [];
             <!-- Analytics Section -->
             <div class="analytics-section">
                 <div class="analytics-cards">
-                    <div class="card total-items" onclick="window.location.href='inventory.php'">
+                    <?php foreach ($analyticsData as $card): ?>
+                    <div class="card <?= $card['title'] ?>" onclick="<?= htmlspecialchars($card['onclick']) ?>">
                         <div class="card-content">
-                            <span class="material-icons">inventory</span>
+                            <span class="material-icons"><?= $card['icon'] ?></span>
                             <div class="card-details">
-                                <h3><?= $stats['total_items'] ?></h3>
-                                <p>Total Items</p>
+                                <h3><?= $card['value'] ?></h3>
+                                <p><?= $card['title'] ?></p>
                             </div>
                         </div>
                     </div>
-                    <div class="card low-stock" onclick="window.location.href='inventory.php?stock=low'">
-                        <div class="card-content">
-                            <span class="material-icons">warning</span>
-                            <div class="card-details">
-                                <h3><?= $stats['low_stock_items'] ?></h3>
-                                <p>Low Stock Items</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card total-categories" onclick="document.querySelector('.categories-overview').scrollIntoView({behavior: 'smooth'})">
-                        <div class="card-content">
-                            <span class="material-icons">category</span>
-                            <div class="card-details">
-                                <h3><?= $stats['total_categories'] ?></h3>
-                                <p>Total Categories</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card total-users" onclick="window.location.href='users.php'">
-                        <div class="card-content">
-                            <span class="material-icons">people</span>
-                            <div class="card-details">
-                                <h3><?= $stats['total_users'] ?></h3>
-                                <p>Total Users</p>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
 
@@ -684,104 +657,6 @@ $items = $items ?: [];
         </main>
     </div>
 
-    <!-- Add Item Modal -->
-    <div id="addItemModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Add New Item</h2>
-                <span class="modal-close" onclick="closeModal('addItemModal')">&times;</span>
-            </div>
-            <form action="../../actions/add_item.php" method="POST" id="addItemForm">
-                <div class="form-group">
-                    <label for="itemName">Item Name*</label>
-                    <input type="text" id="itemName" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="itemDescription">Description</label>
-                    <textarea id="itemDescription" name="description" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="itemCategory">Category*</label>
-                    <select id="itemCategory" name="category_id" required>
-                        <option value="">Select a category</option>
-                        <?php foreach ($categories as $category): ?>
-                        <option value="<?= $category['category_id'] ?>"><?= htmlspecialchars($category['name']) ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="itemQuantity">Initial Quantity*</label>
-                    <input type="number" id="itemQuantity" name="quantity" required min="0" value="0">
-                </div>
-                <div class="form-group">
-                    <label for="itemUnit">Unit of Measurement*</label>
-                    <input type="text" id="itemUnit" name="unit" required placeholder="e.g., pieces, boxes, units">
-                </div>
-                <button type="submit" class="btn-submit">Add Item</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Add Category Modal -->
-    <div id="addCategoryModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Add New Category</h2>
-                <span class="modal-close" onclick="closeModal('addCategoryModal')">&times;</span>
-            </div>
-            <form action="../../actions/add_category.php" method="POST" id="addCategoryForm">
-                <div class="form-group">
-                    <label for="categoryName">Category Name</label>
-                    <input type="text" id="categoryName" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="categoryDescription">Description</label>
-                    <textarea id="categoryDescription" name="description" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn-submit">Add Category</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Add User Modal -->
-    <?php if ($userRole === 'superadmin'): ?>
-    <div id="addUserModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Add New User</h2>
-                <span class="modal-close" onclick="closeModal('addUserModal')">&times;</span>
-            </div>
-            <form action="../../actions/add_user.php" method="POST" id="addUserForm">
-                <div class="form-group">
-                    <label for="firstName">First Name*</label>
-                    <input type="text" id="firstName" name="first_name" required>
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Last Name*</label>
-                    <input type="text" id="lastName" name="last_name" required>
-                </div>
-                <div class="form-group">
-                    <label for="userEmail">Email*</label>
-                    <input type="email" id="userEmail" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="userPassword">Password*</label>
-                    <input type="password" id="userPassword" name="password" required minlength="6">
-                    <small>Minimum 6 characters</small>
-                </div>
-                <div class="form-group">
-                    <label for="userRole">Role*</label>
-                    <select id="userRole" name="role" required>
-                        <option value="">Select a role</option>
-                        <option value="admin">Admin</option>
-                        <option value="superadmin">Super Admin</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-submit">Add User</button>
-            </form>
-        </div>
-    </div>
-    <?php endif; ?>
 
     <script>
         // Prevent form from navigating away
@@ -867,6 +742,7 @@ $items = $items ?: [];
         }
 
         // Modal functions
+        
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) {

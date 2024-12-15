@@ -22,6 +22,13 @@ $userId = $_SESSION['user_id'];
 $userRole = $_SESSION['role'];
 $fullName = $_SESSION['full_name'] ?? 'User';
 
+// Restrict access to superadmin only
+if ($userRole !== 'superadmin') {
+    // Redirect to admin inventory for regular admin
+    header('Location: admin_inventory.php');
+    exit();
+}
+
 // Debug logging function
 function debugLog($message) {
     error_log("[Inventory Filter Debug] " . $message, 3, "C:/xampp/htdocs/Hospital_Management/logs/inventory_filter_debug.log");

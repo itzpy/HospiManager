@@ -10,8 +10,8 @@ require_once BASE_PATH . '/functions/auth_functions.php';
 require_once BASE_PATH . '/functions/user_functions.php';
 require_once BASE_PATH . '/functions/dashboard_functions.php';
 
-// Check if user is logged in and is a superadmin
-if (!isLoggedIn() || !isSuperAdmin()) {
+// Check if user is logged in
+if (!isLoggedIn()) {
     header('Location: ../login.php');
     exit();
 }
@@ -19,7 +19,13 @@ if (!isLoggedIn() || !isSuperAdmin()) {
 // Get user information
 $userId = $_SESSION['user_id'];
 $userRole = $_SESSION['role'];
-$fullName = $_SESSION['full_name'] ?? 'User';
+
+// Restrict access to superadmin only
+if ($userRole !== 'superadmin') {
+    // Redirect to admin dashboard for regular admin
+    header('Location: admin_dashboard.php');
+    exit();
+}
 
 // Get search and filter parameters
 $searchQuery = $_GET['search'] ?? '';
@@ -353,14 +359,12 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                         <span>Inventory</span>
                     </a>
                 </li>
-                <?php if ($userRole === 'superadmin'): ?>
                 <li class="active">
                     <a href="users.php">
                         <span class="material-icons">people</span>
                         <span>Users</span>
                     </a>
                 </li>
-                <?php endif; ?>
                 <li>
                     <a href="settings.php">
                         <span class="material-icons">settings</span>
@@ -370,7 +374,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
             </ul>
             <div class="nav-profile">
                 <div class="user-info">
-                    <span class="user-name"><?= htmlspecialchars($fullName) ?></span>
+                    <span class="user-name"><?= htmlspecialchars($_SESSION['full_name'] ?? 'User') ?></span>
                     <span class="user-role"><?= ucfirst(htmlspecialchars($userRole)) ?></span>
                 </div>
                 <a href="../../actions/logout.php" class="logout-btn" onclick="return confirm('Are you sure you want to logout?')">
@@ -505,9 +509,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                         <option value="">Select Role</option>
                         <option value="staff">Staff</option>
                         <option value="admin">Admin</option>
-                        <?php if ($userRole === 'superadmin'): ?>
-                            <option value="superadmin">Superadmin</option>
-                        <?php endif; ?>
+                        <option value="superadmin">Superadmin</option>
                     </select>
                 </div>
                 <div class="form-actions">
@@ -618,9 +620,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                         <option value="">Select Role</option>
                         <option value="staff">Staff</option>
                         <option value="admin">Admin</option>
-                        <?php if ($userRole === 'superadmin'): ?>
-                            <option value="superadmin">Superadmin</option>
-                        <?php endif; ?>
+                        <option value="superadmin">Superadmin</option>
                     </select>
                 </div>
                 <div class="form-actions">

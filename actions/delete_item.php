@@ -53,30 +53,16 @@ function sendJsonResponse($success, $message, $additionalData = []) {
     exit(0);
 }
 
+// Check if user is logged in and is a superadmin
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'superadmin') {
+    sendJsonResponse(false, 'Unauthorized: Only superadmin can delete items');
+    exit();
+}
+
 // Validate request method
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     sendJsonResponse(false, 'Invalid request method');
-}
-
-// Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
-    sendJsonResponse(false, 'User not logged in', [
-        'debug' => [
-            'session_data' => $_SESSION,
-            'server_data' => $_SERVER
-        ]
-    ]);
-}
-
-// Check user role (allow both admin and superadmin)
-$allowedRoles = ['admin', 'superadmin'];
-if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowedRoles)) {
-    sendJsonResponse(false, 'Unauthorized: Insufficient permissions', [
-        'debug' => [
-            'current_role' => $_SESSION['role'] ?? 'No role set',
-            'allowed_roles' => $allowedRoles
-        ]
-    ]);
+    exit();
 }
 
 // Validate database connection
