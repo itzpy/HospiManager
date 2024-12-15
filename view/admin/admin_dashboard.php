@@ -61,8 +61,29 @@ $recentActivities = $recentActivities ?: [
     ]
 ];
 
+// Get items for category counting
+$items = getAllItems($conn);
+$items = $items ?: []; // Ensure $items is an array, even if empty
+
 // Get categories
 $categories = getAllCategories($conn);
+$categories = $categories ?: []; // Ensure $categories is an array, even if empty
+
+// Count items per category
+$categoriesWithItemCount = [];
+foreach ($categories as $category) {
+    $categoryItemCount = 0;
+    foreach ($items as $item) {
+        if ($item['category_id'] == $category['category_id']) {
+            $categoryItemCount++;
+        }
+    }
+    $category['item_count'] = $categoryItemCount;
+    $categoriesWithItemCount[] = $category;
+}
+
+// Replace original categories with updated categories
+$categories = $categoriesWithItemCount;
 
 // Get quick actions
 $quickActions = [
@@ -611,47 +632,26 @@ if ($userRole === 'superadmin') {
                     </button>
                 </div>
                 <div class="categories-grid">
-                    <?php 
-                    // Ensure categories is an array
-                    $categories = $categories ?: [];
-                    
-                    foreach ($categories as $category): 
-                        // Count items in this category
-                        $categoryItemCount = 0;
-                        foreach ($items as $item) {
-                            if ($item['category_id'] == $category['category_id']) {
-                                $categoryItemCount++;
-                            }
-                        }
+                    <?php if (!empty($categories)): ?>
+                    <?php foreach ($categories as $category): 
+                        // Ensure category item count is set
+                        $categoryItemCount = $category['item_count'] ?? 0;
                     ?>
-                        <a href="inventory.php?category=<?= $category['category_id'] ?>" class="category-card">
-                            <div class="category-icon">
-                                <span class="material-icons">
-                                    <?= !empty($category['icon']) ? htmlspecialchars($category['icon']) : 'category' ?>
-                                </span>
-                            </div>
+                        <a href="admin_inventory.php?category=<?= $category['category_id'] ?>" class="category-card">
+                            <div class="category-icon"></div>
                             <div class="category-details">
                                 <h3><?= htmlspecialchars($category['name']) ?></h3>
-                                <p>
-                                    <?= $categoryItemCount . ' item' . ($categoryItemCount != 1 ? 's' : '') ?>
-                                </p>
+                                <p><?= $categoryItemCount ?> Items</p>
                             </div>
                             <div class="category-actions">
-                                <button class="edit-btn" onclick="event.preventDefault(); editCategory(<?= $category['category_id'] ?>, '<?= htmlspecialchars($category['name']) ?>')">
-                                    <span class="material-icons">edit</span>
-                                </button>
-                                <button class="delete-btn" onclick="event.preventDefault(); deleteCategory(<?= $category['category_id'] ?>, '<?= htmlspecialchars($category['name']) ?>')">
-                                    <span class="material-icons">delete</span>
-                                </button>
+                                <button class="edit-btn" onclick="event.preventDefault(); editCategory(<?= $category['category_id'] ?>, '<?= htmlspecialchars($category['name']) ?>')"></button>
                             </div>
                         </a>
                     <?php endforeach; ?>
-                    
-                    <?php if (empty($categories)): ?>
-                        <div class="no-categories">
-                            <p>No categories found. Click "+" to add a new category.</p>
-                        </div>
+                    <?php else: ?>
+                        <p>No categories found</p>
                     <?php endif; ?>
+                    
                 </div>
             </div>
         </main>
