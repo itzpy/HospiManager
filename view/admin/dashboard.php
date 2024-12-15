@@ -161,7 +161,7 @@ $items = $items ?: [];
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
     <link rel="stylesheet" href="../../assets/css/styles.css">
-    <link rel="stylesheet" href="../../assets/css/style.css">
+    <!-- <link rel="stylesheet" href="../../assets/css/style.css"> -->
     <style>
         /* Notification styles */
         .notification {
@@ -777,103 +777,110 @@ $items = $items ?: [];
     <?php endif; ?>
 
     <script>
-        // Modal Functions
-        function openModal(modalId) {
-            const modalOverlay = document.getElementById(modalId);
-            if (modalOverlay) {
-                modalOverlay.style.display = 'flex';
-                setTimeout(() => {
-                    modalOverlay.classList.add('show');
-                }, 10);
-            }
-        }
-
-        function closeModal(modalId) {
-            const modalOverlay = document.getElementById(modalId);
-            if (modalOverlay) {
-                modalOverlay.classList.remove('show');
-                setTimeout(() => {
-                    modalOverlay.style.display = 'none';
-                }, 300);
-            }
-        }
-
-        // Add close button functionality to all modals
+        // Prevent form from navigating away
         document.addEventListener('DOMContentLoaded', function() {
-            // Form submission handler
             const forms = document.querySelectorAll('form');
             forms.forEach(form => {
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    const formData = new FormData(this);
                     
-                    fetch(this.action, {
+                    const formData = new FormData(this);
+                    const actionUrl = this.action;
+                    
+                    fetch(actionUrl, {
                         method: 'POST',
                         body: formData
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            // Show success notification
-                            const notification = document.createElement('div');
-                            notification.className = 'notification success';
-                            notification.textContent = data.message;
-                            document.body.appendChild(notification);
+                            showNotification(data.message, 'success');
+                            // Close any open modals
+                            const openModals = document.querySelectorAll('.modal[style*="display: flex"]');
+                            openModals.forEach(modal => {
+                                modal.style.display = 'none';
+                            });
                             
-                            // Close the modal
-                            closeModal(this.closest('.modal-overlay').id);
-                            
-                            // Reload the page after a short delay
+                            // Optionally reload specific sections or entire page
                             setTimeout(() => {
                                 location.reload();
-                            }, 1000);
+                            }, 1500);
                         } else {
-                            // Show error notification
-                            const notification = document.createElement('div');
-                            notification.className = 'notification error';
-                            notification.textContent = data.message;
-                            document.body.appendChild(notification);
-                            
-                            // Remove notification after 3 seconds
-                            setTimeout(() => {
-                                notification.remove();
-                            }, 3000);
+                            showNotification(data.message, 'error');
                         }
                     })
                     .catch(error => {
-                        // Show error notification
-                        const notification = document.createElement('div');
-                        notification.className = 'notification error';
-                        notification.textContent = 'An error occurred. Please try again.';
-                        document.body.appendChild(notification);
-                        
-                        // Remove notification after 3 seconds
-                        setTimeout(() => {
-                            notification.remove();
-                        }, 3000);
+                        console.error('Error:', error);
+                        showNotification('An unexpected error occurred', 'error');
                     });
                 });
             });
+        });
 
-            // Close modal when clicking outside
-            const closeButtons = document.querySelectorAll('.modal-close');
-            closeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const modalOverlay = this.closest('.modal-overlay');
-                    if (modalOverlay) {
-                        closeModal(modalOverlay.id);
+        // Notification function
+        function showNotification(message, type = 'info') {
+            // Remove any existing notifications
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => notification.remove());
+
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            // Ensure initial hidden state
+            notification.style.opacity = '0';
+            notification.style.transform = 'translate(-50%, -20px)';
+            
+            document.body.appendChild(notification);
+
+            // Trigger reflow to enable transition
+            notification.offsetHeight;
+
+            // Show notification
+            notification.classList.add('show');
+
+            // Automatically remove notification after 3 seconds
+            const removeNotification = () => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translate(-50%, -20px)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
                     }
-                });
+                }, 300);
+            };
+
+            const removeTimer = setTimeout(removeNotification, 3000);
+
+            // Optional: Allow manual dismissal
+            notification.addEventListener('click', () => {
+                clearTimeout(removeTimer);
+                removeNotification();
             });
+        }
 
-            // Close modal when clicking outside
-            const modals = document.querySelectorAll('.modal-overlay');
+        // Modal functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'flex';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            const modals = document.querySelectorAll('.modal');
             modals.forEach(modal => {
-                modal.addEventListener('click', function(event) {
-                    if (event.target === this) {
-                        closeModal(this.id);
-                    }
-                });
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
             });
         });
     </script>

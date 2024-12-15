@@ -1,6 +1,10 @@
 <?php
+// Disable all error reporting to prevent any output before JSON
+error_reporting(0);
+ini_set('display_errors', 0);
+
 session_start();
-require_once '../config/database.php';
+require_once '../db/database.php';
 require_once 'functions.php';
 
 // Ensure JSON response
@@ -27,6 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 try {
+    // Validate database connection
+    if (!$conn) {
+        throw new Exception('Database connection failed');
+    }
+
     // Validate required fields
     $requiredFields = ['user_id', 'first_name', 'last_name', 'email', 'role'];
     foreach ($requiredFields as $field) {
@@ -48,30 +57,61 @@ try {
     }
 
     // Validate role
-    if (!in_array($role, ['admin', 'superadmin'])) {
+    $validRoles = ['admin', 'superadmin', 'staff'];
+    if (!in_array($role, $validRoles)) {
         throw new Exception('Invalid role');
     }
 
-    // Check if email exists for other users
-    $stmt = $conn->prepare("SELECT user_id FROM users WHERE email = ? AND user_id != ?");
-    $stmt->bind_param("si", $email, $userId);
-    $stmt->execute();
-    if ($stmt->get_result()->num_rows > 0) {
-        throw new Exception('Email already exists');
+    // Prepare update query
+    $updateQuery = "UPDATE users SET 
+        first_name = ?, 
+        last_name = ?, 
+        email = ?, 
+        role = ?";  // Removed last_update
+    
+    $paramTypes = "ssss";
+    $params = [&$firstName, &$lastName, &$email, &$role];
+
+    // Add password update if provided
+    if ($password !== null) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $updateQuery .= ", password = ?";
+        $paramTypes .= "s";
+        $params[] = &$hashedPassword;
     }
 
-    // Update user
-    if (updateUser($conn, $userId, $firstName, $lastName, $email, $role, $password)) {
-        // Log activity
-        logActivity($conn, $_SESSION['user_id'], $userId, 'update', 0, "Updated user: $firstName $lastName");
-        
-        echo json_encode([
-            'success' => true,
-            'message' => 'User updated successfully'
-        ]);
-    } else {
-        throw new Exception('Failed to update user');
+    $updateQuery .= " WHERE user_id = ?";
+    $paramTypes .= "i";
+    $params[] = &$userId;
+
+    // Prepare and execute update
+    $stmt = $conn->prepare($updateQuery);
+    if (!$stmt) {
+        throw new Exception('Prepare statement failed: ' . $conn->error);
     }
+
+    // Dynamically bind parameters
+    call_user_func_array([$stmt, 'bind_param'], array_merge([$paramTypes], $params));
+
+    if (!$stmt->execute()) {
+        throw new Exception('Update failed: ' . $stmt->error);
+    }
+
+    // Check if any rows were affected
+    if ($stmt->affected_rows === 0) {
+        throw new Exception('No user updated. User may not exist.');
+    }
+
+    // Close statement
+    $stmt->close();
+
+    // Log activity
+    logActivity($conn, $_SESSION['user_id'], $userId, 'update', 0, "Updated user: $firstName $lastName");
+
+    echo json_encode([
+        'success' => true,
+        'message' => 'User updated successfully'
+    ]);
 
 } catch (Exception $e) {
     http_response_code(400);
@@ -79,5 +119,9 @@ try {
         'success' => false,
         'message' => $e->getMessage()
     ]);
+} finally {
+    // Close connection if it exists
+    if (isset($conn)) {
+        $conn->close();
+    }
 }
-?>

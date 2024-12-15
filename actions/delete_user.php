@@ -45,13 +45,28 @@ try {
         throw new Exception('User not found');
     }
     
+    // Start a transaction
+    $conn->begin_transaction();
+    
+    // Update activity log to remove references to the user being deleted
+    $stmt = $conn->prepare("UPDATE activity_log SET user_id = NULL WHERE user_id = ?");
+    $stmt->bind_param("i", $userId);
+    if (!$stmt->execute()) {
+        $conn->rollback();
+        throw new Exception('Failed to update activity log');
+    }
+    
     // Delete user
     $stmt = $conn->prepare("DELETE FROM users WHERE user_id = ?");
     $stmt->bind_param("i", $userId);
     
     if (!$stmt->execute()) {
+        $conn->rollback();
         throw new Exception('Failed to delete user');
     }
+    
+    // Commit the transaction
+    $conn->commit();
     
     echo json_encode([
         'success' => true,

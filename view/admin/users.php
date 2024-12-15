@@ -235,6 +235,101 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
             background-color: #f44336;
             color: white;
         }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .modal-header .close {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-cancel {
+            background-color: #ccc;
+            color: #666;
+        }
+
+        .btn-submit {
+            background-color: #9575CD;
+            color: white;
+        }
+
+        .show {
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -347,20 +442,12 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($users as $user): 
-                            // Combine first and last name, handle potential null values
-                            $fullName = trim(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? ''));
-                            $fullName = $fullName ?: 'Unnamed User';
-                        ?>
+                        <?php foreach ($users as $user): ?>
                         <tr>
-                            <td><?= htmlspecialchars($user['user_id'] ?? 'N/A') ?></td>
-                            <td><?= htmlspecialchars($fullName) ?></td>
-                            <td><?= htmlspecialchars($user['email'] ?? 'No Email') ?></td>
-                            <td>
-                                <span class="role-badge <?= strtolower($user['role'] ?? 'guest') ?>">
-                                    <?= htmlspecialchars($user['role'] ?? 'Guest') ?>
-                                </span>
-                            </td>
+                            <td><?php echo htmlspecialchars($user['user_id']); ?></td>
+                            <td><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></td>
+                            <td><?php echo htmlspecialchars($user['email']); ?></td>
+                            <td><?php echo htmlspecialchars($user['role']); ?></td>
                             <td>
                                 <?php 
                                 $lastLogin = $user['last_login'] ?? null;
@@ -368,19 +455,17 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                                     $loginTime = new DateTime($lastLogin);
                                     echo htmlspecialchars($loginTime->format('Y-m-d H:i:s'));
                                 } else {
-                                    echo 'Never Logged In';
+                                    echo 'Never';
                                 }
                                 ?>
                             </td>
-                            <td class="action-buttons">
-                                <button class="action-btn edit-btn" onclick="editUser(<?= $user['user_id'] ?? 0 ?>)">
+                            <td class="actions">
+                                <button class="edit-btn" onclick="editUser(<?php echo $user['user_id']; ?>)">
                                     <span class="material-icons">edit</span>
                                 </button>
-                                <?php if ($userRole === 'superadmin'): ?>
-                                <button class="action-btn delete-btn" onclick="deleteUser(<?= $user['user_id'] ?? 0 ?>)">
+                                <button class="delete-btn" onclick="deleteUser(<?php echo $user['user_id']; ?>)">
                                     <span class="material-icons">delete</span>
                                 </button>
-                                <?php endif; ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -399,182 +484,77 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
             </div>
             <form id="addUserForm" action="../../actions/add_user.php" method="POST">
                 <div class="form-group">
-                    <label for="firstName">First Name*</label>
+                    <label for="firstName">First Name</label>
                     <input type="text" id="firstName" name="first_name" required>
                 </div>
                 <div class="form-group">
-                    <label for="lastName">Last Name*</label>
+                    <label for="lastName">Last Name</label>
                     <input type="text" id="lastName" name="last_name" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email*</label>
+                    <label for="email">Email</label>
                     <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password*</label>
-                    <input type="password" id="password" name="password" required minlength="6">
-                    <small>Minimum 6 characters</small>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
                 </div>
                 <div class="form-group">
-                    <label for="role">Role*</label>
+                    <label for="role">User Role</label>
                     <select id="role" name="role" required>
-                        <option value="">Select a role</option>
+                        <option value="">Select Role</option>
+                        <option value="staff">Staff</option>
                         <option value="admin">Admin</option>
-                        <option value="superadmin">Super Admin</option>
+                        <?php if ($userRole === 'superadmin'): ?>
+                            <option value="superadmin">Superadmin</option>
+                        <?php endif; ?>
                     </select>
                 </div>
-                <button type="submit" class="btn-primary">Add User</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Edit User Modal -->
-    <div id="editUserModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Edit User</h2>
-                <span class="close" onclick="closeModal('editUserModal')">&times;</span>
-            </div>
-            <form id="editUserForm" action="../../actions/edit_user.php" method="POST">
-                <input type="hidden" id="editUserId" name="user_id">
-                <div class="form-group">
-                    <label for="editFirstName">First Name*</label>
-                    <input type="text" id="editFirstName" name="first_name" required>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-cancel" onclick="closeModal('addUserModal')">Cancel</button>
+                    <button type="submit" class="btn btn-submit">Add User</button>
                 </div>
-                <div class="form-group">
-                    <label for="editLastName">Last Name*</label>
-                    <input type="text" id="editLastName" name="last_name" required>
-                </div>
-                <div class="form-group">
-                    <label for="editEmail">Email*</label>
-                    <input type="email" id="editEmail" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="editPassword">New Password</label>
-                    <input type="password" id="editPassword" name="password" minlength="6">
-                    <small>Leave blank to keep current password</small>
-                </div>
-                <div class="form-group">
-                    <label for="editRole">Role*</label>
-                    <select id="editRole" name="role" required>
-                        <option value="">Select a role</option>
-                        <option value="admin">Admin</option>
-                        <option value="superadmin">Super Admin</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-primary">Update User</button>
             </form>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
-            const searchIcon = document.querySelector('.search-icon');
-            const filterForm = document.getElementById('userFilterForm');
-
-            // Handle search on icon click
-            if (searchIcon) {
-                searchIcon.addEventListener('click', function() {
-                    filterForm.submit();
-                });
-            }
-
-            // Handle search on Enter key press
-            if (searchInput) {
-                searchInput.addEventListener('keypress', function(event) {
-                    if (event.key === 'Enter') {
-                        event.preventDefault();
-                        filterForm.submit();
-                    }
-                });
-            }
-
-            // Optional: Debounce search to improve performance
-            let searchTimeout;
-            if (searchInput) {
-                searchInput.addEventListener('input', function() {
-                    clearTimeout(searchTimeout);
-                    searchTimeout = setTimeout(() => {
-                        if (this.value.length > 2 || this.value.length === 0) {
-                            filterForm.submit();
-                        }
-                    }, 500);
-                });
-            }
-        });
-
         // Modal functions
         function openModal(modalId) {
+            console.log('Opening modal:', modalId);
             const modal = document.getElementById(modalId);
-            modal.style.display = 'flex';
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.classList.add('show');
+                }, 10);
+            } else {
+                console.error('Modal not found:', modalId);
+            }
         }
 
         function closeModal(modalId) {
+            console.log('Closing modal:', modalId);
             const modal = document.getElementById(modalId);
-            modal.style.display = 'none';
+            if (modal) {
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+            } else {
+                console.error('Modal not found:', modalId);
+            }
         }
 
-        // Close modal when clicking outside of it
+        // Close modal when clicking outside
         window.addEventListener('click', function(event) {
             const modals = document.querySelectorAll('.modal');
             modals.forEach(modal => {
                 if (event.target === modal) {
-                    modal.style.display = 'none';
+                    closeModal(modal.id);
                 }
             });
         });
-
-        // Show notification
-        function showNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        }
-
-        // Edit user
-        function editUser(userId) {
-            fetch(`../../actions/get_user.php?id=${userId}`)
-                .then(response => response.json())
-                .then(user => {
-                    document.getElementById('editUserId').value = user.user_id;
-                    document.getElementById('editFirstName').value = user.first_name;
-                    document.getElementById('editLastName').value = user.last_name;
-                    document.getElementById('editEmail').value = user.email;
-                    document.getElementById('editRole').value = user.role;
-                    document.getElementById('editPassword').value = '';
-                    openModal('editUserModal');
-                })
-                .catch(error => {
-                    showNotification('Error loading user data', 'error');
-                });
-        }
-
-        // Delete user
-        function deleteUser(userId) {
-            if (confirm('Are you sure you want to delete this user?')) {
-                fetch(`../../actions/delete_user.php?id=${userId}`, {
-                    method: 'POST'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        showNotification(data.message);
-                        location.reload();
-                    } else {
-                        showNotification(data.message, 'error');
-                    }
-                })
-                .catch(error => {
-                    showNotification('Error deleting user', 'error');
-                });
-            }
-        }
 
         // Handle form submissions
         document.addEventListener('DOMContentLoaded', function() {
@@ -592,46 +572,183 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            showNotification(data.message);
+                            alert(data.message);
                             closeModal('addUserModal');
                             setTimeout(() => location.reload(), 1000);
                         } else {
-                            showNotification(data.message, 'error');
+                            alert(data.message);
                         }
                     })
                     .catch(error => {
-                        showNotification('An error occurred', 'error');
-                    });
-                });
-            }
-
-            // Edit User Form
-            const editUserForm = document.getElementById('editUserForm');
-            if (editUserForm) {
-                editUserForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const formData = new FormData(this);
-                    
-                    fetch(this.action, {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            showNotification(data.message);
-                            closeModal('editUserModal');
-                            setTimeout(() => location.reload(), 1000);
-                        } else {
-                            showNotification(data.message, 'error');
-                        }
-                    })
-                    .catch(error => {
-                        showNotification('An error occurred', 'error');
+                        alert('An error occurred');
                     });
                 });
             }
         });
     </script>
+    <!-- Edit User Modal -->
+    <div id="editUserModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit User</h2>
+                <span class="close" onclick="closeModal('editUserModal')">&times;</span>
+            </div>
+            <form id="editUserForm" action="../../actions/edit_user.php" method="POST">
+                <input type="hidden" id="editUserId" name="user_id">
+                <div class="form-group">
+                    <label for="editFirstName">First Name</label>
+                    <input type="text" id="editFirstName" name="first_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="editLastName">Last Name</label>
+                    <input type="text" id="editLastName" name="last_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email</label>
+                    <input type="email" id="editEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPassword">New Password</label>
+                    <input type="password" id="editPassword" name="password">
+                    <small>Leave blank to keep current password</small>
+                </div>
+                <div class="form-group">
+                    <label for="editRole">Role</label>
+                    <select id="editRole" name="role" required>
+                        <option value="">Select Role</option>
+                        <option value="staff">Staff</option>
+                        <option value="admin">Admin</option>
+                        <?php if ($userRole === 'superadmin'): ?>
+                            <option value="superadmin">Superadmin</option>
+                        <?php endif; ?>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-cancel" onclick="closeModal('editUserModal')">Cancel</button>
+                    <button type="submit" class="btn btn-submit">Update User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Edit user function
+        function editUser(userId) {
+            console.log('Attempting to edit user:', userId);
+            fetch(`../../actions/get_user.php?id=${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                console.log('Response status:', response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(text => {
+                console.log('Raw response:', text);
+                try {
+                    const data = JSON.parse(text);
+                    console.log('Parsed data:', data);
+                    
+                    if (data.success) {
+                        const user = data.user;
+                        document.getElementById('editUserId').value = user.user_id;
+                        document.getElementById('editFirstName').value = user.first_name || '';
+                        document.getElementById('editLastName').value = user.last_name || '';
+                        document.getElementById('editEmail').value = user.email || '';
+                        document.getElementById('editRole').value = user.role || '';
+                        document.getElementById('editPassword').value = '';
+                        openModal('editUserModal');
+                    } else {
+                        console.error('Error loading user data:', data.message);
+                        alert(data.message || 'Error loading user data');
+                    }
+                } catch (parseError) {
+                    console.error('JSON parse error:', parseError);
+                    console.error('Response text:', text);
+                    alert('Error parsing server response');
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                alert('Error loading user data: ' + error.message);
+            });
+        }
+    
+        // Delete user function
+        function deleteUser(userId) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                fetch('../../actions/delete_user.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ user_id: userId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the user');
+                });
+            }
+        }
+    
+        // Edit User Form submission
+        document.getElementById('editUserForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            console.log('Submitting edit user form');
+            fetch('../../actions/edit_user.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                console.log('Response status:', response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(text => {
+                console.log('Raw response:', text);
+                try {
+                    const data = JSON.parse(text);
+                    console.log('Parsed data:', data);
+                    
+                    if (data.success) {
+                        alert(data.message);
+                        closeModal('editUserModal');
+                        location.reload();
+                    } else {
+                        console.error('Error updating user:', data.message);
+                        alert(data.message || 'Error updating user');
+                    }
+                } catch (parseError) {
+                    console.error('JSON parse error:', parseError);
+                    console.error('Response text:', text);
+                    alert('Error parsing server response');
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                alert('Error updating user: ' + error.message);
+            });
+        });
+    </script>
+    
 </body>
 </html>

@@ -1,4 +1,8 @@
 <?php
+// Disable all error reporting to prevent any output before JSON
+error_reporting(0);
+ini_set('display_errors', 0);
+
 session_start();
 require_once '../db/database.php';
 
@@ -28,10 +32,31 @@ if (!isset($_GET['id'])) {
 try {
     $userId = intval($_GET['id']);
     
-    // Get user data
-    $stmt = $conn->prepare("SELECT user_id, first_name, last_name, email, role FROM users WHERE user_id = ?");
+    // Validate database connection
+    if (!$conn) {
+        throw new Exception('Database connection failed');
+    }
+    
+    // Get user data with more comprehensive query
+    $stmt = $conn->prepare("SELECT 
+        user_id, 
+        first_name, 
+        last_name, 
+        email, 
+        role 
+    FROM users 
+    WHERE user_id = ?");
+    
+    if (!$stmt) {
+        throw new Exception('Prepare statement failed: ' . $conn->error);
+    }
+    
     $stmt->bind_param("i", $userId);
-    $stmt->execute();
+    
+    if (!$stmt->execute()) {
+        throw new Exception('Execute statement failed: ' . $stmt->error);
+    }
+    
     $result = $stmt->get_result();
     
     if ($result->num_rows === 0) {
@@ -51,4 +76,9 @@ try {
         'success' => false,
         'message' => $e->getMessage()
     ]);
+} finally {
+    // Close statement and connection
+    if (isset($stmt)) {
+        $stmt->close();
+    }
 }

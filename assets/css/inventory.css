@@ -182,6 +182,12 @@
     color: var(--success-color);
 }
 
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    padding-top: 0px; /* Consistent with dashboard layout */
+}
+
 /* Responsive Adjustments */
 @media screen and (max-width: 768px) {
     .filters-section {
