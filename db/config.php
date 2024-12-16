@@ -4,10 +4,13 @@ echo "PHP Version: " . phpversion() . "<br>";
 echo "MySQL Extension Loaded: " . (extension_loaded('mysqli') ? 'Yes' : 'No') . "<br>";
 
 // Detailed MySQL Connection Diagnostics
+// $servername = 'localhost';  
+// $username = 'root';           
+// $password = '';              
 $servername = 'localhost';  
-$username = 'root';           
-$password = '';              
-
+$username = 'papa.badu';           
+$password = 'password';
+              
 try {
     // Test basic connection without specifying database
     $conn = new mysqli($servername, $username, $password);
