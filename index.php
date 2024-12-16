@@ -9,8 +9,7 @@ ini_set('display_errors', 1);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link rel="stylesheet" href="./assets/css/styles.css" />
-    <!-- <link rel="stylesheet" href="./assets/css/login.css" /> -->
+    <link rel="stylesheet" href="./assets/css/styles.css" />    
     <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon">
     <title>Hospital Management System | Home</title>
   </head>
@@ -23,7 +22,7 @@ ini_set('display_errors', 1);
           </div>
           <div class="nav-menu" id="navMenu">
             <ul>
-              <li><a href="#services" class="link active">Services</a></li>
+              <li><a href="#home" class="link active">Home</a></li>
               <li><a href="#aboutus" class="link">About</a></li>
               <li><a href="#contactus" class="link">Contact</a></li>
             </ul>
@@ -35,6 +34,13 @@ ini_set('display_errors', 1);
               </button>
             </a>
           </div>
+          <div class="nav-button">
+            <a href="./view/register.php">
+              <button class="btn white-btn animate-zoom-in duration-1000" id="loginBtn">
+                Register
+              </button>
+            </a>
+          </div>
           <div class="search">
             <input type="search" placeholder="search services" />
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -42,17 +48,17 @@ ini_set('display_errors', 1);
         </div>
       </nav>
 
-      <!-- Landing Page -->
       <section class="landingpage">
         <div class="content">
           <div class="heading" data-aos="fade-right" data-aos-duration="2000">
-            <h1>Welcome to Our Hospital Management System!</h1>
+            <h1>Welcome to Hospital Management System!</h1>
             <p>
-              Our system provides comprehensive management of hospital operations, including patient records, appointments, and inventory management.
+              Revolutionizing healthcare management through comprehensive digital solutions. 
+              Streamline patient care, inventory tracking, and administrative tasks with our cutting-edge platform.
             </p>
-            <p>Explore our services and see how we can help streamline your hospital's operations.</p>
+            <p>Empower your healthcare facility with smart, efficient technology.</p>
             <div class="button-container">
-              <a href="./view/login.php"><button class="btn" data-aos="fade-left" data-aos-duration="2000" data-aos-delay="00" data-aos-margin="">
+              <a href="view/register.php"><button class="btn" data-aos="fade-left" data-aos-duration="2000" data-aos-delay="00" data-aos-margin="">
                 Get Started
               </button></a>
             </div>
@@ -64,51 +70,121 @@ ini_set('display_errors', 1);
         <div class="container">
           <img src="./assets/images/hospital.jpg" data-aos="zoom-in-" data-aos-duration="2000" />
           <div class="aboutus-content">
-            <h1 data-aos="fade-left" data-aos-duration="1000">About Us</h1>
+            <h1 data-aos="fade-left" data-aos-duration="1000">About Our Hospital Management System</h1>
             <p data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
-              Our Hospital Management System is designed to improve the efficiency and effectiveness of hospital operations. We provide tools for managing patient records, scheduling appointments, and tracking inventory.
+              Our Hospital Management System is a comprehensive digital solution designed to transform 
+              healthcare administration. By integrating patient records, inventory management, and 
+              administrative workflows, we provide healthcare providers with a powerful tool to 
+              enhance patient care, operational efficiency, and resource management.
             </p>
           </div>
         </div>
       </section>
 
       <section class="details-services" id="details-services">
-        <div class="title">
-          <h1 data-aos="zoom-in-up" data-aos-duration="1000">
-            Why Choose Our System? </h1>
-        </div>
-        <div class="services">
-          <div class="card" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-            <img src="./assets/images/patient_records.jpg" alt="Patient Records" />
-            <div class="description">
-              <h1>Comprehensive Patient Records:</h1>
-              <p>
-                <li>
-                  Maintain detailed patient records, including medical history, treatments, and appointments.
-                </li>
-              </p>
-            </div>
+        <div class="container">
+          <div class="section-header">
+            <h2 data-aos="fade-up" data-aos-duration="1000">Our Comprehensive Hospital Management Solutions</h2>
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+              Empowering healthcare providers with intelligent, integrated technology
+            </p>
           </div>
-          <div class="card" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="200">
-            <img src="./assets/images/appointments.jpg" alt="Appointments" />
-            <div class="description">
-              <h1>Efficient Appointment Scheduling:</h1>
+
+          <div class="services-grid">
+            <div class="service-card" data-aos="fade-right" data-aos-duration="1000">
+              <div class="service-icon">
+                <i class="fas fa-notes-medical"></i>
+              </div>
+              <h3>Patient Record Management</h3>
               <p>
-                <li>
-                  Schedule and manage patient appointments with ease, ensuring optimal use of resources.
-                </li>
+                Centralize and secure patient information with our advanced electronic health record system. 
+                Seamlessly track medical history, treatments, and personal details.
               </p>
+              <ul>
+                <li>Comprehensive patient profiles</li>
+                <li>Secure data storage</li>
+                <li>Easy information retrieval</li>
+              </ul>
             </div>
-          </div>
-          <div class="card" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="400">
-            <img src="./assets/images/inventory_management.jpg" alt="Inventory Management" />
-            <div class="description">
-              <h1>Effective Inventory Management:</h1>
+
+            <div class="service-card" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+              <div class="service-icon">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <h3>Appointment Scheduling</h3>
               <p>
-                <li>
-                  Track and manage hospital inventory, ensuring that essential supplies are always available.
-                </li>
+                Streamline patient appointments with our intelligent scheduling system. 
+                Reduce wait times and optimize healthcare provider resources.
               </p>
+              <ul>
+                <li>Real-time slot availability</li>
+                <li>Automated reminders</li>
+                <li>Multi-department coordination</li>
+              </ul>
+            </div>
+
+            <div class="service-card" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="400">
+              <div class="service-icon">
+                <i class="fas fa-warehouse"></i>
+              </div>
+              <h3>Inventory Management</h3>
+              <p>
+                Maintain optimal stock levels with our advanced inventory tracking system. 
+                Ensure critical medical supplies are always available.
+              </p>
+              <ul>
+                <li>Real-time stock monitoring</li>
+                <li>Automated reordering</li>
+                <li>Expiration date tracking</li>
+              </ul>
+            </div>
+
+            <div class="service-card" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="600">
+              <div class="service-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3>Reporting & Analytics</h3>
+              <p>
+                Gain insights into hospital operations with comprehensive reporting tools. 
+                Make data-driven decisions to improve patient care and efficiency.
+              </p>
+              <ul>
+                <li>Customizable dashboards</li>
+                <li>Performance metrics</li>
+                <li>Trend analysis</li>
+              </ul>
+            </div>
+
+            <div class="service-card" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="800">
+              <div class="service-icon">
+                <i class="fas fa-user-shield"></i>
+              </div>
+              <h3>User Access Management</h3>
+              <p>
+                Control and monitor user access with robust authentication and permission systems. 
+                Ensure data privacy and compliance.
+              </p>
+              <ul>
+                <li>Role-based access</li>
+                <li>Secure login</li>
+                <li>Audit trails</li>
+              </ul>
+            </div>
+
+            <div class="service-card" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="1000">
+              <div class="service-icon">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <h3>Mobile Accessibility</h3>
+              <p>
+                Access critical hospital information from anywhere with our mobile-friendly interface. 
+                Stay connected and responsive.
+              </p>
+              <ul>
+                <li>Responsive design</li>
+                <li>Cross-platform compatibility</li>
+                <li>Secure mobile access</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -117,54 +193,58 @@ ini_set('display_errors', 1);
       <section class="contactus" id="contactus">
         <div class="container">
           <div class="contactus-content">
-            <h1 data-aos="fade-left" data-aos-duration="1000">Visit Us Today</h1>
+            <h1 data-aos="fade-left" data-aos-duration="1000">Discover Our Solution</h1>
             <p data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
-              Visit our hospital to experience the benefits of our management system firsthand. We're open 24 hours and ready to assist you.
+              Transform your healthcare facility's operations with our Hospital Management System. 
+              We're committed to providing innovative technology that improves patient care and 
+              operational efficiency.
             </p>
           </div>
           <div class="contactus-content">
             <h1 data-aos="fade-left" data-aos-duration="1000">Get in Touch</h1>
             <p data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
-              We'd love to hear from you! Reach out to us for any inquiries or feedback.
+              Have questions or want to learn more about how our system can benefit your healthcare facility?
             </p>
             <ul class="contact-info">
               <li style="margin-bottom: 1em;">
                 <ion-icon name="location-outline" class="contact-icon" style="margin-right: 1em;"></ion-icon>
-                <span>Hospital Management, Main Street, City, Country</span>
+                <span>Hospital Management Solutions, Tech Avenue, Innovation City</span>
               </li>
               <li style="margin-bottom: 1em;">
                 <ion-icon name="call-outline" class="contact-icon" style="margin-right: 1em;"></ion-icon>
-                <span>+123 456 7890</span>
+                <span>+1 (555) HOSPITAL</span>
               </li>
               <li>
                 <ion-icon name="mail-outline" class="contact-icon" style="margin-right: 1em;"></ion-icon>
-                <span>contact@hospitalmanagement.com</span>
+                <span>support@hospitalmanagement.tech</span>
               </li>
             </ul>
           </div>
         </div>
       </section>
-    </div>
-    <footer class="footer">
-      <p>&copy; 2024 Hospital Management. All Rights Reserved.</p>
-    </footer>
-    <style>
-      .footer {
-        position: relative;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        background-color: #722f37;
-        color: white;
-        text-align: center;
-        padding: 10px 0;
-      }
-    </style>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script>
-      AOS.init();
-    </script>
-  </body>
+  </div>
+  <footer class="footer">
+    <p>&copy; 2024 Hospi Manager. All Rights Reserved.</p>
+  </footer>
+  <style>
+    .footer {
+      position: relative;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #722f37;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+    }
+  </style>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script>
+    AOS.init();
+  </script>
+  </div>
+</body>
+
 </html>

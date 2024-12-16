@@ -1,7 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600&family=Lemon&family=Patua+One&family=Poppins:wght@200;400;500;600;700;800;900&display=swap");
 
 ::-webkit-scrollbar {
-  display: none;
+  width: 8px;
+  background: #ccc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
 }
 
 * {
@@ -164,69 +169,7 @@ nav .btn:hover {
   background: #218838;
 }
 
-/* item-management,
-.transaction-history {
-  background: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
 
-.item-management h2,
-.transaction-history h2 {
-  margin-top: 0;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-
-table th,
-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-table th {
-  background: #007bff;
-  color: #fff;
-}
-
-.btn {
-  background: #007bff;
-  color: #fff;
-  padding: 5px 10px;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-}
-
-.btn:hover {
-  background: #0056b3;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-form label {
-  margin-bottom: 5px;
-}
-
-form input {
-  margin-bottom: 10px;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-form button {
-  align-self: flex-start;
-}
 
 /* Login and Register Form Styles */
 .form-container {
@@ -558,6 +501,103 @@ contactus .container .contact-info ion-icon {
   margin-right: 10px;
   font-size: 1.5rem;
   color: #fff;
+}
+
+/* Details Services Section */
+.details-services {
+  background-color: var(--light-color);
+  padding: 60px 0;
+}
+
+.details-services .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.details-services .section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.details-services .section-header h2 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.details-services .section-header p {
+  font-size: 1.1rem;
+  color: var(--secondary-color);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.service-card {
+  background-color: var(--white-color);
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.service-card .service-icon {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.service-card h3 {
+  font-size: 1.5rem;
+  color: var(--dark-color);
+  margin-bottom: 15px;
+}
+
+.service-card p {
+  color: var(--secondary-color);
+  margin-bottom: 15px;
+}
+
+.service-card ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.service-card ul li {
+  color: var(--secondary-color);
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.service-card ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--success-color);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Fade from the right */

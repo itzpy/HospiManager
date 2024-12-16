@@ -1,58 +1,109 @@
 <!DOCTYPE html>
-<html lang="eng">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8">
-    <meta name="Author" content="Papa Yaw Badu">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="Author" content="Papa Yaw Badu" />
     <title>Register - Hospital Management System</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
-</head>
-<body>
-    <div class="form-container">
-        <h2>Register</h2>
-        <form id="signupForm">
-            <label for="first-name">First Name</label>
-            <div class="input-icon">
+    <link rel="stylesheet" href="../assets/css/login.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <nav class="nav animate-fade-right duration-1000 delay-200">
+        <div class="nav-logo">
+          <p href="./index.php">Hospi Manager</p>
+        </div>
+        <div class="nav-menu" id="navMenu">
+          <ul>
+            <li><a href="../index.php#home" class="link active">Home</a></li>
+            <li><a href="../index.php#about" class="link">About Us</a></li>
+            <li><a href="../index.php#contact" class="link">Contact Us</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="form-box">
+        <div class="signup-container">
+          <header>Register</header>
+          <div id="registrationError" class="error-message"></div>
+          <form id="signupForm">
+            <div class="two-forms">
+              <div class="input-box">
                 <ion-icon name="person-outline"></ion-icon>
-                <input type="text" id="first-name" name="first-name" placeholder="Enter your first name" required>
-            </div>
-            <span id="firstNameError" class="error"></span> 
-
-            <label for="last-name">Last Name</label>
-            <div class="input-icon">
+                <input
+                  type="text"
+                  id="first-name"
+                  name="first-name"
+                  class="input-field"
+                  placeholder="First Name"
+                  required
+                />
+                <span id="firstNameError" class="error-message"></span>
+              </div>
+              <div class="input-box">
                 <ion-icon name="person-outline"></ion-icon>
-                <input type="text" id="last-name" name="last-name" placeholder="Enter your last name" required>
+                <input
+                  type="text"
+                  id="last-name"
+                  name="last-name"
+                  class="input-field"
+                  placeholder="Last Name"
+                  required
+                />
+                <span id="lastNameError" class="error-message"></span>
+              </div>
             </div>
-            <span id="lastNameError" class="error"></span> 
 
-            <label for="email">Email</label>
-            <div class="input-icon">
-                <ion-icon name="mail-outline"></ion-icon>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <div class="input-box">
+              <ion-icon name="mail-outline"></ion-icon>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="input-field"
+                placeholder="Enter your email"
+                required
+              />
+              <span id="emailError" class="error-message"></span>
             </div>
-            <span id="emailError" class="error"></span>
 
-            <label for="password">Password</label>
-            <div class="input-icon">
-                <ion-icon name="lock-closed-outline"></ion-icon>
-                <input type="password" id="password" name="password" placeholder="Create a password" required>
+            <div class="input-box">
+              <ion-icon name="lock-closed-outline"></ion-icon>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="input-field"
+                placeholder="Create a password"
+                required
+                minlength="8"
+              />
+              <span id="passwordError" class="error-message"></span>
             </div>
-            <span id="passwordError" class="error"></span>
 
-            <label for="confirm-password">Confirm Password</label>
-            <div class="input-icon">
-                <ion-icon name="lock-closed-outline"></ion-icon>
-                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+            <div class="input-box">
+              <ion-icon name="lock-closed-outline"></ion-icon>
+              <input
+                type="password"
+                id="confirm-password"
+                name="confirm-password"
+                class="input-field"
+                placeholder="Confirm password"
+                required
+                minlength="8"
+              />
+              <span id="confirmPasswordError" class="error-message"></span>
             </div>
-            <span id="confirmPasswordError" class="error"></span>
 
-            <button type="submit">Sign Up</button>
-        </form>
-        <p>Do you already have an account? <a href="./login.php">Login</a></p>
-        <p><a href="../index.php">Back to Home</a></p>
+            <button type="submit" class="submit">Sign Up</button>
+          </form>
+          <div class="top">
+            <span>Already have an account? <a href="./login.php">Login</a></span>
+          </div>
+        </div>
+      </div>
     </div>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="../assets/js/register.js"></script>
-</body>
+  </body>
 </html>
