@@ -16,9 +16,9 @@ require_once BASE_PATH . '/functions/user_functions.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Check if user is logged in
-if (!isLoggedIn()) {
-    header('Location: ../login.php');
+// Check if user is logged in and is an admin
+if (!isLoggedIn() || $_SESSION['role'] !== 'admin') {
+    header('Location: ./dashboard.php');
     exit();
 }
 

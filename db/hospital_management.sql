@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2024 at 10:56 PM
+-- Generation Time: Dec 16, 2024 at 01:20 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -51,7 +51,20 @@ INSERT INTO `activity_log` (`log_id`, `user_id`, `action`, `item_id`, `quantity_
 (8, 2, 'add', 25, 100, 'New item added', '2024-12-14 13:47:52'),
 (13, 2, 'stock_in', 2, 50, 'update stock', '2024-12-14 13:51:24'),
 (14, 2, 'add', 26, 10, 'New item added', '2024-12-14 21:15:13'),
-(15, 2, 'add', 27, 10, 'New item added', '2024-12-14 21:18:06');
+(15, 2, 'add', 27, 10, 'New item added', '2024-12-14 21:18:06'),
+(16, 2, 'add', 28, 10, 'New item added', '2024-12-15 01:27:08'),
+(17, 2, 'add', 29, 10, 'New item added', '2024-12-15 01:27:08'),
+(18, 2, 'adjust', 21, 10, 'we need more first aid kits', '2024-12-15 01:30:22'),
+(19, 2, 'adjust', 28, -10, 'Check for if it is out of stock', '2024-12-15 01:40:56'),
+(20, 2, 'update', 28, 0, 'Name updated', '2024-12-15 01:41:13'),
+(31, 3, 'stock_out', 29, 10, 'Stock removed by admin: For a 10 patients', '2024-12-15 19:34:58'),
+(32, 3, 'stock_out', 13, 1, 'Stock removed by admin: update', '2024-12-15 20:45:17'),
+(33, 3, 'stock_out', 13, 1, 'Stock removed by admin: restock', '2024-12-15 20:46:02'),
+(34, 2, 'adjust', 26, 10, 'Low', '2024-12-15 20:50:37'),
+(35, 3, 'add', 29, 10, 'Stock addd by admin: update', '2024-12-15 21:04:23'),
+(38, 2, 'update', 29, 0, 'Unit updated', '2024-12-15 21:06:59'),
+(39, 3, 'add', 29, 5, 'Stock addd by admin: Restock', '2024-12-15 21:07:31'),
+(40, 2, 'update', 25, 0, 'Category changed', '2024-12-15 22:17:56');
 
 -- --------------------------------------------------------
 
@@ -76,8 +89,7 @@ INSERT INTO `categories` (`category_id`, `name`, `description`, `created_at`) VA
 (3, 'Equipment', 'Medical equipment and devices', '2024-12-14 00:49:17'),
 (4, 'Laboratory', 'Laboratory supplies and materials', '2024-12-14 00:49:17'),
 (5, 'Personal Protective Equipment', 'PPE and safety equipment', '2024-12-14 01:20:21'),
-(6, 'Emergency Supplies', 'Emergency and first aid supplies', '2024-12-14 01:20:21'),
-(7, 'Surgical Equipment', 'for the Surgeons', '2024-12-14 21:21:41');
+(6, 'Emergency Supplies', 'Emergency and first aid supplies', '2024-12-14 01:20:21');
 
 -- --------------------------------------------------------
 
@@ -132,7 +144,7 @@ INSERT INTO `items` (`item_id`, `category_id`, `name`, `description`, `quantity`
 (10, 3, 'Blood Pressure Monitor', 'Automatic BP measurement device', 20, 'units', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
 (11, 3, 'Stethoscope', 'Acoustic medical device', 30, 'units', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
 (12, 3, 'Pulse Oximeter', 'Oxygen saturation monitor', 25, 'units', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
-(13, 4, 'Blood Collection Tubes', 'Vacuum sealed collection tubes', 1000, 'pieces', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
+(13, 4, 'Blood Collection Tubes', 'Vacuum sealed collection tubes', 998, 'pieces', '2024-12-14 01:20:21', '2024-12-15 20:46:02', 10),
 (14, 4, 'Microscope Slides', 'Glass slides for microscopy', 500, 'boxes', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
 (15, 4, 'Test Strips', 'Urinalysis test strips', 1500, 'strips', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
 (16, 4, 'Petri Dishes', 'Culture plates', 300, 'pieces', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
@@ -140,13 +152,15 @@ INSERT INTO `items` (`item_id`, `category_id`, `name`, `description`, `quantity`
 (18, 5, 'Latex Gloves', 'Disposable examination gloves', 10000, 'pieces', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
 (19, 5, 'Face Shields', 'Protective face shields', 200, 'pieces', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
 (20, 5, 'Isolation Gowns', 'Disposable protective gowns', 500, 'pieces', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
-(21, 6, 'First Aid Kits', 'Complete emergency kits', 50, 'kits', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
+(21, 6, 'First Aid Kits', 'Complete emergency kits', 60, 'kits', '2024-12-14 01:20:21', '2024-12-15 01:30:22', 10),
 (22, 6, 'Emergency Blankets', 'Thermal emergency blankets', 200, 'pieces', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
 (23, 6, 'Ice Packs', 'Instant cold packs', 300, 'pieces', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
 (24, 6, 'Burn Dressings', 'Specialized burn treatment', 100, 'pieces', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
-(25, 2, 'Nose Mask', 'These are the black ones', 100, 'pieces', '2024-12-14 13:47:52', '2024-12-14 13:47:52', 10),
-(26, 2, 'Condoms', 'For the visitors', 10, 'boxes', '2024-12-14 21:15:13', '2024-12-14 21:15:13', 10),
-(27, 1, 'Advil 500g', 'Pain Killer', 10, 'bottles', '2024-12-14 21:18:06', '2024-12-14 21:18:06', 10);
+(25, 5, 'Nose Mask', 'These are the black ones', 100, '0', '2024-12-14 13:47:52', '2024-12-15 22:17:56', 10),
+(26, 2, 'Condoms', 'For the visitors', 20, 'boxes', '2024-12-14 21:15:13', '2024-12-15 20:50:37', 10),
+(27, 1, 'Advil 500g', 'Pain Killer', 10, 'bottles', '2024-12-14 21:18:06', '2024-12-14 21:18:06', 10),
+(28, 1, 'Advil 255g', 'Pain Killers', 0, '0', '2024-12-15 01:27:08', '2024-12-15 01:41:13', 10),
+(29, 1, 'Advil 250g', 'Pain Killers', 15, '0', '2024-12-15 01:27:08', '2024-12-15 21:07:31', 10);
 
 -- --------------------------------------------------------
 
@@ -188,9 +202,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password`, `role`, `created_at`, `last_login`) VALUES
 (1, 'Admin', 'User', 'admin@hospital.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'superadmin', '2024-12-14 00:49:17', NULL),
-(2, 'Papa', 'Badu', 'raybadu10@gmail.com', '$2y$10$f3JJnQF1.u53yCWv7f9Druw4yWmNw3XtsZAFTiH9zp5bLYVM8qP2q', 'superadmin', '2024-12-14 00:49:59', NULL),
-(3, 'Regular', 'Admin', 'Admin@gmail.com', '$2y$10$XDqLDuZNVd6TN/ItiQKduunFLih5acqSVQsj0L8NcAuUTY61qgSw.', 'admin', '2024-12-14 01:08:30', NULL),
-(4, 'Kofi', 'Gyekye', 'KGyekye@gmail.com', '$2y$10$bZ10UjLlq.Xq2u4X9MNenecOZJqONvKkQvH4MpZFlf8mnrFP4SZ66', 'admin', '2024-12-14 21:23:44', NULL);
+(2, 'Papa', 'Badu', 'raybadu10@gmail.com', '$2y$10$f3JJnQF1.u53yCWv7f9Druw4yWmNw3XtsZAFTiH9zp5bLYVM8qP2q', 'superadmin', '2024-12-14 00:49:59', '2024-12-15 23:58:19'),
+(3, 'Regular', 'Admin', 'Admin@gmail.com', '$2y$10$XDqLDuZNVd6TN/ItiQKduunFLih5acqSVQsj0L8NcAuUTY61qgSw.', 'admin', '2024-12-14 01:08:30', '2024-12-15 22:20:23'),
+(6, 'Kwasi', 'Gyekye', 'Kgyekye@gmail.com', '$2y$10$O44dgiyNdzIMIozPyGyMgu5JPM1AOpvmBOXytRRcMhuPMEvkMsMmG', 'staff', '2024-12-15 23:57:37', '2024-12-16 00:19:23');
 
 -- --------------------------------------------------------
 
@@ -270,13 +284,13 @@ ALTER TABLE `user_settings`
 -- AUTO_INCREMENT for table `activity_log`
 --
 ALTER TABLE `activity_log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `inventory_logs`
@@ -288,7 +302,7 @@ ALTER TABLE `inventory_logs`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `system_settings`
@@ -300,7 +314,7 @@ ALTER TABLE `system_settings`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables

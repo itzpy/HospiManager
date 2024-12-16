@@ -24,6 +24,18 @@
       <div class="form-box">
         <div class="login-container">
           <header>Login</header>
+          <?php
+          // Handle error messages
+          if (isset($_GET['error'])) {
+              $errorMessages = [
+                  'unauthorized' => 'You are not authorized to access that page.',
+                  'session_expired' => 'Your session has expired. Please log in again.'
+              ];
+              $errorType = htmlspecialchars($_GET['error']);
+              $errorMessage = $errorMessages[$errorType] ?? 'An unknown error occurred.';
+              echo "<div class='error-message'>" . $errorMessage . "</div>";
+          }
+          ?>
           <div id="loginError" class="error-message"></div>
           <form id="loginForm">
             <div class="input-box">
@@ -58,6 +70,11 @@
           </form>
           <div class="top">
             <span><a href="./forgot_password.php">Forgot Password?</a></span>
+          </div>
+          <div class="bottom">
+            <div class="left">
+              <span>Don't have an account? <a href="./register.php" class="signup-link">Sign Up</a></span>
+            </div>
           </div>
         </div>
       </div>

@@ -105,5 +105,36 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="../assets/js/register.js"></script>
+    <script>
+      document.getElementById('signupForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Collect form data
+        const formData = new FormData(this);
+        
+        // Add default role as 'staff'
+        formData.append('role', 'staff');
+        
+        // Send registration request
+        fetch('../controller/register_user.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            // Redirect to login or dashboard
+            window.location.href = './login.php?registered=true';
+          } else {
+            // Show error message
+            document.getElementById('registrationError').textContent = data.message;
+          }
+        })
+        .catch(error => {
+          console.error('Registration error:', error);
+          document.getElementById('registrationError').textContent = 'An unexpected error occurred.';
+        });
+      });
+    </script>
   </body>
 </html>

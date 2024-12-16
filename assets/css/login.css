@@ -261,6 +261,28 @@ header {
   display: block;
 }
 
+.bottom {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.bottom .left {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.bottom .signup-link {
+  color: #007bff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.bottom .signup-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
 @media only screen and (max-width: 786px) {
   .nav-button {
     display: none;

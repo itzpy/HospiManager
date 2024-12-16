@@ -4,7 +4,12 @@ require_once dirname(__DIR__) . '/db/database.php';
 /**
  * Get all inventory logs with user and item details
  */
-function getAllInventoryLogs($limit = 100) {
+function getAllInventoryLogs($limit = 100, $userRole = null) {
+    // Only allow admin and superadmin to view logs
+    if ($userRole !== 'admin' && $userRole !== 'superadmin') {
+        return []; // Return empty array for non-admin users
+    }
+
     global $conn;
     $query = "SELECT l.*, u.first_name, u.last_name, i.name as item_name, i.unit 
               FROM inventory_logs l
@@ -154,7 +159,7 @@ function getInventorySummary() {
     
     $summary = [
         'total_items' => 0,
-        'low_stock_items' => 0,
+        'low_stock_items' > 0,
         'categories' => 0,
         'recent_activities' => []
     ];

@@ -1,18 +1,56 @@
-# Delete Item Debug Log
-# This log captures detailed information about item deletion attempts
-# Format: [TIMESTAMP] - Action - Details
-[2024-12-15 03:30:19] Deletion Attempt - Item ID: 29
-[2024-12-15 03:30:19] Item Details - Name: Advil 250g, Quantity: 10
-[2024-12-15 03:30:19] Activity Logs Deleted for Item ID: 29
-[2024-12-15 03:30:19] Item Deleted - Item ID: 29, Name: Advil 250g
-[2024-12-15 03:30:19] Delete Item Error: Cannot add or update a child row: a foreign key constraint fails (`hospital_management`.`activity_log`, CONSTRAINT `activity_log_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`))
-[2024-12-15 22:06:25] Deletion Attempt - Item ID: 29
-[2024-12-15 22:06:25] Item Details - Name: Advil 250g, Quantity: 10
-[2024-12-15 22:06:26] Activity Logs Deleted for Item ID: 29
-[2024-12-15 22:06:26] Item Deleted - Item ID: 29, Name: Advil 250g
-[2024-12-15 22:06:26] Delete Item Error: Cannot add or update a child row: a foreign key constraint fails (`hospital_management`.`activity_log`, CONSTRAINT `activity_log_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`))
-[2024-12-15 22:06:41] Deletion Attempt - Item ID: 29
-[2024-12-15 22:06:41] Item Details - Name: Advil 250g, Quantity: 10
-[2024-12-15 22:06:41] Activity Logs Deleted for Item ID: 29
-[2024-12-15 22:06:41] Item Deleted - Item ID: 29, Name: Advil 250g
-[2024-12-15 22:06:41] Delete Item Error: Cannot add or update a child row: a foreign key constraint fails (`hospital_management`.`activity_log`, CONSTRAINT `activity_log_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`))
+[2024-12-16 18:36:03] Incoming delete request: Array
+(
+    [item_id] => 28
+)
+
+[2024-12-16 18:36:03] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-16 18:36:03] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-16 18:36:03] Database connection status: Connected
+[2024-12-16 18:36:03] Deletion Attempt - Item ID: 28
+[2024-12-16 18:36:03] Item Details - Name: Advil 255g, Quantity: 0
+[2024-12-16 18:36:03] Activity Logs Deleted for Item ID: 28
+[2024-12-16 18:36:03] Item Deleted - Item ID: 28, Name: Advil 255g
+[2024-12-16 18:36:03] Item deleted successfully. Item ID: 28
+[2024-12-16 18:36:03] Sending response: {"success":true,"message":"Item deleted successfully","item_id":28,"session_role":"superadmin","session_user_id":2,"item_details":{"item_id":28,"category_id":1,"name":"Advil 255g","description":"Pain Killers","quantity":0,"unit":"0","created_at":"2024-12-15 01:27:08","last_updated":"2024-12-15 01:41:13","minimum_quantity":10},"related_records":{"activity_log_count":3,"inventory_transactions_count":0}}
+[2024-12-16 18:37:04] Incoming delete request: Array
+(
+    [item_id] => 27
+)
+
+[2024-12-16 18:37:04] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-16 18:37:04] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-16 18:37:04] Database connection status: Connected
+[2024-12-16 18:37:04] Deletion Attempt - Item ID: 27
+[2024-12-16 18:37:04] Item Details - Name: Advil 500g, Quantity: 10
+[2024-12-16 18:37:04] Activity Logs Deleted for Item ID: 27
+[2024-12-16 18:37:04] Item Deleted - Item ID: 27, Name: Advil 500g
+[2024-12-16 18:37:04] Incoming delete request: Array
+(
+    [item_id] => 27
+)
+
+[2024-12-16 18:37:04] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-16 18:37:04] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-16 18:37:04] Database connection status: Connected
+[2024-12-16 18:37:04] Item not found. Item ID: 27
+[2024-12-16 18:37:04] Sending response: {"success":false,"message":"Item not found","item_id":27,"session_role":"superadmin","session_user_id":2,"error":"No item found with the given ID"}
+[2024-12-16 18:37:13] Incoming delete request: Array
+(
+    [item_id] => 27
+)
+
+[2024-12-16 18:37:13] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-16 18:37:13] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-16 18:37:13] Database connection status: Connected
+[2024-12-16 18:37:13] Item not found. Item ID: 27
+[2024-12-16 18:37:13] Sending response: {"success":false,"message":"Item not found","item_id":27,"session_role":"superadmin","session_user_id":2,"error":"No item found with the given ID"}
+[2024-12-16 18:37:30] Incoming delete request: Array
+(
+    [item_id] => 27
+)
+
+[2024-12-16 18:37:30] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-16 18:37:30] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-16 18:37:30] Database connection status: Connected
+[2024-12-16 18:37:30] Item not found. Item ID: 27
+[2024-12-16 18:37:30] Sending response: {"success":false,"message":"Item not found","item_id":27,"session_role":"superadmin","session_user_id":2,"error":"No item found with the given ID"}

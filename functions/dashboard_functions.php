@@ -4,13 +4,25 @@ require_once __DIR__ . '/user_functions.php';
 require_once __DIR__ . '/category_functions.php';
 require_once __DIR__ . '/inventory_functions.php';
 
-function getDashboardStats($conn) {
-    return [
+function getDashboardStats($conn, $userRole = null) {
+    $stats = [
         'total_users' => getTotalUsers($conn),
         'total_categories' => getTotalCategories($conn),
         'total_items' => getTotalItems($conn),
         'low_stock_items' => getLowStockItemsCount($conn)
     ];
+
+    // Only include log-related stats for admin and superadmin
+    if ($userRole === 'admin' || $userRole === 'superadmin') {
+        $logQuery = "SELECT COUNT(*) as total_logs FROM inventory_logs";
+        $logResult = $conn->query($logQuery);
+        $stats['total_logs'] = $logResult ? $logResult->fetch_assoc()['total_logs'] : 0;
+    } else {
+        // Remove log-related stats for non-admin users
+        unset($stats['total_logs']);
+    }
+
+    return $stats;
 }
 
 function getRecentActivities($conn, $userId = null, $limit = 5) {

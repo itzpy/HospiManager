@@ -163,6 +163,10 @@ $lowStockItems = $lowStockItems ?: [];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory Management - Hospital Management</title>
+    
+    <!-- jQuery (must be loaded before other scripts) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -909,97 +913,121 @@ $lowStockItems = $lowStockItems ?: [];
         // Delete Item Function
         function deleteItem(itemId) {
             // Confirm deletion
-            const confirmDelete = confirm('Are you sure you want to delete this item? This action cannot be undone.');
+            if (!confirm('Are you sure you want to delete this item?')) {
+                return;
+            }
+
+            // Disable delete button to prevent multiple clicks
+            const deleteButton = document.querySelector(`button[data-delete-id="${itemId}"]`);
+            const itemRow = document.querySelector(`tr[data-item-id="${itemId}"]`);
             
-            if (confirmDelete) {
-                console.log('Attempting to delete item with ID:', itemId);
+            if (deleteButton) {
+                deleteButton.disabled = true;
+                deleteButton.innerHTML = '<span class="material-icons">hourglass_empty</span> Deleting...';
+            }
 
-                // Disable delete button to prevent multiple clicks
-                const deleteButton = document.querySelector(`button[data-delete-id="${itemId}"]`);
-                const itemRow = document.querySelector(`tr[data-item-id="${itemId}"]`);
-                
-                if (deleteButton) {
-                    deleteButton.disabled = true;
-                    deleteButton.innerHTML = '<span class="material-icons">hourglass_empty</span> Deleting...';
-                }
-
-                // Send AJAX request
-                fetch('../../actions/delete_item.php', {
+            // Check if jQuery is available
+            if (typeof $ !== 'undefined') {
+                // jQuery AJAX method
+                $.ajax({
+                    url: '../../actions/delete_item.php',  // Updated path
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'Accept': 'application/json'
+                    dataType: 'json',
+                    data: { 
+                        item_id: itemId 
                     },
-                    body: `item_id=${itemId}`,
-                    credentials: 'same-origin'
-                })
-                .then(response => {
-                    // Check response status
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-
-                    // Check content type
-                    const contentType = response.headers.get('content-type') || '';
-                    if (!contentType.includes('application/json')) {
-                        throw new Error('Expected JSON response');
-                    }
-
-                    // Parse JSON
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Delete Response:', data);
-
-                    // Validate response
-                    if (data.success) {
-                        // Remove the item row from the table
-                        if (itemRow) {
-                            // Add a fade-out animation
-                            itemRow.classList.add('fade-out');
-                            setTimeout(() => {
-                                itemRow.remove();
-                                
-                                // Update item count
-                                updateItemCount();
-                                
-                                // Show success toast
-                                showToast('Item deleted successfully', 'success');
-                            }, 300);
+                    timeout: 10000,
+                    success: function(response) {
+                        if (response && response.success) {
+                            // Remove the item row
+                            if (itemRow) {
+                                itemRow.classList.add('fade-out');
+                                setTimeout(() => {
+                                    itemRow.remove();
+                                    updateItemCount();
+                                    showToast('Item deleted successfully', 'success');
+                                }, 300);
+                            }
+                        } else {
+                            // Show error message
+                            showToast(response.message || 'Failed to delete item', 'error');
+                            console.error('Delete Item Error:', response);
                         }
-                    } else {
-                        // Show error message with debug info if available
-                        let errorMsg = data.message || 'Failed to delete item';
-                        
-                        // If debug info is present, log it to console
-                        if (data.debug) {
-                            console.error('Delete Item Debug Info:', data.debug);
+                    },
+                    error: function(xhr, status, error) {
+                        // Fallback to fetch if jQuery AJAX fails
+                        fetchDeleteItem(itemId, deleteButton, itemRow);
+                    },
+                    complete: function() {
+                        // Re-enable delete button
+                        if (deleteButton) {
+                            deleteButton.disabled = false;
+                            deleteButton.innerHTML = '<span class="material-icons">delete</span>';
                         }
-                        
-                        // Show error toast
-                        showToast(errorMsg, 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Delete Item Error:', error);
-                    
-                    // Detailed error handling
-                    let errorMessage = 'An unexpected error occurred';
-                    if (error.message) {
-                        errorMessage = error.message;
-                    }
-                    
-                    // Show error toast
-                    showToast(errorMessage, 'error');
-                })
-                .finally(() => {
-                    // Re-enable delete button
-                    if (deleteButton) {
-                        deleteButton.disabled = false;
-                        deleteButton.innerHTML = '<span class="material-icons">delete</span>';
                     }
                 });
+            } else {
+                // Fallback to fetch if jQuery is not available
+                fetchDeleteItem(itemId, deleteButton, itemRow);
             }
+        }
+
+        // Fetch-based delete method as fallback
+        function fetchDeleteItem(itemId, deleteButton, itemRow) {
+            fetch('../../actions/delete_item.php', {  // Updated path
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json'
+                },
+                body: `item_id=${itemId}`,
+                credentials: 'same-origin'
+            })
+            .then(response => {
+                // Check response status
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Check content type
+                const contentType = response.headers.get('content-type') || '';
+                if (!contentType.includes('application/json')) {
+                    throw new Error('Expected JSON response');
+                }
+
+                // Parse JSON
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    // Remove the item row
+                    if (itemRow) {
+                        itemRow.classList.add('fade-out');
+                        setTimeout(() => {
+                            itemRow.remove();
+                            updateItemCount();
+                            showToast('Item deleted successfully', 'success');
+                        }, 300);
+                    }
+                } else {
+                    // Show error message
+                    showToast(data.message || 'Failed to delete item', 'error');
+                    console.error('Delete Item Error:', data);
+                }
+            })
+            .catch(error => {
+                console.error('Delete Item Error:', error);
+                
+                // Show error toast
+                showToast(error.message || 'Failed to delete item', 'error');
+            })
+            .finally(() => {
+                // Re-enable delete button
+                if (deleteButton) {
+                    deleteButton.disabled = false;
+                    deleteButton.innerHTML = '<span class="material-icons">delete</span>';
+                }
+            });
         }
 
         // Function to update item count

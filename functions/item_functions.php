@@ -165,114 +165,119 @@ function updateItem($conn, $itemId, $categoryId, $name, $description, $quantity,
  * Delete an item (Superadmin only)
  */
 function deleteItem($conn, $itemId) {
-    // Open log file for detailed logging
-    $logFile = dirname(__DIR__) . '/logs/delete_item_debug.log';
+    // Ensure logging directory exists
+    $logDir = dirname(__DIR__) . '/logs';
+    if (!is_dir($logDir)) {
+        mkdir($logDir, 0777, true);
+    }
+    $logFile = $logDir . '/delete_item_debug.log';
+
+    // Log the start of deletion attempt
+    $logMessage = date('[Y-m-d H:i:s] ') . "Deletion Attempt - Item ID: $itemId\n";
+    file_put_contents($logFile, $logMessage, FILE_APPEND);
+
+    // Begin transaction for atomic operation
+    $conn->begin_transaction();
     
     try {
-        // Log start of deletion attempt
-        $logMessage = date('[Y-m-d H:i:s] ') . "Deletion Attempt - Item ID: $itemId\n";
-        file_put_contents($logFile, $logMessage, FILE_APPEND);
+        // First, check if the item exists and get its details
+        $checkQuery = "SELECT * FROM items WHERE item_id = ?";
+        $checkStmt = $conn->prepare($checkQuery);
+        $checkStmt->bind_param("i", $itemId);
+        $checkStmt->execute();
+        $checkResult = $checkStmt->get_result();
         
-        // Validate inputs
-        if (!$conn || !is_object($conn)) {
-            $errorMsg = "Invalid database connection in deleteItem";
+        if ($checkResult->num_rows === 0) {
+            $errorMsg = "Item not found - Item ID: $itemId";
             error_log($errorMsg);
             file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $errorMsg . "\n", FILE_APPEND);
             return false;
         }
-        
-        $conn->begin_transaction();
-        
-        // Get current item details
-        $query = "SELECT quantity, name FROM items WHERE item_id = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("i", $itemId);
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
-        
-        if (!$result) {
-            $errorMsg = "Item not found - Item ID: $itemId";
-            error_log($errorMsg);
-            file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $errorMsg . "\n", FILE_APPEND);
-            throw new Exception($errorMsg);
-        }
-        
-        $currentQuantity = $result['quantity'];
-        $itemName = $result['name'];
-        
-        // Log item details
-        $logMessage = date('[Y-m-d H:i:s] ') . "Item Details - Name: $itemName, Quantity: $currentQuantity\n";
+
+        // Fetch item details for logging
+        $itemDetails = $checkResult->fetch_assoc();
+        $logMessage = date('[Y-m-d H:i:s] ') . "Item Details - Name: " . $itemDetails['name'] . ", Quantity: " . $itemDetails['quantity'] . "\n";
         file_put_contents($logFile, $logMessage, FILE_APPEND);
         
-        // First, delete related activity log entries
-        $deleteLogQuery = "DELETE FROM activity_log WHERE item_id = ?";
-        $deleteLogStmt = $conn->prepare($deleteLogQuery);
-        $deleteLogStmt->bind_param("i", $itemId);
-        $deleteLogSuccess = $deleteLogStmt->execute();
+        // Disable foreign key checks temporarily
+        $conn->query("SET FOREIGN_KEY_CHECKS = 0");
+
+        // Delete related records in activity_log
+        $deleteActivityLogQuery = "DELETE FROM activity_log WHERE item_id = ?";
+        $deleteActivityLogStmt = $conn->prepare($deleteActivityLogQuery);
+        $deleteActivityLogStmt->bind_param("i", $itemId);
+        $deleteActivityLogResult = $deleteActivityLogStmt->execute();
         
-        if (!$deleteLogSuccess) {
-            $errorMsg = "Failed to delete activity logs for item $itemId: " . $conn->error;
+        if ($deleteActivityLogResult === false) {
+            $errorMsg = "Failed to delete activity logs - Item ID: $itemId, Error: " . $conn->error;
             error_log($errorMsg);
             file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $errorMsg . "\n", FILE_APPEND);
-            throw new Exception($errorMsg);
+            
+            // Log the specific activity log deletion failure
+            $logMessage = date('[Y-m-d H:i:s] ') . "Activity Log Deletion Failed for Item ID: $itemId\n";
+            file_put_contents($logFile, $logMessage, FILE_APPEND);
+        } else {
+            $logMessage = date('[Y-m-d H:i:s] ') . "Activity Logs Deleted for Item ID: $itemId\n";
+            file_put_contents($logFile, $logMessage, FILE_APPEND);
         }
+
+        // Check if inventory_transactions table exists before attempting to delete
+        $checkTableQuery = "SHOW TABLES LIKE 'inventory_transactions'";
+        $tableCheckResult = $conn->query($checkTableQuery);
         
-        // Log activity log deletion
-        $logMessage = date('[Y-m-d H:i:s] ') . "Activity Logs Deleted for Item ID: $itemId\n";
-        file_put_contents($logFile, $logMessage, FILE_APPEND);
+        if ($tableCheckResult->num_rows > 0) {
+            // Delete related records in inventory_transactions
+            $deleteTransactionsQuery = "DELETE FROM inventory_transactions WHERE item_id = ?";
+            $deleteTransactionsStmt = $conn->prepare($deleteTransactionsQuery);
+            $deleteTransactionsStmt->bind_param("i", $itemId);
+            $deleteTransactionsResult = $deleteTransactionsStmt->execute();
+            
+            if ($deleteTransactionsResult === false) {
+                $errorMsg = "Failed to delete inventory transactions - Item ID: $itemId, Error: " . $conn->error;
+                error_log($errorMsg);
+                file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $errorMsg . "\n", FILE_APPEND);
+            }
+        } else {
+            // Log that the table doesn't exist
+            $logMessage = date('[Y-m-d H:i:s] ') . "Inventory Transactions Table Does Not Exist\n";
+            file_put_contents($logFile, $logMessage, FILE_APPEND);
+        }
         
         // Delete the item
         $deleteItemQuery = "DELETE FROM items WHERE item_id = ?";
         $deleteItemStmt = $conn->prepare($deleteItemQuery);
         $deleteItemStmt->bind_param("i", $itemId);
-        $deleteItemSuccess = $deleteItemStmt->execute();
+        $deleteResult = $deleteItemStmt->execute();
         
-        if (!$deleteItemSuccess) {
-            $errorMsg = "Failed to delete item $itemId: " . $conn->error;
+        if ($deleteResult === false) {
+            $errorMsg = "Failed to delete item - Item ID: $itemId, Error: " . $conn->error;
             error_log($errorMsg);
             file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $errorMsg . "\n", FILE_APPEND);
-            throw new Exception($errorMsg);
+            throw new Exception("Failed to delete item");
         }
-        
+
         // Log item deletion
-        $logMessage = date('[Y-m-d H:i:s] ') . "Item Deleted - Item ID: $itemId, Name: $itemName\n";
+        $logMessage = date('[Y-m-d H:i:s] ') . "Item Deleted - Item ID: $itemId, Name: " . $itemDetails['name'] . "\n";
         file_put_contents($logFile, $logMessage, FILE_APPEND);
         
-        // Log the deletion activity
-        $logQuery = "INSERT INTO activity_log (user_id, action, item_id, quantity_changed, notes, timestamp) 
-                     VALUES (?, 'delete', ?, ?, 'Item deleted', NOW())";
-        $logStmt = $conn->prepare($logQuery);
-        $userId = $_SESSION['user_id'] ?? 0;
-        $quantityChanged = -$currentQuantity;
+        // Re-enable foreign key checks
+        $conn->query("SET FOREIGN_KEY_CHECKS = 1");
         
-        $logStmt->bind_param("iis", $userId, $itemId, $quantityChanged);
-        $logSuccess = $logStmt->execute();
-        
-        if (!$logSuccess) {
-            $errorMsg = "Failed to log deletion of item $itemId: " . $conn->error;
-            error_log($errorMsg);
-            file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $errorMsg . "\n", FILE_APPEND);
-            throw new Exception($errorMsg);
-        }
-        
-        // Log activity log insertion
-        $logMessage = date('[Y-m-d H:i:s] ') . "Deletion Activity Logged - Item ID: $itemId, User ID: $userId\n";
-        file_put_contents($logFile, $logMessage, FILE_APPEND);
-        
+        // Commit the transaction
         $conn->commit();
-        
-        // Log successful deletion
-        $logMessage = date('[Y-m-d H:i:s] ') . "Deletion Successful - Item ID: $itemId\n";
-        file_put_contents($logFile, $logMessage, FILE_APPEND);
         
         return true;
     } catch (Exception $e) {
+        // Rollback the transaction in case of error
         $conn->rollback();
         
-        // Log exception details
-        $errorMsg = "Delete Item Error: " . $e->getMessage();
+        // Re-enable foreign key checks
+        $conn->query("SET FOREIGN_KEY_CHECKS = 1");
+        
+        // Log the error with more context
+        $errorMsg = "Item Deletion Error for Item ID $itemId: " . $e->getMessage();
         error_log($errorMsg);
-        file_put_contents($logFile, date('[Y-m-d H:i:s] ') . $errorMsg . "\n", FILE_APPEND);
+        file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "Delete Item Error: " . $e->getMessage() . "\n", FILE_APPEND);
         
         return false;
     }

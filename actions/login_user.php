@@ -59,13 +59,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['first_name'] = $user['first_name'];
         $_SESSION['last_name'] = $user['last_name'];
 
+        // Detailed debugging: Log comprehensive login information
+        $logFile = 'C:\xampp\htdocs\Hospital_Management\user_login_debug.log';
+        $debugInfo = [
+            'timestamp' => date('Y-m-d H:i:s'),
+            'user_id' => $user['user_id'],
+            'email' => $user['email'],
+            'role' => $user['role'],
+            'full_name' => $user['first_name'] . ' ' . $user['last_name'],
+            'redirect_path' => $user['role'] === 'superadmin'
+                ? '../view/admin/dashboard.php'
+                : ($user['role'] === 'admin' 
+                    ? '../view/admin/admin_dashboard.php' 
+                    : ($user['role'] === 'staff' 
+                        ? '../view/staff/staff_dashboard.php'
+                        : '../view/staff/staff_dashboard.php'))
+        ];
+        
+        // Ensure directory exists and is writable
+        $logDir = dirname($logFile);
+        if (!is_dir($logDir)) {
+            mkdir($logDir, 0777, true);
+        }
+        
+        // Attempt to write log with error handling
+        $logEntry = "LOGIN DEBUG:\n" . print_r($debugInfo, true) . "\n-------------------\n";
+        if (file_put_contents($logFile, $logEntry, FILE_APPEND) === false) {
+            // If writing fails, try to log the error
+            error_log("Failed to write to login debug log: " . $logFile);
+        }
+
         // Return success response
         echo json_encode([
             'success' => true,
             'message' => 'Login successful',
-            'redirect' => in_array($user['role'], ['admin', 'superadmin', 'staff']) 
-                ? '../view/admin/admin_dashboard.php' 
-                : '../view/admin/dashboard.php'
+            'redirect' => $user['role'] === 'superadmin'
+                ? '../view/admin/dashboard.php'
+                : ($user['role'] === 'admin' 
+                    ? '../view/admin/admin_dashboard.php' 
+                    : ($user['role'] === 'staff' 
+                        ? '../view/staff/staff_dashboard.php'
+                        : '../view/staff/staff_dashboard.php'))
         ]);
         exit();
 
