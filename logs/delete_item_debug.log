@@ -54,3 +54,9 @@
 [2024-12-16 18:37:30] Database connection status: Connected
 [2024-12-16 18:37:30] Item not found. Item ID: 27
 [2024-12-16 18:37:30] Sending response: {"success":false,"message":"Item not found","item_id":27,"session_role":"superadmin","session_user_id":2,"error":"No item found with the given ID"}
+[2024-12-16 20:51:16] Incoming delete request: Array
+(
+)
+
+[2024-12-16 20:51:16] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-16 20:51:16] Script Name: /Hospital_Management/actions/delete_item.php

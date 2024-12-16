@@ -3,11 +3,16 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Database configuration
-$servername = 'localhost';  
-$username = 'root';           
-$password = '';              
-$dbname = 'hospital_management'; 
+//sDatabase configuration
+// $servername = 'localhost';  
+// $username = 'root';           
+// $password = '';              
+// $dbname = 'hospital_management'; 
+
+$servername = "localhost";
+$username = "papa.badu";
+$password = "password";
+$dbname = "webtech_fall2024_papa_badu";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
