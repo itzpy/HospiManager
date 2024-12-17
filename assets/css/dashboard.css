@@ -110,6 +110,7 @@ body {
 .nav-menu {
     display: flex;
     align-items: center;
+    
 }
 
 .nav-menu ul {
@@ -118,10 +119,13 @@ body {
     margin: 0;
     padding: 0;
     gap: 10px;
+
+    
 }
 
 .nav-menu ul li {
     position: relative;
+    text-decoration: none;
 }
 
 .nav-menu ul li a {

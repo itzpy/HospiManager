@@ -18,7 +18,7 @@ if (!isLoggedIn()) {
 // Get user information
 $userId = $_SESSION['user_id'];
 $userRole = $_SESSION['role'];
-$fullName = $_SESSION['full_name'] ?? 'User';
+$fullName = $_SESSION['first_name'] ?? 'User';
 
 // Pagination
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -189,12 +189,6 @@ function getActivityIcon($action) {
                     </a>
                 </li>
                 <?php endif; ?>
-                <li>
-                    <a href="settings.php">
-                        <span class="material-icons">settings</span>
-                        <span>Settings</span>
-                    </a>
-                </li>
             </ul>
             <div class="nav-profile">
                 <div class="user-info">

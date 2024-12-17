@@ -267,12 +267,12 @@ header {
 }
 
 .bottom .left {
-  color: #666;
+  color: #ffffff;
   font-size: 0.9rem;
 }
 
 .bottom .signup-link {
-  color: #007bff;
+  color: rgb(161, 142, 224);
   font-weight: 600;
   text-decoration: none;
   transition: color 0.3s ease;

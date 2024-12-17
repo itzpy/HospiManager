@@ -2,6 +2,9 @@
 session_start();
 require_once '../config/database.php';
 
+// Ensure no output before JSON
+ob_clean();
+
 // Ensure JSON content type
 header('Content-Type: application/json');
 
@@ -26,6 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     try {
+        // Check if connection exists
+        if (!isset($conn) || $conn->connect_error) {
+            $response['message'] = 'Database connection error.';
+            error_log('Database connection not established');
+            echo json_encode($response);
+            exit;
+        }
+
         // Prepare SQL to prevent SQL injection
         $stmt = $conn->prepare("SELECT user_id, first_name, password, role FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);

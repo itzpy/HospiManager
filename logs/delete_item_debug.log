@@ -60,3 +60,70 @@
 
 [2024-12-16 20:51:16] Request URI: /Hospital_Management/actions/delete_item.php
 [2024-12-16 20:51:16] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-17 13:46:06] Incoming delete request: Array
+(
+)
+
+[2024-12-17 13:46:06] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-17 13:46:06] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-17 13:46:07] Database connection status: Connected
+[2024-12-17 13:46:07] Invalid request method: GET
+[2024-12-17 13:46:07] Sending response: {"success":false,"message":"Invalid request method"}
+[2024-12-17 13:46:07] Incoming delete request: Array
+(
+)
+
+[2024-12-17 13:46:07] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-17 13:46:07] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-17 13:46:07] Incoming delete request: Array
+(
+)
+
+[2024-12-17 13:46:07] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-17 13:46:07] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-17 13:46:07] Database connection status: Connected
+[2024-12-17 13:46:07] Invalid request method: HEAD
+[2024-12-17 13:46:07] Sending response: {"success":false,"message":"Invalid request method"}
+[2024-12-17 13:46:07] Database connection status: Connected
+[2024-12-17 13:46:07] Invalid request method: HEAD
+[2024-12-17 13:46:07] Sending response: {"success":false,"message":"Invalid request method"}
+[2024-12-17 13:46:07] Incoming delete request: Array
+(
+)
+
+[2024-12-17 13:46:07] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-17 13:46:07] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-17 13:46:07] Database connection status: Connected
+[2024-12-17 13:46:07] Invalid request method: HEAD
+[2024-12-17 13:46:07] Sending response: {"success":false,"message":"Invalid request method"}
+[2024-12-17 13:46:07] Incoming delete request: Array
+(
+)
+
+[2024-12-17 13:46:07] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-17 13:46:07] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-17 13:46:07] Database connection status: Connected
+[2024-12-17 13:46:07] Invalid request method: HEAD
+[2024-12-17 13:46:07] Sending response: {"success":false,"message":"Invalid request method"}
+[2024-12-17 19:49:25] Incoming delete request: Array
+(
+    [item_id] => 30
+)
+
+[2024-12-17 19:49:25] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-17 19:49:25] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-17 19:49:25] Database connection status: Connected
+[2024-12-17 19:49:25] Deletion Attempt - Item ID: 30
+[2024-12-17 19:49:25] Item Details - Name: Condoms, Quantity: 5
+[2024-12-17 19:49:25] Activity Logs Deleted for Item ID: 30
+[2024-12-17 19:49:25] Item Deleted - Item ID: 30, Name: Condoms
+[2024-12-17 19:49:25] Incoming delete request: Array
+(
+    [item_id] => 30
+)
+
+[2024-12-17 19:49:25] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-17 19:49:25] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-17 19:49:25] Database connection status: Connected
+[2024-12-17 19:49:25] Item not found. Item ID: 30
+[2024-12-17 19:49:25] Sending response: {"success":false,"message":"Item not found","item_id":30,"session_role":"superadmin","session_user_id":2,"error":"No item found with the given ID"}

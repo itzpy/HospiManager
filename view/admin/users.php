@@ -19,6 +19,7 @@ if (!isLoggedIn()) {
 // Get user information
 $userId = $_SESSION['user_id'];
 $userRole = $_SESSION['role'];
+$fullName = $_SESSION['first_name'] ?? 'User';
 
 // Restrict access to superadmin only
 if ($userRole !== 'superadmin') {
@@ -365,16 +366,10 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                         <span>Users</span>
                     </a>
                 </li>
-                <li>
-                    <a href="settings.php">
-                        <span class="material-icons">settings</span>
-                        <span>Settings</span>
-                    </a>
-                </li>
             </ul>
             <div class="nav-profile">
                 <div class="user-info">
-                    <span class="user-name"><?= htmlspecialchars($_SESSION['full_name'] ?? 'User') ?></span>
+                    <span class="user-name"><?= htmlspecialchars($fullName) ?></span>
                     <span class="user-role"><?= ucfirst(htmlspecialchars($userRole)) ?></span>
                 </div>
                 <a href="../../actions/logout.php" class="logout-btn" onclick="return confirm('Are you sure you want to logout?')">

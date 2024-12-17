@@ -32,7 +32,7 @@ if ($_SESSION['role'] !== 'superadmin') {
 // Get user information
 $userId = $_SESSION['user_id'];
 $userRole = $_SESSION['role'];
-$fullName = $_SESSION['full_name'] ?? 'User';
+$fullName = $_SESSION['first_name'] ?? 'User';
 
 // Get dashboard statistics
 $stats = getDashboardStats($conn);
@@ -486,6 +486,221 @@ $items = $items ?: [];
         .analytics-cards .card-details p {
             margin: 0;
         }
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            
+            /* Flexbox for centering */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transform: scale(1);
+            opacity: 1;
+            transition: all 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .btn-cancel, .btn-submit {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-cancel {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-submit {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background-color: #e0e0e0;
+        }
+
+        .btn-submit:hover {
+            background-color: #45a049;
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .btn-cancel, .btn-submit {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-cancel {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-submit {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background-color: #e0e0e0;
+        }
+
+        .btn-submit:hover {
+            background-color: #45a049;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn-secondary {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .warning {
+            color: #dc3545;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -517,12 +732,6 @@ $items = $items ?: [];
                     </a>
                 </li>
                 <?php endif; ?>
-                <li>
-                    <a href="settings.php">
-                        <span class="material-icons">settings</span>
-                        <span>Settings</span>
-                    </a>
-                </li>
             </ul>
             <div class="nav-profile">
                 <div class="user-info">
@@ -685,40 +894,47 @@ $items = $items ?: [];
     </div>
 
     <!-- Add Item Modal -->
-    <div id="addItemModal" class="modal-overlay">
+    <div id="addItemModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Add New Item</h2>
-                <span class="modal-close" onclick="closeModal('addItemModal')">&times;</span>
+                <span class="close">&times;</span>
             </div>
-            <form action="../../actions/add_item.php" method="POST" id="addItemForm">
-                <div class="form-group">
-                    <label for="itemName">Item Name*</label>
-                    <input type="text" id="itemName" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="itemDescription">Description</label>
-                    <textarea id="itemDescription" name="description" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="itemCategory">Category*</label>
-                    <select id="itemCategory" name="category_id" required>
-                        <option value="">Select a category</option>
-                        <?php foreach ($categories as $category): ?>
-                        <option value="<?= $category['category_id'] ?>"><?= htmlspecialchars($category['name']) ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="itemQuantity">Initial Quantity*</label>
-                    <input type="number" id="itemQuantity" name="quantity" required min="0" value="0">
-                </div>
-                <div class="form-group">
-                    <label for="itemUnit">Unit of Measurement*</label>
-                    <input type="text" id="itemUnit" name="unit" required placeholder="e.g., pieces, boxes, units">
-                </div>
-                <button type="submit" class="btn-submit">Add Item</button>
-            </form>
+            <div class="modal-body">
+                <form id="addItemForm">
+                    <div class="form-group">
+                        <label for="item_name">Item Name <span class="required">*</span></label>
+                        <input type="text" id="item_name" name="name" required placeholder="Enter item name" maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="category_id">Category <span class="required">*</span></label>
+                        <select id="category_id" name="category_id" required>
+                            <option value="">Select Category</option>
+                            <?php foreach ($categories as $category): ?>
+                            <option value="<?= $category['category_id'] ?>">
+                                <?= htmlspecialchars($category['name']) ?>
+                            </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Initial Quantity <span class="required">*</span></label>
+                        <input type="number" id="quantity" name="quantity" min="0" required placeholder="Enter initial quantity">
+                    </div>
+                    <div class="form-group">
+                        <label for="unit">Unit <span class="required">*</span></label>
+                        <input type="text" id="unit" name="unit" required placeholder="e.g., pcs, kg, ml" maxlength="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" placeholder="Optional item description" maxlength="500"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-cancel" onclick="closeModal('addItemModal')">Cancel</button>
+                <button type="submit" form="addItemForm" class="btn-submit">Add Item</button>
+            </div>
         </div>
     </div>
 
@@ -784,112 +1000,116 @@ $items = $items ?: [];
     <?php endif; ?>
 
     <script>
-        // Prevent form from navigating away
-        document.addEventListener('DOMContentLoaded', function() {
-            const forms = document.querySelectorAll('form');
-            forms.forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const formData = new FormData(this);
-                    const actionUrl = this.action;
-                    
-                    fetch(actionUrl, {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            showNotification(data.message, 'success');
-                            // Close any open modals
-                            const openModals = document.querySelectorAll('.modal[style*="display: flex"]');
-                            openModals.forEach(modal => {
-                                modal.style.display = 'none';
-                            });
-                            
-                            // Optionally reload specific sections or entire page
-                            setTimeout(() => {
-                                location.reload();
-                            }, 1500);
-                        } else {
-                            showNotification(data.message, 'error');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        showNotification('An unexpected error occurred', 'error');
-                    });
-                });
-            });
-        });
-
-        // Notification function
-        function showNotification(message, type = 'info') {
-            // Remove any existing notifications
-            const existingNotifications = document.querySelectorAll('.notification');
-            existingNotifications.forEach(notification => notification.remove());
-
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.textContent = message;
-            
-            // Ensure initial hidden state
-            notification.style.opacity = '0';
-            notification.style.transform = 'translate(-50%, -20px)';
-            
-            document.body.appendChild(notification);
-
-            // Trigger reflow to enable transition
-            notification.offsetHeight;
-
-            // Show notification
-            notification.classList.add('show');
-
-            // Automatically remove notification after 3 seconds
-            const removeNotification = () => {
-                notification.style.opacity = '0';
-                notification.style.transform = 'translate(-50%, -20px)';
-                setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
-                    }
-                }, 300);
-            };
-
-            const removeTimer = setTimeout(removeNotification, 3000);
-
-            // Optional: Allow manual dismissal
-            notification.addEventListener('click', () => {
-                clearTimeout(removeTimer);
-                removeNotification();
-            });
-        }
-
-        // Modal functions
+        // Modal functions for dashboard
         function openModal(modalId) {
+            console.log('Opening modal:', modalId);  // Debug log
             const modal = document.getElementById(modalId);
             if (modal) {
-                modal.style.display = 'flex';
+                modal.classList.add('show');
+                
+                // Add close button event listener
+                const closeButton = modal.querySelector('.close');
+                if (closeButton) {
+                    closeButton.addEventListener('click', function() {
+                        closeModal(modalId);
+                    });
+                }
+            } else {
+                console.error('Modal not found:', modalId);
             }
         }
 
         function closeModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) {
-                modal.style.display = 'none';
+                modal.classList.remove('show');
             }
         }
 
-        // Close modal when clicking outside of it
-        window.addEventListener('click', function(event) {
+        // Attach click event to quick action cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const quickActionCards = document.querySelectorAll('.quick-action-card');
+            quickActionCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const onclickAttr = this.getAttribute('onclick');
+                    if (onclickAttr) {
+                        // Use eval carefully, only for predefined safe actions
+                        try {
+                            eval(onclickAttr);
+                        } catch (error) {
+                            console.error('Error executing quick action:', error);
+                        }
+                    }
+                });
+            });
+        });
+
+        // Close modal when clicking outside the modal content
+        document.addEventListener('click', function(event) {
             const modals = document.querySelectorAll('.modal');
             modals.forEach(modal => {
                 if (event.target === modal) {
-                    modal.style.display = 'none';
+                    modal.classList.remove('show');
                 }
             });
         });
+
+        // Close modal with 'Esc' key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const openModals = document.querySelectorAll('.modal.show');
+                openModals.forEach(modal => {
+                    modal.classList.remove('show');
+                });
+            }
+        });
+
+        // Event listener for add item form submission
+        document.getElementById('addItemForm')?.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch('../../actions/add_item.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success notification
+                    showNotification('Item added successfully!', 'success');
+                    
+                    // Close the modal
+                    closeModal('addItemModal');
+                    
+                    // Optional: Refresh the page or update the items list
+                    location.reload();
+                } else {
+                    // Show error notification
+                    showNotification(data.message || 'Failed to add item', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('An error occurred', 'error');
+            });
+        });
+
+        // Notification function
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.classList.add('notification', type);
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
     </script>
 
     <script>

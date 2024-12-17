@@ -385,3 +385,28 @@ Quantity: 5
 Notes: Restock
 User Role: admin
 
+2024-12-17 20:58:40 - Incoming Request:
+Array
+(
+    [item_id] => 13
+    [quantity] => 5
+    [adjust_type] => add
+    [notes] => update
+)
+
+Session Data:
+Array
+(
+    [user_id] => 3
+    [first_name] => Regular
+    [role] => admin
+)
+
+
+2024-12-17 20:58:40 - Processed Data:
+Item ID: 13
+Action: add
+Quantity: 5
+Notes: update
+User Role: admin
+

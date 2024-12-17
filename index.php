@@ -48,13 +48,11 @@
         <div class="heading" data-aos="fade-right" data-aos-duration="2000">
           <h1>Welcome to Hospi Manager</h1>
           <p>
-            Hospi Manager is a hospital management system that helps hospital staff to keep track of their
-            inventory, and monitor their activities. It is an efficient and
-            user-friendly system that helps to streamline hospital operations and makes sure that they properly monitor their inventory.
+          Hospi Manager is a comprehensive hospital management system designed to streamline hospital operations. With Hospi Manager, hospital staff can efficiently track inventory, monitor daily activities, and ensure smooth workflow across departments.
           </p>
-          <p>
+          <!-- <p>
             We are here to make your life easier. Our platform is designed to make it easy for you to manage your hospital's inventory and monitor your activities. We understand that managing a hospital can be a daunting task, and that is why we have created this platform to help you.
-          </p>
+          </p> -->
 
           <div class="button-container">
             <a href="./view/register.php"><button class="btn" data-aos="fade-left"
@@ -73,11 +71,9 @@
           <h1 data-aos="fade-left" data-aos-duration="1000">About us</h1>
           <p data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
             At Hospi Manager Headquarters, we believe that managing a hospital's inventory and
-            activities should be easy and efficient. Our online platform is
-            designed to make it easy for you to keep track of your inventory and
-            monitor your activities. With our user-friendly interface and
-            efficient system, you can rest assured that your hospital is running
-            smoothly.
+            activities should be easy and efficient. 
+            Our platform is intuitive, user-friendly, and built to simplify hospital management.
+             We understand the challenges of running a healthcare facility, and our goal is to make the process as seamless as possible. Hospi Manager empowers you to stay organized and focused on what matters most: providing exceptional care.
           </p>
         </div>
       </div>

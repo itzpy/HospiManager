@@ -20,7 +20,7 @@ if (!isLoggedIn()) {
 // Get user information
 $userId = $_SESSION['user_id'];
 $userRole = $_SESSION['role'];
-$fullName = $_SESSION['full_name'] ?? 'User';
+$fullName = $_SESSION['first_name'] ?? 'User';
 
 // Restrict access to superadmin only
 if ($userRole !== 'superadmin') {
@@ -99,7 +99,7 @@ if (!empty($stockFilter)) {
     debugLog("Applying Stock Filter: " . $stockFilter);
     switch ($stockFilter) {
         case 'low':
-            $query .= " AND i.quantity > 0 AND i.quantity <= 10";
+            $query .= " AND i.quantity > 0 AND i.quantity < 10";
             break;
         case 'out':
             $query .= " AND i.quantity = 0";
@@ -127,6 +127,67 @@ if ($sortColumn === 'category_name') {
 debugLog("Final Query: " . $query);
 debugLog("Param Types: " . $types);
 debugLog("Param Count: " . count($params));
+
+// Check for AJAX request
+if (isset($_GET['ajax']) && $_GET['ajax'] === 'true') {
+    header('Content-Type: application/json');
+    
+    try {
+        // Prepare and execute the query
+        $stmt = $conn->prepare($query);
+        
+        if (!$stmt) {
+            throw new Exception('Failed to prepare statement: ' . $conn->error);
+        }
+        
+        // Bind parameters if any
+        if (!empty($params)) {
+            array_unshift($params, $types);
+            call_user_func_array([$stmt, 'bind_param'], $params);
+        }
+        
+        if (!$stmt->execute()) {
+            throw new Exception('Failed to execute query: ' . $stmt->error);
+        }
+        
+        $result = $stmt->get_result();
+        
+        if (!$result) {
+            throw new Exception('Failed to get result: ' . $stmt->error);
+        }
+        
+        $items = $result->fetch_all(MYSQLI_ASSOC);
+
+        // Prepare JSON response
+        $response = [
+            'success' => true,
+            'items' => array_map(function($item) {
+                return [
+                    'item_id' => $item['item_id'],
+                    'name' => htmlspecialchars($item['name']),
+                    'category_name' => htmlspecialchars($item['category_name']),
+                    'quantity' => $item['quantity'],
+                    'unit' => htmlspecialchars($item['unit']),
+                    'last_updated' => $item['last_updated'],
+                    'status' => $item['status']
+                ];
+            }, $items)
+        ];
+        
+        echo json_encode($response);
+    } catch (Exception $e) {
+        // Log the error
+        error_log('AJAX Search Error: ' . $e->getMessage());
+        
+        // Return error response
+        echo json_encode([
+            'success' => false,
+            'error' => $e->getMessage()
+        ]);
+    }
+    
+    exit;
+}
 
 // Prepare and execute the query
 $stmt = $conn->prepare($query);
@@ -366,12 +427,6 @@ $lowStockItems = $lowStockItems ?: [];
                     </a>
                 </li>
                 <?php endif; ?>
-                <li>
-                    <a href="settings.php">
-                        <span class="material-icons">settings</span>
-                        <span>Settings</span>
-                    </a>
-                </li>
             </ul>
             <div class="nav-profile">
                 <div class="user-info">
@@ -908,6 +963,130 @@ $lowStockItems = $lowStockItems ?: [];
 
         // Call on page load
         highlightCurrentSort();
+    </script>
+    <script>
+        // Dynamic Search Implementation with Enhanced Debugging
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Loaded: Setting up dynamic search');
+
+            // Check if elements exist
+            const searchInput = document.getElementById('searchInput');
+            const inventoryTable = document.querySelector('.inventory-table tbody');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const stockFilter = document.getElementById('stockFilter');
+            const sortColumn = document.getElementById('sortColumn');
+            const sortOrder = document.getElementById('sortOrder');
+
+            // Log element existence
+            console.log('Search Input:', !!searchInput);
+            console.log('Inventory Table:', !!inventoryTable);
+            console.log('Category Filter:', !!categoryFilter);
+            console.log('Stock Filter:', !!stockFilter);
+            console.log('Sort Column:', !!sortColumn);
+            console.log('Sort Order:', !!sortOrder);
+
+            // If any element is missing, exit early
+            if (!searchInput || !inventoryTable || !categoryFilter || 
+                !stockFilter || !sortColumn || !sortOrder) {
+                console.error('One or more required elements are missing');
+                return;
+            }
+
+            // Debounce function to limit API calls
+            function debounce(func, delay) {
+                let timeoutId;
+                return function() {
+                    const context = this;
+                    const args = arguments;
+                    clearTimeout(timeoutId);
+                    timeoutId = setTimeout(() => {
+                        func.apply(context, args);
+                    }, delay);
+                };
+            }
+
+            // Dynamic search function
+            const performSearch = debounce(function() {
+                const searchTerm = searchInput.value.trim();
+                const selectedCategory = categoryFilter.value;
+                const selectedStock = stockFilter.value;
+                const selectedSortColumn = sortColumn.value;
+                const selectedSortOrder = sortOrder.value;
+
+                console.log('Search Parameters:', {
+                    searchTerm,
+                    selectedCategory,
+                    selectedStock,
+                    selectedSortColumn,
+                    selectedSortOrder
+                });
+
+                // Create URLSearchParams for clean parameter handling
+                const params = new URLSearchParams({
+                    search: searchTerm,
+                    category: selectedCategory,
+                    stock: selectedStock,
+                    sort: selectedSortColumn,
+                    order: selectedSortOrder,
+                    ajax: 'true'  // Flag for AJAX request
+                });
+
+                console.log('Fetch URL:', `inventory.php?${params.toString()}`);
+
+                fetch(`inventory.php?${params.toString()}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    console.log('Response Status:', response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Received Data:', data);
+
+                    // Clear existing table rows
+                    inventoryTable.innerHTML = '';
+
+                    // Populate table with new results
+                    data.items.forEach(item => {
+                        const row = `
+                            <tr data-item-id="${item.item_id}" data-category="${item.category_id}" 
+                                data-stock="${item.quantity <= 10 ? 'low' : (item.quantity == 0 ? 'out' : 'available')}">
+                                <td>${item.name}</td>
+                                <td>${item.category_name}</td>
+                                <td>${item.quantity}</td>
+                                <td>${item.unit}</td>
+                                <td>${item.last_updated}</td>
+                                <td>${item.status}</td>
+                                <td>
+                                    <button onclick="openAdjustStockModal(${item.item_id}, '${item.name}', ${item.quantity})" class="action-btn">
+                                        <span class="material-icons">edit</span>
+                                    </button>
+                                    <button onclick="deleteItem(${item.item_id})" class="action-btn delete">
+                                        <span class="material-icons">delete</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                        inventoryTable.innerHTML += row;
+                    });
+                })
+                .catch(error => {
+                    console.error('Search Error:', error);
+                });
+            }, 300);  // 300ms debounce delay
+
+            // Add event listeners for dynamic filtering
+            searchInput.addEventListener('input', performSearch);
+            categoryFilter.addEventListener('change', performSearch);
+            stockFilter.addEventListener('change', performSearch);
+            sortColumn.addEventListener('change', performSearch);
+            sortOrder.addEventListener('change', performSearch);
+
+            console.log('Dynamic search event listeners added');
+        });
     </script>
     <script>
         // Delete Item Function

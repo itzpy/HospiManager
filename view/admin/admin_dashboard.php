@@ -25,7 +25,7 @@ if (!isLoggedIn() || $_SESSION['role'] !== 'admin') {
 // Get user information
 $userId = $_SESSION['user_id'];
 $userRole = $_SESSION['role'];
-$fullName = $_SESSION['full_name'] ?? 'User';
+$fullName = $_SESSION['first_name'] ?? 'User';
 
 // Get dashboard statistics
 $stats = getDashboardStats($conn);
@@ -638,14 +638,16 @@ if ($userRole === 'superadmin') {
                         $categoryItemCount = $category['item_count'] ?? 0;
                     ?>
                         <a href="admin_inventory.php?category=<?= $category['category_id'] ?>" class="category-card">
-                            <div class="category-icon"></div>
+                            <div class="category-icon">
+                                <span class="material-icons">
+                                       <?= !empty($category['icon']) ? htmlspecialchars($category['icon']) : 'category' ?>
+                                </span>
+                            </div>
                             <div class="category-details">
                                 <h3><?= htmlspecialchars($category['name']) ?></h3>
                                 <p><?= $categoryItemCount ?> Items</p>
                             </div>
-                            <div class="category-actions">
-                                <button class="edit-btn" onclick="event.preventDefault(); editCategory(<?= $category['category_id'] ?>, '<?= htmlspecialchars($category['name']) ?>')"></button>
-                            </div>
+    
                         </a>
                     <?php endforeach; ?>
                     <?php else: ?>

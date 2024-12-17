@@ -20,7 +20,7 @@ if (!isLoggedIn()) {
 // Get user information
 $userId = $_SESSION['user_id'];
 $userRole = $_SESSION['role'];
-$fullName = $_SESSION['full_name'] ?? 'User';
+$fullName = $_SESSION['first_name'] ?? 'User';
 
 // Debug logging function
 function debugLog($message) {
@@ -120,6 +120,55 @@ if ($sortColumn === 'category_name') {
 debugLog("Final Query: " . $query);
 debugLog("Param Types: " . $types);
 debugLog("Param Count: " . count($params));
+
+// Check for AJAX request
+if (isset($_GET['ajax']) && $_GET['ajax'] === 'true') {
+    header('Content-Type: application/json');
+    
+    try {
+        // Prepare and execute the query
+        $stmt = $conn->prepare($query);
+        
+        // Bind parameters if any
+        if (!empty($params)) {
+            array_unshift($params, $types);
+            call_user_func_array([$stmt, 'bind_param'], $params);
+        }
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $items = $result->fetch_all(MYSQLI_ASSOC);
+
+        // Prepare JSON response
+        $response = [
+            'success' => true,
+            'items' => array_map(function($item) {
+                return [
+                    'item_id' => $item['item_id'],
+                    'name' => htmlspecialchars($item['name']),
+                    'category_name' => htmlspecialchars($item['category_name']),
+                    'quantity' => $item['quantity'],
+                    'unit' => htmlspecialchars($item['unit']),
+                    'last_updated' => $item['last_updated'],
+                    'status' => $item['status']
+                ];
+            }, $items)
+        ];
+        
+        echo json_encode($response);
+        exit;
+    } catch (Exception $e) {
+        // Log the error
+        error_log('AJAX Search Error: ' . $e->getMessage());
+        
+        // Return error response
+        echo json_encode([
+            'success' => false,
+            'error' => $e->getMessage()
+        ]);
+        exit;
+    }
+}
 
 // Prepare and execute the query
 $stmt = $conn->prepare($query);
@@ -381,7 +430,7 @@ $lowStockItems = $lowStockItems ?: [];
             </div>
             <ul class="nav-menu">
                 <li>
-                    <a href="dashboard.php">
+                    <a href="admin_dashboard.php">
                         <span class="material-icons">dashboard</span>
                         <span>Dashboard</span>
                     </a>
@@ -459,8 +508,8 @@ $lowStockItems = $lowStockItems ?: [];
                         <label for="stockFilter">Stock Level:</label>
                         <select id="stockFilter" onchange="updateFilter('stock', this.value)">
                             <option value="">All Stock Levels</option>
-                            <option value="available" <?= $stockFilter == 'available' ? 'selected' : '' ?>>Available (>=10)</option>
-                            <option value="low" <?= $stockFilter == 'low' ? 'selected' : '' ?>>Low Stock (<=10)</option>
+                            <option value="available" <?= $stockFilter == 'available' ? 'selected' : '' ?>>Available (>10)</option>
+                            <option value="low" <?= $stockFilter == 'low' ? 'selected' : '' ?>>Low Stock (<10)</option>
                             <option value="out" <?= $stockFilter == 'out' ? 'selected' : '' ?>>Out of Stock (0)</option>
                         </select>
                     </div>
@@ -569,6 +618,28 @@ $lowStockItems = $lowStockItems ?: [];
                     </tbody>
                 </table>
             </div>
+             <!-- Low Stock Alerts -->
+             <?php if (!empty($lowStockItems)): ?>
+            <div class="alerts-section">
+                <h2>Low Stock Alerts</h2>
+                <div class="alerts-grid">
+                    <?php foreach ($lowStockItems as $item): ?>
+                    <div class="alert-card <?= $item['quantity'] == 0 ? 'danger' : 'warning' ?>">
+                        <div class="alert-icon">
+                            <span class="material-icons"><?= $item['quantity'] == 0 ? 'error' : 'warning' ?></span>
+                        </div>
+                        <div class="alert-content">
+                            <h3><?= htmlspecialchars($item['name']) ?></h3>
+                            <p>Current Stock: <?= $item['quantity'] ?> <?= htmlspecialchars($item['unit']) ?></p>
+                            <button class="btn" onclick="adjustStock(<?= $item['item_id'] ?>)">
+                                Update Stock
+                            </button>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <?php endif; ?>
         </main>
     </div>
 
@@ -960,118 +1031,81 @@ $lowStockItems = $lowStockItems ?: [];
         function updateFilter(filterType, value) {
             // Get current URL parameters
             const urlParams = new URLSearchParams(window.location.search);
-            
-            // Log the filter update
-            console.log(`Updating filter - Type: ${filterType}, Value: ${value}`);
-            
-            // Set or remove the filter parameter
-            if (value) {
-                urlParams.set(filterType, value);
-            } else {
-                urlParams.delete(filterType);
+
+            // Update specific parameter based on filter type
+            switch(filterType) {
+                case 'search':
+                    urlParams.set('search', value);
+                    break;
+                case 'category':
+                    urlParams.set('category', value);
+                    break;
+                case 'stock':
+                    urlParams.set('stock', value);
+                    break;
+                case 'sort':
+                    urlParams.set('sort', value);
+                    break;
+                case 'order':
+                    urlParams.set('order', value);
+                    break;
             }
-            
+
             // Remove page parameter to reset pagination
             urlParams.delete('page');
-            
+
             // Construct new URL
             const newUrl = window.location.pathname + '?' + urlParams.toString();
-            
-            // Log the new URL
-            console.log(`New URL: ${newUrl}`);
-            
-            // Redirect to the new URL
-            window.location.href = newUrl;
-        }
 
-        // Enhanced filter initialization
-        function initializeFilters() {
-            // Get current URL parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            
-            // Set initial values for dropdowns
-            const categoryFilter = urlParams.get('category') || '';
-            const stockFilter = urlParams.get('stock') || '';
-            
-            // Log initial filter states
-            console.log(`Initial Category Filter: ${categoryFilter}`);
-            console.log(`Initial Stock Filter: ${stockFilter}`);
-            
-            // Update dropdowns to match URL
-            const categorySelect = document.getElementById('categoryFilter');
-            const stockSelect = document.getElementById('stockFilter');
-            
-            if (categorySelect) {
-                categorySelect.value = categoryFilter;
-            }
-            
-            if (stockSelect) {
-                stockSelect.value = stockFilter;
-            }
-        }
-
-        // Call initialization on page load
-        document.addEventListener('DOMContentLoaded', initializeFilters);
-
-        // Add click event to sortable headers
-        const sortableHeaders = document.querySelectorAll('.sortable');
-        
-        sortableHeaders.forEach(header => {
-            header.addEventListener('click', function() {
-                // Get the current column and order from URL or set defaults
-                const urlParams = new URLSearchParams(window.location.search);
-                const currentSort = urlParams.get('sort') || 'name';
-                const currentOrder = urlParams.get('order') || 'asc';
-                
-                // Get the column to sort from the clicked header
-                const column = this.getAttribute('data-column');
-                
-                // Determine new sort order
-                let newOrder = 'asc';
-                if (column === currentSort) {
-                    // If clicking the same column, toggle the order
-                    newOrder = (currentOrder === 'asc') ? 'desc' : 'asc';
+            // Fetch new data via AJAX
+            fetch(newUrl + '&ajax=true', {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
                 }
-                
-                // Update URL parameters
-                urlParams.set('sort', column);
-                urlParams.set('order', newOrder);
-                
-                // Redirect or reload with new sorting
-                window.location.search = urlParams.toString();
-            });
-        });
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Received Data:', data);
 
-        // Ensure current sort column and order are visually indicated
-        function highlightCurrentSort() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const currentSort = urlParams.get('sort') || 'name';
-            const currentOrder = urlParams.get('order') || 'asc';
+                if (data.success) {
+                    // Update table rows
+                    const inventoryTable = document.querySelector('.inventory-table tbody');
+                    inventoryTable.innerHTML = '';
 
-            sortableHeaders.forEach(header => {
-                const column = header.getAttribute('data-column');
-                const sortIcon = header.querySelector('.sort-icon');
+                    data.items.forEach(item => {
+                        const row = `
+                            <tr data-item-id="${item.item_id}" data-category="${item.category_id}" 
+                                data-stock="${item.quantity <= 10 ? 'low' : (item.quantity == 0 ? 'out' : 'available')}">
+                                <td>${item.name}</td>
+                                <td>${item.category_name}</td>
+                                <td>${item.quantity}</td>
+                                <td>${item.unit}</td>
+                                <td>${item.last_updated}</td>
+                                <td>${item.status}</td>
+                                <td>
+                                    <button onclick="editItem(${item.item_id})" class="action-btn">
+                                        <span class="material-icons">edit</span>
+                                    </button>
+                                    <button onclick="deleteItem(${item.item_id})" class="action-btn delete">
+                                        <span class="material-icons">delete</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                        inventoryTable.innerHTML += row;
+                    });
 
-                if (column === currentSort) {
-                    // Add active sort class
-                    header.classList.add('active-sort');
-                    
-                    // Update sort icon
-                    if (sortIcon) {
-                        sortIcon.textContent = currentOrder === 'asc' ? 'arrow_drop_up' : 'arrow_drop_down';
-                        sortIcon.style.display = 'inline-block';
-                    }
+                    // Update URL without page reload
+                    window.history.pushState({path: newUrl}, '', newUrl);
                 } else {
-                    header.classList.remove('active-sort');
-                    if (sortIcon) {
-                        sortIcon.style.display = 'none';
-                    }
+                    console.error('Search failed:', data.error);
                 }
+            })
+            .catch(error => {
+                console.error('Fetch Error:', error);
             });
         }
-
-        // Call on page load
-        highlightCurrentSort();
     </script>
     <script>
         // Modify the existing adjustStock function to work for both admin and superadmin

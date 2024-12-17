@@ -20,7 +20,7 @@ if (!isLoggedIn()) {
 // Get user information
 $userId = $_SESSION['user_id'];
 $userRole = $_SESSION['role'];
-$fullName = $_SESSION['full_name'] ?? 'User';
+$fullName = $_SESSION['first_name'] ?? 'User';
 
 // Debug logging function
 function debugLog($message) {
@@ -92,7 +92,7 @@ if (!empty($stockFilter)) {
     debugLog("Applying Stock Filter: " . $stockFilter);
     switch ($stockFilter) {
         case 'low':
-            $query .= " AND i.quantity > 0 AND i.quantity <= 10";
+            $query .= " AND i.quantity > 0 AND i.quantity < 10";
             break;
         case 'out':
             $query .= " AND i.quantity = 0";
@@ -120,6 +120,42 @@ if ($sortColumn === 'category_name') {
 debugLog("Final Query: " . $query);
 debugLog("Param Types: " . $types);
 debugLog("Param Count: " . count($params));
+
+// Check for AJAX request
+if (isset($_GET['ajax']) && $_GET['ajax'] === 'true') {
+    header('Content-Type: application/json');
+    
+    // Prepare and execute the query
+    $stmt = $conn->prepare($query);
+    
+    // Bind parameters if any
+    if (!empty($params)) {
+        array_unshift($params, $types);
+        call_user_func_array([$stmt, 'bind_param'], $params);
+    }
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $items = $result->fetch_all(MYSQLI_ASSOC);
+
+    // Prepare JSON response
+    $response = [
+        'items' => array_map(function($item) {
+            return [
+                'item_id' => $item['item_id'],
+                'name' => htmlspecialchars($item['name']),
+                'category_name' => htmlspecialchars($item['category_name']),
+                'quantity' => $item['quantity'],
+                'unit' => htmlspecialchars($item['unit']),
+                'last_updated' => $item['last_updated'],
+                'status' => $item['status']
+            ];
+        }, $items)
+    ];
+    
+    echo json_encode($response);
+    exit;
+}
 
 // Prepare and execute the query
 $stmt = $conn->prepare($query);
@@ -768,6 +804,92 @@ $lowStockItems = $lowStockItems ?: [];
 
         // Call on page load
         highlightCurrentSort();
+    </script>
+    <script>
+        // Dynamic Search Implementation
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const inventoryTable = document.querySelector('.inventory-table tbody');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const stockFilter = document.getElementById('stockFilter');
+            const sortColumn = document.getElementById('sortColumn');
+            const sortOrder = document.getElementById('sortOrder');
+
+            // Debounce function to limit API calls
+            function debounce(func, delay) {
+                let timeoutId;
+                return function() {
+                    const context = this;
+                    const args = arguments;
+                    clearTimeout(timeoutId);
+                    timeoutId = setTimeout(() => {
+                        func.apply(context, args);
+                    }, delay);
+                };
+            }
+
+            // Dynamic search function
+            const performSearch = debounce(function() {
+                const searchTerm = searchInput.value.trim();
+                const selectedCategory = categoryFilter.value;
+                const selectedStock = stockFilter.value;
+                const selectedSortColumn = sortColumn.value;
+                const selectedSortOrder = sortOrder.value;
+
+                // Create URLSearchParams for clean parameter handling
+                const params = new URLSearchParams({
+                    search: searchTerm,
+                    category: selectedCategory,
+                    stock: selectedStock,
+                    sort: selectedSortColumn,
+                    order: selectedSortOrder,
+                    ajax: 'true'  // Flag for AJAX request
+                });
+
+                fetch(`inventory.php?${params.toString()}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Clear existing table rows
+                    inventoryTable.innerHTML = '';
+
+                    // Populate table with new results
+                    data.items.forEach(item => {
+                        const row = `
+                            <tr data-item-id="${item.item_id}" data-category="${item.category_id}" 
+                                data-stock="${item.quantity <= 10 ? 'low' : (item.quantity == 0 ? 'out' : 'available')}">
+                                <td>${item.name}</td>
+                                <td>${item.category_name}</td>
+                                <td>${item.quantity}</td>
+                                <td>${item.unit}</td>
+                                <td>${item.last_updated}</td>
+                                <td>${item.status}</td>
+                                <td>
+                                    <button onclick="openAdjustStockModal(${item.item_id}, '${item.name}', ${item.quantity})" class="action-btn">
+                                        <span class="material-icons">edit</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                        inventoryTable.innerHTML += row;
+                    });
+                })
+                .catch(error => {
+                    console.error('Search error:', error);
+                });
+            }, 300);  // 300ms debounce delay
+
+            // Add event listeners for dynamic filtering
+            searchInput.addEventListener('input', performSearch);
+            categoryFilter.addEventListener('change', performSearch);
+            stockFilter.addEventListener('change', performSearch);
+            sortColumn.addEventListener('change', performSearch);
+            sortOrder.addEventListener('change', performSearch);
+        });
     </script>
     <script>
         // Modify the existing adjustStock function to work for both admin and superadmin

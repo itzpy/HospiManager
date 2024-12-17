@@ -18,12 +18,6 @@
                 Inventory
             </a>
         </li>
-        <li class="<?= (basename($_SERVER['PHP_SELF']) == 'settings.php') ? 'active' : '' ?>">
-            <a href="../admin/settings.php">
-                <span class="material-icons">settings</span>
-                System Settings
-            </a>
-        </li>
         <li>
             <a href="../logout.php">
                 <span class="material-icons">logout</span>
