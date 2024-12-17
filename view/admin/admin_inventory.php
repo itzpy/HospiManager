@@ -23,9 +23,9 @@ $userRole = $_SESSION['role'];
 $fullName = $_SESSION['first_name'] ?? 'User';
 
 // Debug logging function
-function debugLog($message) {
-    error_log("[Inventory Filter Debug] " . $message, 3, "C:/xampp/htdocs/Hospital_Management/logs/inventory_filter_debug.log");
-}
+// function debugLog($message) {
+//     error_log("[Inventory Filter Debug] " . $message, 3, "C:/xampp/htdocs/Hospital_Management/logs/inventory_filter_debug.log");
+// }
 
 // Get filter parameters
 $searchQuery = $_GET['search'] ?? '';
@@ -35,11 +35,11 @@ $sortColumn = $_GET['sort'] ?? 'name';
 $sortOrder = $_GET['order'] ?? 'asc';
 
 // Debug logging of filter values
-debugLog("Search Query: " . $searchQuery);
-debugLog("Category Filter: " . $categoryFilter);
-debugLog("Stock Filter: " . $stockFilter);
-debugLog("Sort Column: " . $sortColumn);
-debugLog("Sort Order: " . $sortOrder);
+// debugLog("Search Query: " . $searchQuery);
+// debugLog("Category Filter: " . $categoryFilter);
+// debugLog("Stock Filter: " . $stockFilter);
+// debugLog("Sort Column: " . $sortColumn);
+// debugLog("Sort Order: " . $sortOrder);
 
 // Validate sort column and order
 $validColumns = ['name', 'category_name', 'quantity', 'unit', 'last_updated', 'status'];
@@ -76,20 +76,20 @@ if (!empty($categoryFilter)) {
     $categoryCheckStmt->execute();
     $categoryCheckResult = $categoryCheckStmt->get_result()->fetch_assoc();
     
-    debugLog("Category Check Count: " . $categoryCheckResult['count']);
+    // debugLog("Category Check Count: " . $categoryCheckResult['count']);
     
     if ($categoryCheckResult['count'] > 0) {
         $query .= " AND i.category_id = ?";
         $params[] = &$categoryFilter;
         $types .= 'i';
     } else {
-        debugLog("Invalid category filter: " . $categoryFilter);
+        // debugLog("Invalid category filter: " . $categoryFilter);
     }
 }
 
 // Apply stock filter
 if (!empty($stockFilter)) {
-    debugLog("Applying Stock Filter: " . $stockFilter);
+    // debugLog("Applying Stock Filter: " . $stockFilter);
     switch ($stockFilter) {
         case 'low':
             $query .= " AND i.quantity > 0 AND i.quantity <= 10";
@@ -101,7 +101,7 @@ if (!empty($stockFilter)) {
             $query .= " AND i.quantity > 10";
             break;
         default:
-            debugLog("Invalid stock filter: " . $stockFilter);
+            // debugLog("Invalid stock filter: " . $stockFilter);
     }
 }
 
@@ -117,9 +117,9 @@ if ($sortColumn === 'category_name') {
 }
 
 // Debug the final query
-debugLog("Final Query: " . $query);
-debugLog("Param Types: " . $types);
-debugLog("Param Count: " . count($params));
+// debugLog("Final Query: " . $query);
+// debugLog("Param Types: " . $types);
+// debugLog("Param Count: " . count($params));
 
 // Check for AJAX request
 if (isset($_GET['ajax']) && $_GET['ajax'] === 'true') {
@@ -184,7 +184,7 @@ $result = $stmt->get_result();
 $items = $result->fetch_all(MYSQLI_ASSOC);
 
 // Debug number of items retrieved
-debugLog("Items Retrieved: " . count($items));
+// debugLog("Items Retrieved: " . count($items));
 
 // Ensure items is an array
 $items = $items ?: [];

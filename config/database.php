@@ -1,13 +1,13 @@
 <?php
-// define('DB_HOST', 'localhost');
-// define('DB_USER', 'papa.badu');
-// define('DB_PASS', 'password');
-// define('DB_NAME', 'webtech_fall2024_papa_badu');
-
 define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'hospital_management');
+define('DB_USER', 'papa.badu');
+define('DB_PASS', 'password');
+define('DB_NAME', 'webtech_fall2024_papa_badu');
+
+// define('DB_HOST', 'localhost');
+// define('DB_USER', 'root');
+// define('DB_PASS', '');
+// define('DB_NAME', 'hospital_management');
 
 
 try {
