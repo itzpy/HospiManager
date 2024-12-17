@@ -127,3 +127,25 @@
 [2024-12-17 19:49:25] Database connection status: Connected
 [2024-12-17 19:49:25] Item not found. Item ID: 30
 [2024-12-17 19:49:25] Sending response: {"success":false,"message":"Item not found","item_id":30,"session_role":"superadmin","session_user_id":2,"error":"No item found with the given ID"}
+[2024-12-17 22:53:52] Incoming delete request: Array
+(
+)
+
+[2024-12-17 22:53:52] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-17 22:53:52] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-17 22:53:52] Unexpected error: Access denied for user 'papa.badu'@'localhost' (using password: YES)
+Trace: #0 C:\xampp\htdocs\Hospital_Management\db\database.php(18): mysqli->__construct('localhost', 'papa.badu', Object(SensitiveParameterValue), 'webtech_fall202...')
+#1 C:\xampp\htdocs\Hospital_Management\actions\delete_item.php(66): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+[2024-12-17 22:53:52] Sending response: {"success":false,"message":"Unexpected error occurred","error_message":"Access denied for user 'papa.badu'@'localhost' (using password: YES)","error_trace":"#0 C:\\xampp\\htdocs\\Hospital_Management\\db\\database.php(18): mysqli->__construct('localhost', 'papa.badu', Object(SensitiveParameterValue), 'webtech_fall202...')\n#1 C:\\xampp\\htdocs\\Hospital_Management\\actions\\delete_item.php(66): require_once('C:\\\\xampp\\\\htdocs...')\n#2 {main}"}
+[2024-12-17 22:53:53] Incoming delete request: Array
+(
+)
+
+[2024-12-17 22:53:53] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-17 22:53:53] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-17 22:53:53] Unexpected error: Access denied for user 'papa.badu'@'localhost' (using password: YES)
+Trace: #0 C:\xampp\htdocs\Hospital_Management\db\database.php(18): mysqli->__construct('localhost', 'papa.badu', Object(SensitiveParameterValue), 'webtech_fall202...')
+#1 C:\xampp\htdocs\Hospital_Management\actions\delete_item.php(66): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+[2024-12-17 22:53:53] Sending response: {"success":false,"message":"Unexpected error occurred","error_message":"Access denied for user 'papa.badu'@'localhost' (using password: YES)","error_trace":"#0 C:\\xampp\\htdocs\\Hospital_Management\\db\\database.php(18): mysqli->__construct('localhost', 'papa.badu', Object(SensitiveParameterValue), 'webtech_fall202...')\n#1 C:\\xampp\\htdocs\\Hospital_Management\\actions\\delete_item.php(66): require_once('C:\\\\xampp\\\\htdocs...')\n#2 {main}"}
