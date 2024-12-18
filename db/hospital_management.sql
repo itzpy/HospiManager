@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2024 at 06:41 PM
+-- Generation Time: Dec 18, 2024 at 11:50 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,7 +63,25 @@ INSERT INTO `activity_log` (`log_id`, `user_id`, `action`, `item_id`, `quantity_
 (40, 2, 'update', 25, 0, 'Category changed', '2024-12-15 22:17:56'),
 (47, 2, 'update', 2, -550, 'Quantity changed by -550', '2024-12-16 17:36:32'),
 (48, 2, 'adjust', 2, 10, 'restock', '2024-12-16 17:38:11'),
-(49, 2, 'update', 2, 0, 'Unit updated', '2024-12-16 17:38:43');
+(49, 2, 'update', 2, 0, 'Unit updated', '2024-12-16 17:38:43'),
+(51, 2, 'adjust', 2, -10, 'checking', '2024-12-17 19:00:05'),
+(52, 3, 'add', 13, 5, 'Stock addd by admin: update', '2024-12-17 19:58:40'),
+(58, 2, 'adjust', 2, 5, 'update', '2024-12-18 19:36:50'),
+(59, 2, 'adjust', 2, 10, 'update', '2024-12-18 19:37:06'),
+(62, 10, 'add', 29, 1, 'Stock addd by admin: add', '2024-12-18 19:45:16'),
+(63, 10, 'remove', 29, 1, 'Stock removed by admin: remove', '2024-12-18 19:45:31'),
+(64, 3, 'add', 29, 5, 'Stock addd by admin: add', '2024-12-18 21:36:49'),
+(65, 3, 'remove', 29, 5, 'Stock removed by admin: remove\n', '2024-12-18 21:37:05'),
+(66, 3, 'add', 29, 5, 'Stock addd by admin: let&#39;s see', '2024-12-18 21:37:35'),
+(67, 3, 'add', 29, 5, 'Stock addd by admin: Lt&#39;', '2024-12-18 21:40:00'),
+(68, 3, 'add', 29, 5, 'Stock addd by admin: 5', '2024-12-18 21:40:21'),
+(69, 3, 'add', 29, 4, 'Stock addd by admin: lets see', '2024-12-18 21:42:04'),
+(70, 3, 'add', 29, 5, 'let&#39;s see', '2024-12-18 21:50:10'),
+(71, 3, 'add', 29, 4, 'Stock addd by admin: lets see', '2024-12-18 21:51:07'),
+(72, 3, 'add', 29, 3, 'Stock addd by admin: les see', '2024-12-18 21:51:23'),
+(73, 3, 'remove', 29, 5, 'Stock removed by admin: lets ', '2024-12-18 21:51:56'),
+(74, 3, 'add', 29, 10, 'Stock addd by admin: py', '2024-12-18 22:06:35'),
+(75, 3, 'add', 29, 1, 'Stock addd by admin: lets see', '2024-12-18 22:06:45');
 
 -- --------------------------------------------------------
 
@@ -88,41 +106,8 @@ INSERT INTO `categories` (`category_id`, `name`, `description`, `created_at`) VA
 (3, 'Equipment', 'Medical equipment and devices', '2024-12-14 00:49:17'),
 (4, 'Laboratory', 'Laboratory supplies and materials', '2024-12-14 00:49:17'),
 (5, 'Personal Protective Equipment', 'PPE and safety equipment', '2024-12-14 01:20:21'),
-(6, 'Emergency Supplies', 'Emergency and first aid supplies', '2024-12-14 01:20:21');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `inventory_logs`
---
-
-CREATE TABLE `inventory_logs` (
-  `log_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
-  `action_type` enum('add','remove','update') NOT NULL,
-  `quantity_changed` int(11) NOT NULL,
-  `previous_quantity` int(11) NOT NULL,
-  `new_quantity` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `notes` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `inventory_transactions`
---
-
-CREATE TABLE `inventory_transactions` (
-  `transaction_id` int(11) NOT NULL,
-  `item_id` int(11) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `transaction_type` enum('add','remove','adjust') DEFAULT NULL,
-  `transaction_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `user_id` int(11) DEFAULT NULL,
-  `notes` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(6, 'Emergency Supplies', 'Emergency and first aid supplies', '2024-12-14 01:20:21'),
+(11, 'Food Items', 'food for patients', '2024-12-18 19:40:01');
 
 -- --------------------------------------------------------
 
@@ -148,7 +133,7 @@ CREATE TABLE `items` (
 
 INSERT INTO `items` (`item_id`, `category_id`, `name`, `description`, `quantity`, `unit`, `created_at`, `last_updated`, `minimum_quantity`) VALUES
 (1, 1, 'Paracetamol 500mg', 'Pain reliever and fever reducer', 1000, 'tablets', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
-(2, 1, 'Amoxicillin 250mg', 'Antibiotic capsules', 10, '0', '2024-12-14 01:20:21', '2024-12-16 17:38:43', 10),
+(2, 1, 'Amoxicillin 250mg', 'Antibiotic capsules', 15, '0', '2024-12-14 01:20:21', '2024-12-18 19:37:06', 10),
 (3, 1, 'Ibuprofen 400mg', 'Anti-inflammatory medication', 750, 'tablets', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
 (4, 1, 'Omeprazole 20mg', 'Acid reflux medication', 300, 'capsules', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
 (5, 2, 'Gauze Bandages', 'Sterile wound dressing', 1000, 'pieces', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
@@ -159,7 +144,7 @@ INSERT INTO `items` (`item_id`, `category_id`, `name`, `description`, `quantity`
 (10, 3, 'Blood Pressure Monitor', 'Automatic BP measurement device', 20, 'units', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
 (11, 3, 'Stethoscope', 'Acoustic medical device', 30, 'units', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
 (12, 3, 'Pulse Oximeter', 'Oxygen saturation monitor', 25, 'units', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
-(13, 4, 'Blood Collection Tubes', 'Vacuum sealed collection tubes', 998, 'pieces', '2024-12-14 01:20:21', '2024-12-15 20:46:02', 10),
+(13, 4, 'Blood Collection Tubes', 'Vacuum sealed collection tubes', 1003, 'pieces', '2024-12-14 01:20:21', '2024-12-17 19:58:40', 10),
 (14, 4, 'Microscope Slides', 'Glass slides for microscopy', 500, 'boxes', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
 (15, 4, 'Test Strips', 'Urinalysis test strips', 1500, 'strips', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
 (16, 4, 'Petri Dishes', 'Culture plates', 300, 'pieces', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
@@ -173,24 +158,7 @@ INSERT INTO `items` (`item_id`, `category_id`, `name`, `description`, `quantity`
 (24, 6, 'Burn Dressings', 'Specialized burn treatment', 100, 'pieces', '2024-12-14 01:20:21', '2024-12-14 01:20:21', 10),
 (25, 5, 'Nose Mask', 'These are the black ones', 100, '0', '2024-12-14 13:47:52', '2024-12-15 22:17:56', 10),
 (26, 2, 'Condoms', 'For the visitors', 20, 'boxes', '2024-12-14 21:15:13', '2024-12-15 20:50:37', 10),
-(29, 1, 'Advil 250g', 'Pain Killers', 15, '0', '2024-12-15 01:27:08', '2024-12-15 21:07:31', 10);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `system_settings`
---
-
-CREATE TABLE `system_settings` (
-  `id` int(11) NOT NULL,
-  `site_name` varchar(100) NOT NULL DEFAULT 'Hospital Management System',
-  `items_per_page` int(11) NOT NULL DEFAULT 10,
-  `low_stock_threshold` int(11) NOT NULL DEFAULT 10,
-  `enable_notifications` tinyint(1) NOT NULL DEFAULT 1,
-  `maintenance_mode` tinyint(1) NOT NULL DEFAULT 0,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(29, 1, 'Advil 250g', 'Pain Killers', 52, '0', '2024-12-15 01:27:08', '2024-12-18 22:06:45', 10);
 
 -- --------------------------------------------------------
 
@@ -214,26 +182,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password`, `role`, `created_at`, `last_login`) VALUES
-(1, 'Admin', 'User', 'admin@hospital.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'superadmin', '2024-12-14 00:49:17', NULL),
+(1, 'Admin', 'User', 'admin@hospital.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', '2024-12-14 00:49:17', NULL),
 (2, 'Papa', 'Badu', 'raybadu10@gmail.com', '$2y$10$f3JJnQF1.u53yCWv7f9Druw4yWmNw3XtsZAFTiH9zp5bLYVM8qP2q', 'superadmin', '2024-12-14 00:49:59', '2024-12-15 23:58:19'),
 (3, 'Regular', 'Admin', 'Admin@gmail.com', '$2y$10$XDqLDuZNVd6TN/ItiQKduunFLih5acqSVQsj0L8NcAuUTY61qgSw.', 'admin', '2024-12-14 01:08:30', '2024-12-15 22:20:23'),
-(7, 'Staff', 'Doctor', 'Staff@gmail.com', '$2y$10$xA.Oc0sdKlSLFJaUa1x3sucLD8UCwY/gH5xQFiL4mx.Hy/xlIV7KC', 'staff', '2024-12-16 00:28:12', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_settings`
---
-
-CREATE TABLE `user_settings` (
-  `user_id` int(11) NOT NULL,
-  `notifications_enabled` tinyint(1) NOT NULL DEFAULT 1,
-  `low_stock_threshold` int(11) NOT NULL DEFAULT 10,
-  `theme` varchar(20) NOT NULL DEFAULT 'light',
-  `items_per_page` int(11) NOT NULL DEFAULT 10,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(7, 'Staff', 'Doctor', 'Staff@gmail.com', '$2y$10$xA.Oc0sdKlSLFJaUa1x3sucLD8UCwY/gH5xQFiL4mx.Hy/xlIV7KC', 'staff', '2024-12-16 00:28:12', NULL),
+(10, 'Tester', 'Staff', 'TStaff@gmail.com', '$2y$10$sm1WWHcFea66.9FxX4jxiOtJH3P8U4Zzb0LJECMtwITmT0p3la5i.', 'admin', '2024-12-18 19:43:08', NULL);
 
 --
 -- Indexes for dumped tables
@@ -255,32 +208,11 @@ ALTER TABLE `categories`
   ADD UNIQUE KEY `name` (`name`);
 
 --
--- Indexes for table `inventory_logs`
---
-ALTER TABLE `inventory_logs`
-  ADD PRIMARY KEY (`log_id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `item_id` (`item_id`);
-
---
--- Indexes for table `inventory_transactions`
---
-ALTER TABLE `inventory_transactions`
-  ADD PRIMARY KEY (`transaction_id`),
-  ADD KEY `item_id` (`item_id`);
-
---
 -- Indexes for table `items`
 --
 ALTER TABLE `items`
   ADD PRIMARY KEY (`item_id`),
   ADD KEY `category_id` (`category_id`);
-
---
--- Indexes for table `system_settings`
---
-ALTER TABLE `system_settings`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -291,12 +223,6 @@ ALTER TABLE `users`
   ADD KEY `idx_last_login` (`last_login`);
 
 --
--- Indexes for table `user_settings`
---
-ALTER TABLE `user_settings`
-  ADD PRIMARY KEY (`user_id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -304,43 +230,25 @@ ALTER TABLE `user_settings`
 -- AUTO_INCREMENT for table `activity_log`
 --
 ALTER TABLE `activity_log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `inventory_logs`
---
-ALTER TABLE `inventory_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `inventory_transactions`
---
-ALTER TABLE `inventory_transactions`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
---
--- AUTO_INCREMENT for table `system_settings`
---
-ALTER TABLE `system_settings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
@@ -354,29 +262,10 @@ ALTER TABLE `activity_log`
   ADD CONSTRAINT `activity_log_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`);
 
 --
--- Constraints for table `inventory_logs`
---
-ALTER TABLE `inventory_logs`
-  ADD CONSTRAINT `inventory_logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
-  ADD CONSTRAINT `inventory_logs_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`);
-
---
--- Constraints for table `inventory_transactions`
---
-ALTER TABLE `inventory_transactions`
-  ADD CONSTRAINT `inventory_transactions_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`) ON DELETE CASCADE;
-
---
 -- Constraints for table `items`
 --
 ALTER TABLE `items`
   ADD CONSTRAINT `items_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`);
-
---
--- Constraints for table `user_settings`
---
-ALTER TABLE `user_settings`
-  ADD CONSTRAINT `user_settings_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

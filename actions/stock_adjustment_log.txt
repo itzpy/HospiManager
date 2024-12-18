@@ -493,3 +493,11 @@ User Role: admin
 2024-12-18 22:40:00 - Stock Adjustment Request: {"item_id":29,"action":"add","quantity":5,"notes":"Lt&#39;","user_role":"admin"}
 2024-12-18 22:40:21 - Stock Adjustment Request: {"item_id":29,"action":"add","quantity":5,"notes":"5","user_role":"admin"}
 2024-12-18 22:42:04 - Stock Adjustment Request: {"item_id":29,"action":"add","quantity":4,"notes":"lets see","user_role":"admin"}
+[2024-12-18 22:50:10] User: Regular  (ID: 3) - Item ID: 29, Action: add, Quantity: 5, New Total: 39, Notes: let&#39;s see
+2024-12-18 22:51:07 - Stock Adjustment Request: {"item_id":29,"action":"add","quantity":4,"notes":"lets see","user_role":"admin"}
+2024-12-18 22:51:23 - Stock Adjustment Request: {"item_id":29,"action":"add","quantity":3,"notes":"les see","user_role":"admin"}
+2024-12-18 22:51:56 - Stock Adjustment Request: {"item_id":29,"action":"remove","quantity":5,"notes":"lets ","user_role":"admin"}
+2024-12-18 23:06:30 - Stock Adjustment Request: {"item_id":29,"action":"add","quantity":10,"notes":"","user_role":"admin"}
+2024-12-18 23:06:30 - Stock Adjustment Error: Notes are required
+2024-12-18 23:06:35 - Stock Adjustment Request: {"item_id":29,"action":"add","quantity":10,"notes":"py","user_role":"admin"}
+2024-12-18 23:06:45 - Stock Adjustment Request: {"item_id":29,"action":"add","quantity":1,"notes":"lets see","user_role":"admin"}
