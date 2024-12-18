@@ -659,7 +659,7 @@ $lowStockItems = $lowStockItems ?: [];
                         <input type="hidden" id="adjust_item_id" name="item_id">
                         <div class="form-group">
                             <label>Item Name</label>
-                            <p id="adjust-item-name" class="form-control-static"></p>
+                            <p id="adjust_item_name" class="form-control-static"></p>
                         </div>
                         <div class="form-group">
                             <label id="current_quantity">Current Stock: </label>
@@ -746,59 +746,78 @@ $lowStockItems = $lowStockItems ?: [];
             window.adjustStock = function(itemId, itemName, currentStock) {
                 console.log('adjustStock called with:', { itemId, itemName, currentStock });
 
-                // Get modal elements
-                const modal = document.getElementById('adjustStockModal');
-                const itemNameDisplay = document.getElementById('adjust-item-name');
-                const currentStockDisplay = document.getElementById('current_quantity');
-                const itemIdInput = document.getElementById('adjust_item_id');
-                const quantityInput = document.getElementById('quantity');
-                const notesInput = document.getElementById('notes');
-                const adjustTypeSelect = document.getElementById('adjust_type');
-
-                // Debug logging
-                console.log('Modal element:', modal);
-                console.log('Item ID Input:', itemIdInput);
-                console.log('Item Name Display:', itemNameDisplay);
-                console.log('Current Quantity Display:', currentStockDisplay);
-
-                // Validate modal elements
-                if (!modal || !itemIdInput || !itemNameDisplay || !currentStockDisplay) {
-                    console.error('One or more modal elements not found');
+                // Ensure itemId is passed correctly
+                if (!itemId) {
+                    console.error('Item ID is required to adjust stock');
                     return;
                 }
 
-                // Set modal values
-                itemIdInput.value = itemId;
-                itemNameDisplay.textContent = itemName;
-                currentStockDisplay.textContent = `Current Stock: ${currentStock}`;
+                // Get the stock adjustment modal
+                const modal = document.getElementById('adjustStockModal');
+                const itemNameEl = document.getElementById('adjust_item_name');
+                const currentStockEl = document.getElementById('current_quantity');
+                const stockActionSelect = document.getElementById('adjust_type');
+                const stockQuantityInput = document.getElementById('quantity');
+                const itemIdInput = document.getElementById('adjust_item_id');
+                
+                // Validate all required elements exist
+                const requiredElements = [
+                    { el: modal, name: 'Modal' },
+                    { el: itemNameEl, name: 'Item Name Element' },
+                    { el: currentStockEl, name: 'Current Stock Element' },
+                    { el: stockActionSelect, name: 'Stock Action Select' },
+                    { el: stockQuantityInput, name: 'Stock Quantity Input' },
+                    { el: itemIdInput, name: 'Item ID Input' }
+                ];
 
-                // Show modal
-                modal.style.display = 'block';
-                modal.classList.add('show');
-                modal.style.opacity = '1';
-                modal.style.visibility = 'visible';
-
-                console.log('Modal should now be visible');
-            };
-
-            // Add event listeners to close modal buttons
-            const closeModalButtons = document.querySelectorAll('.close-modal');
-            const adjustStockModal = document.getElementById('adjustStockModal');
-
-            console.log('Close modal buttons:', closeModalButtons);
-            console.log('Adjust Stock Modal:', adjustStockModal);
-
-            closeModalButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    console.log('Close modal button clicked');
-                    if (adjustStockModal) {
-                        adjustStockModal.style.display = 'none';
-                        adjustStockModal.classList.remove('show');
-                        adjustStockModal.style.opacity = '0';
-                        adjustStockModal.style.visibility = 'hidden';
+                const missingElements = requiredElements.filter(item => !item.el);
+                
+                if (missingElements.length > 0) {
+                    console.error('Missing elements:', missingElements.map(item => item.name).join(', '));
+                    alert('Error: Unable to open stock adjustment modal. Please contact support.');
+                    return;
+                }
+                
+                // Set item details
+                itemNameEl.textContent = itemName || 'Unknown Item';
+                currentStockEl.textContent = `Current Stock: ${currentStock}`;
+                
+                // Populate stock action options based on user role
+                const userRole = '<?= $userRole ?>';
+                stockActionSelect.innerHTML = `
+                    <option value="add">Add Stock</option>
+                    <option value="remove">Remove Stock</option>
+                `;
+                stockActionSelect.disabled = false;
+                
+                // Dynamic min and max handling based on action
+                stockActionSelect.addEventListener('change', function() {
+                    const action = this.value;
+                    if (action === 'add') {
+                        // For adding stock, set a high max value
+                        stockQuantityInput.min = 1;
+                        stockQuantityInput.max = userRole === 'superadmin' ? 1000 : 500;
+                    } else {
+                        // For removing stock, limit to current stock
+                        stockQuantityInput.min = 1;
+                        stockQuantityInput.max = currentStock;
                     }
+                    // Reset the input value
+                    stockQuantityInput.value = '';
                 });
-            });
+                
+                // Trigger initial setup
+                stockActionSelect.dispatchEvent(new Event('change'));
+                
+                // Store the item ID for form submission
+                itemIdInput.value = itemId;
+                
+                // Open the modal with improved visibility
+                window.openModal('adjustStockModal');
+            }
+
+            // Attach adjustStock to window to make it globally accessible
+            window.adjustStock = window.adjustStock;
         });
     </script>
     <script>
@@ -930,39 +949,22 @@ $lowStockItems = $lowStockItems ?: [];
             if (!toastContainer) {
                 toastContainer = document.createElement('div');
                 toastContainer.id = 'toast-container';
-                toastContainer.style.position = 'fixed';
-                toastContainer.style.top = '20px';
-                toastContainer.style.right = '20px';
-                toastContainer.style.zIndex = '1000';
                 document.body.appendChild(toastContainer);
             }
 
             // Create toast element
             const toast = document.createElement('div');
-            toast.style.backgroundColor = isSuccess ? '#4CAF50' : '#f44336';
-            toast.style.color = 'white';
-            toast.style.padding = '15px';
-            toast.style.borderRadius = '5px';
-            toast.style.marginBottom = '10px';
-            toast.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
-            toast.style.opacity = '0';
-            toast.style.transition = 'opacity 0.3s ease';
-            
+            toast.className = `toast toast-${type}`;
             toast.textContent = message;
 
             // Add to container
             toastContainer.appendChild(toast);
 
-            // Animate in
-            setTimeout(() => {
-                toast.style.opacity = '1';
-            }, 10);
-
             // Remove after 3 seconds
             setTimeout(() => {
-                toast.style.opacity = '0';
+                toast.classList.add('fade-out');
                 setTimeout(() => {
-                    toastContainer.removeChild(toast);
+                    toast.remove();
                 }, 300);
             }, 3000);
         }
@@ -1119,43 +1121,67 @@ $lowStockItems = $lowStockItems ?: [];
 
             // Get the stock adjustment modal
             const modal = document.getElementById('adjustStockModal');
-            const itemNameDisplay = document.getElementById('adjust-item-name');
-            const currentQuantityDisplay = document.getElementById('current_quantity');
+            const itemNameEl = document.getElementById('adjust_item_name');
+            const currentStockEl = document.getElementById('current_quantity');
+            const stockActionSelect = document.getElementById('adjust_type');
+            const stockQuantityInput = document.getElementById('quantity');
             const itemIdInput = document.getElementById('adjust_item_id');
-            const quantityInput = document.getElementById('quantity');
-            const notesInput = document.getElementById('notes');
-            const adjustTypeSelect = document.getElementById('adjust_type');
+            
+            // Validate all required elements exist
+            const requiredElements = [
+                { el: modal, name: 'Modal' },
+                { el: itemNameEl, name: 'Item Name Element' },
+                { el: currentStockEl, name: 'Current Stock Element' },
+                { el: stockActionSelect, name: 'Stock Action Select' },
+                { el: stockQuantityInput, name: 'Stock Quantity Input' },
+                { el: itemIdInput, name: 'Item ID Input' }
+            ];
 
-            // Debug logging
-            console.log('Modal element:', modal);
-            console.log('Item ID Input:', itemIdInput);
-            console.log('Item Name Display:', itemNameDisplay);
-            console.log('Current Quantity Display:', currentQuantityDisplay);
-
-            // Validate modal elements
-            if (!modal || !itemIdInput || !itemNameDisplay || !currentQuantityDisplay) {
-                console.error('One or more modal elements not found');
+            const missingElements = requiredElements.filter(item => !item.el);
+            
+            if (missingElements.length > 0) {
+                console.error('Missing elements:', missingElements.map(item => item.name).join(', '));
+                alert('Error: Unable to open stock adjustment modal. Please contact support.');
                 return;
             }
-
-            // Set modal values
+            
+            // Set item details
+            itemNameEl.textContent = itemName || 'Unknown Item';
+            currentStockEl.textContent = `Current Stock: ${currentStock}`;
+            
+            // Populate stock action options based on user role
+            const userRole = '<?= $userRole ?>';
+            stockActionSelect.innerHTML = `
+                <option value="add">Add Stock</option>
+                <option value="remove">Remove Stock</option>
+            `;
+            stockActionSelect.disabled = false;
+            
+            // Dynamic min and max handling based on action
+            stockActionSelect.addEventListener('change', function() {
+                const action = this.value;
+                if (action === 'add') {
+                    // For adding stock, set a high max value
+                    stockQuantityInput.min = 1;
+                    stockQuantityInput.max = userRole === 'superadmin' ? 1000 : 500;
+                } else {
+                    // For removing stock, limit to current stock
+                    stockQuantityInput.min = 1;
+                    stockQuantityInput.max = currentStock;
+                }
+                // Reset the input value
+                stockQuantityInput.value = '';
+            });
+            
+            // Trigger initial setup
+            stockActionSelect.dispatchEvent(new Event('change'));
+            
+            // Store the item ID for form submission
             itemIdInput.value = itemId;
-            itemNameDisplay.textContent = itemName;
-            currentQuantityDisplay.textContent = `Current Stock: ${currentStock}`;
-
-            // Reset form
-            if (quantityInput) quantityInput.value = '';
-            if (notesInput) notesInput.value = '';
-            if (adjustTypeSelect) adjustTypeSelect.value = 'remove';
-
-            // Show modal
-            modal.style.display = 'block';
-            modal.classList.add('show');
-            modal.style.opacity = '1';
-            modal.style.visibility = 'visible';
-
-            console.log('Modal should now be visible');
-        };
+            
+            // Open the modal with improved visibility
+            window.openModal('adjustStockModal');
+        }
 
         // Attach adjustStock to window to make it globally accessible
         window.adjustStock = window.adjustStock;
