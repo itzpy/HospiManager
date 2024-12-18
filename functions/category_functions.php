@@ -63,6 +63,30 @@ function updateCategory($conn, $categoryId, $name, $description, $icon = 'catego
         return false;
     }
 
+    // Additional validation
+    if (!is_numeric($categoryId) || $categoryId <= 0) {
+        error_log("Invalid category ID: $categoryId");
+        return false;
+    }
+
+    // Check if category exists before updating
+    $checkQuery = "SELECT * FROM categories WHERE category_id = ?";
+    $checkStmt = $conn->prepare($checkQuery);
+    
+    if (!$checkStmt) {
+        error_log("Failed to prepare check statement: " . $conn->error);
+        return false;
+    }
+    
+    $checkStmt->bind_param("i", $categoryId);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+    
+    if ($checkResult->num_rows === 0) {
+        error_log("Category not found: ID $categoryId");
+        return false;
+    }
+
     $query = "UPDATE categories SET name = ?, description = ?, icon = ? WHERE category_id = ?";
     $stmt = $conn->prepare($query);
     
@@ -76,6 +100,7 @@ function updateCategory($conn, $categoryId, $name, $description, $icon = 'catego
     
     if (!$result) {
         error_log("Failed to execute update: " . $stmt->error);
+        error_log("Update details - ID: $categoryId, Name: $name, Description: $description, Icon: $icon");
     }
     
     return $result;

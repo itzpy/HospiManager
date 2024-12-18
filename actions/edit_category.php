@@ -18,6 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $description = trim($_POST['description'] ?? '');
         $icon = trim($_POST['icon'] ?? 'category');
 
+        // Debug logging
+        error_log("Edit Category Attempt:");
+        error_log("Category ID: $categoryId");
+        error_log("Name: $name");
+        error_log("Description: $description");
+        error_log("Icon: $icon");
+        error_log("POST Data: " . print_r($_POST, true));
+
         if (empty($categoryId)) {
             throw new Exception('Category ID is required');
         }
@@ -27,7 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Update function to include icon
-        if (updateCategory($conn, $categoryId, $name, $description, $icon)) {
+        $updateResult = updateCategory($conn, $categoryId, $name, $description, $icon);
+        error_log("Update Result: " . ($updateResult ? 'Success' : 'Failure'));
+
+        if ($updateResult) {
             $_SESSION['success_message'] = 'Category updated successfully';
             header('Location: ../view/admin/dashboard.php');
             exit();

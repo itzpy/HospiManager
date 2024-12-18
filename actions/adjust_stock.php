@@ -1,28 +1,42 @@
 <?php
+// Disable all error output
+@ini_set('display_errors', 0);
+@error_reporting(0);
+
 session_start();
+header('Content-Type: application/json');
+
 require_once '../db/database.php';
 require_once '../functions/auth_functions.php';
 require_once '../functions/inventory_functions.php';
 
-// Enable error reporting for debugging
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Function to log errors safely
+function safeErrorLog($message) {
+    $logFile = dirname(__FILE__) . '/stock_adjustment_log.txt';
+    @file_put_contents($logFile, 
+        date('Y-m-d H:i:s') . " - " . $message . "\n", 
+        FILE_APPEND
+    );
+}
 
-// Log all incoming POST data
-file_put_contents('stock_adjustment_log.txt', 
-    date('Y-m-d H:i:s') . " - Incoming Request:\n" . 
-    print_r($_POST, true) . 
-    "\nSession Data:\n" . 
-    print_r($_SESSION, true) . 
-    "\n\n", 
-    FILE_APPEND
-);
+// Function to send JSON response and exit
+function sendJsonResponse($success, $message, $data = []) {
+    $response = [
+        'success' => $success,
+        'message' => $message
+    ];
+    
+    if (!empty($data)) {
+        $response = array_merge($response, $data);
+    }
+    
+    echo json_encode($response);
+    exit();
+}
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Content-Type: application/json');
-    echo json_encode(['success' => false, 'message' => 'Unauthorized action']);
-    exit();
+    sendJsonResponse(false, 'Unauthorized action');
 }
 
 // Get user role
@@ -36,37 +50,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Get and validate form data
-        $itemId = isset($_POST['item_id']) ? (int)$_POST['item_id'] : 0;
-        $action = $_POST['adjust_type'] ?? 'remove';
-        $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 0;
-        $notes = trim($_POST['notes'] ?? '');
+        $itemId = filter_input(INPUT_POST, 'item_id', FILTER_VALIDATE_INT);
+        $action = filter_input(INPUT_POST, 'adjust_type', FILTER_SANITIZE_STRING);
+        $quantity = filter_input(INPUT_POST, 'quantity', FILTER_VALIDATE_INT);
+        $notes = filter_input(INPUT_POST, 'notes', FILTER_SANITIZE_STRING);
 
-        // Log received data for debugging
-        file_put_contents('stock_adjustment_log.txt', 
-            date('Y-m-d H:i:s') . " - Processed Data:\n" . 
-            "Item ID: $itemId\n" .
-            "Action: $action\n" .
-            "Quantity: $quantity\n" .
-            "Notes: $notes\n" .
-            "User Role: {$_SESSION['role']}\n\n", 
-            FILE_APPEND
-        );
+        // Detailed logging for debugging
+        safeErrorLog("Stock Adjustment Request: " . json_encode([
+            'item_id' => $itemId,
+            'action' => $action,
+            'quantity' => $quantity,
+            'notes' => $notes,
+            'user_role' => $userRole
+        ]));
 
         // Validate required fields
-        if (empty($itemId)) {
-            throw new Exception('Item ID is required');
+        if ($itemId === false || $itemId === null) {
+            throw new Exception('Invalid item ID');
         }
-        if ($quantity <= 0) {
-            throw new Exception('Quantity must be greater than 0');
+        if ($quantity === false || $quantity === null || $quantity <= 0) {
+            throw new Exception('Quantity must be a positive number');
         }
         if (empty($notes)) {
             throw new Exception('Notes are required');
         }
-
-        // Restrict actions based on user role
-        $userRole = $_SESSION['role'];
-        
-        // Validate action
         if (!in_array($action, ['add', 'remove'])) {
             throw new Exception('Invalid stock action');
         }
@@ -77,49 +84,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Attempt to adjust stock
         $adjustmentResult = adjustStock($conn, $itemId, $quantity, $action, $notes);
         
-        // Prepare response
-        header('Content-Type: application/json');
-        
         if ($adjustmentResult) {
             // Get updated item details
             $updatedItem = getItemById($conn, $itemId);
             
-            echo json_encode([
-                'success' => true, 
-                'message' => "Stock {$action}d successfully", 
+            sendJsonResponse(true, "Stock {$action}d successfully", [
                 'newQuantity' => $updatedItem['quantity']
             ]);
         } else {
-            echo json_encode([
-                'success' => false, 
-                'message' => "Failed to {$action} stock. Please check your input."
-            ]);
+            sendJsonResponse(false, "Failed to {$action} stock. Please check your input.");
         }
-        exit();
     } catch (Exception $e) {
-        // Log the error
-        file_put_contents('stock_adjustment_log.txt', 
-            date('Y-m-d H:i:s') . " - Error: " . $e->getMessage() . "\n\n", 
-            FILE_APPEND
-        );
+        // Log the error safely
+        safeErrorLog("Stock Adjustment Error: " . $e->getMessage());
 
         // Return error response
-        echo json_encode([
-            'success' => false,
-            'message' => $e->getMessage()
-        ]);
-        exit;
+        sendJsonResponse(false, $e->getMessage());
     }
 } else {
-    // Log invalid request method
-    file_put_contents('stock_adjustment_log.txt', 
-        date('Y-m-d H:i:s') . " - Invalid Request Method\n\n", 
-        FILE_APPEND
-    );
+    // Log invalid request method safely
+    safeErrorLog("Invalid Request Method");
 
     // Return error for invalid request method
-    echo json_encode([
-        'success' => false,
-        'message' => 'Invalid request method'
-    ]);
+    sendJsonResponse(false, 'Invalid request method');
 }
