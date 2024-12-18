@@ -492,3 +492,4 @@ User Role: admin
 2024-12-18 22:37:35 - Stock Adjustment Request: {"item_id":29,"action":"add","quantity":5,"notes":"let&#39;s see","user_role":"admin"}
 2024-12-18 22:40:00 - Stock Adjustment Request: {"item_id":29,"action":"add","quantity":5,"notes":"Lt&#39;","user_role":"admin"}
 2024-12-18 22:40:21 - Stock Adjustment Request: {"item_id":29,"action":"add","quantity":5,"notes":"5","user_role":"admin"}
+2024-12-18 22:42:04 - Stock Adjustment Request: {"item_id":29,"action":"add","quantity":4,"notes":"lets see","user_role":"admin"}

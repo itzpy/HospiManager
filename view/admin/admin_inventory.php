@@ -1273,10 +1273,22 @@ $lowStockItems = $lowStockItems ?: [];
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
+                        'Accept': 'application/json'
                     },
                     body: `item_id=${itemId}&quantity=${quantity}&adjust_type=${action}&notes=${encodeURIComponent(notes)}`
                 })
-                .then(response => response.json())
+                .then(response => {
+                    // First check if response is ok
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    // Check content type
+                    const contentType = response.headers.get('content-type');
+                    if (!contentType || !contentType.includes('application/json')) {
+                        throw new TypeError("Expected JSON response from server");
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     console.log('Server Response:', data);
                     
@@ -1291,7 +1303,7 @@ $lowStockItems = $lowStockItems ?: [];
                         }
                         
                         // Show success notification
-                        showNotification(data.message);
+                        showNotification(data.message || 'Stock adjusted successfully');
                         
                         // Reload page after a short delay
                         setTimeout(() => {
@@ -1299,12 +1311,26 @@ $lowStockItems = $lowStockItems ?: [];
                         }, 1000);
                     } else {
                         // Show error notification
-                        showNotification(data.message, false);
+                        showNotification(data.message || 'Failed to adjust stock', false);
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    showNotification('An unexpected error occurred', false);
+                    // More detailed error handling
+                    let errorMessage = 'An unexpected error occurred';
+                    if (error instanceof TypeError) {
+                        errorMessage = 'Invalid response from server';
+                    } else if (error instanceof Error) {
+                        errorMessage = error.message;
+                    }
+                    showNotification(errorMessage, false);
+                    
+                    // Log detailed error information
+                    console.error('Detailed error:', {
+                        name: error.name,
+                        message: error.message,
+                        stack: error.stack
+                    });
                 });
             });
         } else {
