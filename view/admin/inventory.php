@@ -231,6 +231,7 @@ $lowStockItems = $lowStockItems ?: [];
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" href="../../assets/images/favicon.ico" type="image/x-icon">
     <style>
         /* Existing styles... */
         .sortable {
@@ -1096,6 +1097,9 @@ $lowStockItems = $lowStockItems ?: [];
                 return;
             }
 
+            // Enhanced logging
+            console.log('Attempting to delete item with ID:', itemId);
+
             // Disable delete button to prevent multiple clicks
             const deleteButton = document.querySelector(`button[data-delete-id="${itemId}"]`);
             const itemRow = document.querySelector(`tr[data-item-id="${itemId}"]`);
@@ -1117,6 +1121,8 @@ $lowStockItems = $lowStockItems ?: [];
                     },
                     timeout: 10000,
                     success: function(response) {
+                        console.log('Delete Response:', response);
+                        
                         if (response && response.success) {
                             // Remove the item row
                             if (itemRow) {
@@ -1128,12 +1134,20 @@ $lowStockItems = $lowStockItems ?: [];
                                 }, 300);
                             }
                         } else {
-                            // Show error message
-                            showToast(response.message || 'Failed to delete item', 'error');
-                            console.error('Delete Item Error:', response);
+                            // Show detailed error message
+                            const errorMessage = response.message || 'Failed to delete item';
+                            console.error('Delete Item Error:', errorMessage, response);
+                            showToast(errorMessage, 'error');
                         }
                     },
                     error: function(xhr, status, error) {
+                        // Detailed error logging
+                        console.error('AJAX Delete Error:', {
+                            status: status,
+                            error: error,
+                            responseText: xhr.responseText
+                        });
+                        
                         // Fallback to fetch if jQuery AJAX fails
                         fetchDeleteItem(itemId, deleteButton, itemRow);
                     },
@@ -1159,26 +1173,16 @@ $lowStockItems = $lowStockItems ?: [];
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Accept': 'application/json'
                 },
-                body: `item_id=${itemId}`,
-                credentials: 'same-origin'
+                body: `item_id=${itemId}`
             })
             .then(response => {
-                // Check response status
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                // Check content type
-                const contentType = response.headers.get('content-type') || '';
-                if (!contentType.includes('application/json')) {
-                    throw new Error('Expected JSON response');
-                }
-
-                // Parse JSON
+                console.log('Fetch Response:', response);
                 return response.json();
             })
             .then(data => {
-                if (data.success) {
+                console.log('Fetch Data:', data);
+                
+                if (data && data.success) {
                     // Remove the item row
                     if (itemRow) {
                         itemRow.classList.add('fade-out');
@@ -1189,16 +1193,16 @@ $lowStockItems = $lowStockItems ?: [];
                         }, 300);
                     }
                 } else {
-                    // Show error message
-                    showToast(data.message || 'Failed to delete item', 'error');
-                    console.error('Delete Item Error:', data);
+                    // Show detailed error message
+                    const errorMessage = data.message || 'Failed to delete item';
+                    console.error('Fetch Delete Error:', errorMessage, data);
+                    showToast(errorMessage, 'error');
                 }
             })
             .catch(error => {
-                console.error('Delete Item Error:', error);
-                
-                // Show error toast
-                showToast(error.message || 'Failed to delete item', 'error');
+                // Detailed error logging
+                console.error('Fetch Delete Network Error:', error);
+                showToast('Network error occurred while deleting item', 'error');
             })
             .finally(() => {
                 // Re-enable delete button

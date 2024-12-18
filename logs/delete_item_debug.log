@@ -149,3 +149,260 @@ Trace: #0 C:\xampp\htdocs\Hospital_Management\db\database.php(18): mysqli->__con
 #1 C:\xampp\htdocs\Hospital_Management\actions\delete_item.php(66): require_once('C:\\xampp\\htdocs...')
 #2 {main}
 [2024-12-17 22:53:53] Sending response: {"success":false,"message":"Unexpected error occurred","error_message":"Access denied for user 'papa.badu'@'localhost' (using password: YES)","error_trace":"#0 C:\\xampp\\htdocs\\Hospital_Management\\db\\database.php(18): mysqli->__construct('localhost', 'papa.badu', Object(SensitiveParameterValue), 'webtech_fall202...')\n#1 C:\\xampp\\htdocs\\Hospital_Management\\actions\\delete_item.php(66): require_once('C:\\\\xampp\\\\htdocs...')\n#2 {main}"}
+[2024-12-18 01:24:57] Incoming delete request: Array
+(
+)
+
+[2024-12-18 01:24:57] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 01:24:57] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 01:24:57] Database connection status: Connected
+[2024-12-18 01:24:57] Unauthorized access attempt. Session role: staff
+[2024-12-18 01:24:57] Sending response: {"success":false,"message":"Unauthorized: Only superadmin can delete items","session_role":"staff"}
+[2024-12-18 01:24:57] Incoming delete request: Array
+(
+)
+
+[2024-12-18 01:24:57] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 01:24:57] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 01:24:57] Incoming delete request: Array
+(
+)
+
+[2024-12-18 01:24:57] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 01:24:57] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 01:24:57] Incoming delete request: Array
+(
+)
+
+[2024-12-18 01:24:57] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 01:24:57] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 01:24:57] Incoming delete request: Array
+(
+)
+
+[2024-12-18 01:24:57] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 01:24:57] Incoming delete request: Array
+(
+)
+
+[2024-12-18 01:24:57] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 01:24:57] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 01:24:57] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 01:24:57] Database connection status: Connected
+[2024-12-18 01:24:57] Unauthorized access attempt. Session role: staff
+[2024-12-18 01:24:57] Sending response: {"success":false,"message":"Unauthorized: Only superadmin can delete items","session_role":"staff"}
+[2024-12-18 01:24:57] Database connection status: Connected
+[2024-12-18 01:24:57] Unauthorized access attempt. Session role: staff
+[2024-12-18 01:24:57] Sending response: {"success":false,"message":"Unauthorized: Only superadmin can delete items","session_role":"staff"}
+[2024-12-18 01:24:57] Database connection status: Connected
+[2024-12-18 01:24:57] Unauthorized access attempt. Session role: staff
+[2024-12-18 01:24:57] Sending response: {"success":false,"message":"Unauthorized: Only superadmin can delete items","session_role":"staff"}
+[2024-12-18 01:24:57] Database connection status: Connected
+[2024-12-18 01:24:57] Unauthorized access attempt. Session role: staff
+[2024-12-18 01:24:57] Sending response: {"success":false,"message":"Unauthorized: Only superadmin can delete items","session_role":"staff"}
+[2024-12-18 01:24:57] Database connection status: Connected
+[2024-12-18 01:24:57] Unauthorized access attempt. Session role: staff
+[2024-12-18 01:24:57] Sending response: {"success":false,"message":"Unauthorized: Only superadmin can delete items","session_role":"staff"}
+[2024-12-18 01:24:57] Incoming delete request: Array
+(
+)
+
+[2024-12-18 01:24:57] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 01:24:57] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 01:24:57] Database connection status: Connected
+[2024-12-18 01:24:57] Unauthorized access attempt. Session role: staff
+[2024-12-18 01:24:57] Sending response: {"success":false,"message":"Unauthorized: Only superadmin can delete items","session_role":"staff"}
+[2024-12-18 15:08:21] Incoming delete request: Array
+(
+)
+
+[2024-12-18 15:08:21] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:08:21] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:08:21] Incoming delete request: Array
+(
+)
+
+[2024-12-18 15:08:21] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:08:21] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:08:21] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:08:21] Database connection status: Connected
+[2024-12-18 15:08:21] Invalid request method: GET
+[2024-12-18 15:08:21] Sending response: {"success":false,"message":"Invalid request method"}
+[2024-12-18 15:08:21] Database connection status: Connected
+[2024-12-18 15:08:21] Invalid request method: HEAD
+[2024-12-18 15:08:21] Sending response: {"success":false,"message":"Invalid request method"}
+[2024-12-18 15:08:21] Database connection status: Connected
+[2024-12-18 15:08:21] Invalid request method: HEAD
+[2024-12-18 15:08:21] Sending response: {"success":false,"message":"Invalid request method"}
+[2024-12-18 15:08:21] Incoming delete request: Array
+(
+)
+
+[2024-12-18 15:08:21] Incoming delete request: Array
+(
+)
+
+[2024-12-18 15:08:21] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:08:21] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:08:21] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:08:21] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:08:21] Database connection status: Connected
+[2024-12-18 15:08:21] Invalid request method: HEAD
+[2024-12-18 15:08:21] Sending response: {"success":false,"message":"Invalid request method"}
+[2024-12-18 15:08:21] Database connection status: Connected
+[2024-12-18 15:08:21] Invalid request method: HEAD
+[2024-12-18 15:08:21] Sending response: {"success":false,"message":"Invalid request method"}
+[2024-12-18 15:08:21] Incoming delete request: Array
+(
+)
+
+[2024-12-18 15:08:21] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:08:21] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:08:21] Database connection status: Connected
+[2024-12-18 15:08:21] Invalid request method: HEAD
+[2024-12-18 15:08:21] Sending response: {"success":false,"message":"Invalid request method"}
+[2024-12-18 15:08:21] Incoming delete request: Array
+(
+)
+
+[2024-12-18 15:08:21] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:08:21] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:08:21] Database connection status: Connected
+[2024-12-18 15:08:21] Invalid request method: HEAD
+[2024-12-18 15:08:21] Sending response: {"success":false,"message":"Invalid request method"}
+[2024-12-18 15:12:13] Incoming delete request: Array
+(
+    [item_id] => 31
+)
+
+[2024-12-18 15:12:13] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:12:13] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:12:13] Database connection status: Connected
+[2024-12-18 15:12:13] Unexpected error: Table 'hospital_management.inventory_transactions' doesn't exist
+Trace: #0 C:\xampp\htdocs\Hospital_Management\actions\delete_item.php(138): mysqli->prepare('SELECT COUNT(*)...')
+#1 {main}
+[2024-12-18 15:12:13] Sending response: {"success":false,"message":"Unexpected error occurred","error_message":"Table 'hospital_management.inventory_transactions' doesn't exist","error_trace":"#0 C:\\xampp\\htdocs\\Hospital_Management\\actions\\delete_item.php(138): mysqli->prepare('SELECT COUNT(*)...')\n#1 {main}"}
+[2024-12-18 15:12:16] Incoming delete request: Array
+(
+    [item_id] => 31
+)
+
+[2024-12-18 15:12:16] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:12:16] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 15:12:16] Database connection status: Connected
+[2024-12-18 15:12:16] Unexpected error: Table 'hospital_management.inventory_transactions' doesn't exist
+Trace: #0 C:\xampp\htdocs\Hospital_Management\actions\delete_item.php(138): mysqli->prepare('SELECT COUNT(*)...')
+#1 {main}
+[2024-12-18 15:12:16] Sending response: {"success":false,"message":"Unexpected error occurred","error_message":"Table 'hospital_management.inventory_transactions' doesn't exist","error_trace":"#0 C:\\xampp\\htdocs\\Hospital_Management\\actions\\delete_item.php(138): mysqli->prepare('SELECT COUNT(*)...')\n#1 {main}"}
+[2024-12-18 20:30:20] Incoming delete request: Array
+(
+    [item_id] => 31
+)
+
+[2024-12-18 20:30:20] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:30:20] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:30:20] Session User ID: 2
+[2024-12-18 20:30:20] Session User Role: Not Set
+[2024-12-18 20:30:20] Unauthorized delete attempt by user role: No Role
+[2024-12-18 20:30:20] Response: {"success":false,"message":"You do not have permission to delete items"}
+[2024-12-18 20:31:00] Incoming delete request: Array
+(
+    [item_id] => 31
+)
+
+[2024-12-18 20:31:00] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:31:00] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:31:00] Session User ID: 2
+[2024-12-18 20:31:00] Session User Role: Not Set
+[2024-12-18 20:31:00] Unauthorized delete attempt by user role: No Role
+[2024-12-18 20:31:00] Response: {"success":false,"message":"You do not have permission to delete items"}
+[2024-12-18 20:31:07] Incoming delete request: Array
+(
+    [item_id] => 31
+)
+
+[2024-12-18 20:31:07] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:31:07] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:31:07] Session User ID: 2
+[2024-12-18 20:31:07] Session User Role: Not Set
+[2024-12-18 20:31:07] Unauthorized delete attempt by user role: No Role
+[2024-12-18 20:31:07] Response: {"success":false,"message":"You do not have permission to delete items"}
+[2024-12-18 20:34:43] Incoming delete request: Array
+(
+    [item_id] => 31
+)
+
+[2024-12-18 20:34:43] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:34:43] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:34:43] Session User ID: 2
+[2024-12-18 20:34:43] Session User Role: Not Set
+[2024-12-18 20:34:43] Unauthorized delete attempt by user role: No Role
+[2024-12-18 20:34:43] Response: {"success":false,"message":"You do not have permission to delete items"}
+[2024-12-18 20:35:26] Incoming delete request: Array
+(
+    [item_id] => 31
+)
+
+[2024-12-18 20:35:26] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:35:26] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:35:26] Session User ID: 2
+[2024-12-18 20:35:26] Session User Role: Not Set
+[2024-12-18 20:35:26] Unauthorized delete attempt by user role: No Role
+[2024-12-18 20:35:26] Response: {"success":false,"message":"You do not have permission to delete items"}
+[2024-12-18 20:35:33] Incoming delete request: Array
+(
+    [item_id] => 31
+)
+
+[2024-12-18 20:35:33] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:35:33] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:35:33] Session User ID: 2
+[2024-12-18 20:35:33] Session User Role: Not Set
+[2024-12-18 20:35:33] Unauthorized delete attempt by user role: No Role
+[2024-12-18 20:35:33] Response: {"success":false,"message":"You do not have permission to delete items"}
+[2024-12-18 20:36:37] Incoming delete request: Array
+(
+    [item_id] => 31
+)
+
+[2024-12-18 20:36:37] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:36:37] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:36:37] Session User ID: 2
+[2024-12-18 20:36:37] Session User Role: superadmin
+[2024-12-18 20:36:37] All Session Variables: Array
+(
+    [user_id] => 2
+    [first_name] => Papa
+    [role] => superadmin
+)
+
+[2024-12-18 20:36:37] Deletion Attempt - Item ID: 31
+[2024-12-18 20:36:37] Item Details - Name: Eggs, Quantity: 11
+[2024-12-18 20:36:37] Activity Logs Deleted for Item ID: 31
+[2024-12-18 20:36:37] Inventory Transactions Table Does Not Exist
+[2024-12-18 20:36:37] Item Deleted - Item ID: 31, Name: Eggs
+[2024-12-18 20:36:37] Item successfully deleted - Item ID: 31
+[2024-12-18 20:36:37] Response: {"success":true,"message":"Item deleted successfully","item_id":31}
+[2024-12-18 20:41:11] Incoming delete request: Array
+(
+    [item_id] => 32
+)
+
+[2024-12-18 20:41:11] Request URI: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:41:11] Script Name: /Hospital_Management/actions/delete_item.php
+[2024-12-18 20:41:11] Session User ID: 2
+[2024-12-18 20:41:11] Session User Role: superadmin
+[2024-12-18 20:41:11] All Session Variables: Array
+(
+    [user_id] => 2
+    [first_name] => Papa
+    [role] => superadmin
+)
+
+[2024-12-18 20:41:11] Deletion Attempt - Item ID: 32
+[2024-12-18 20:41:11] Item Details - Name: Eggs, Quantity: 5
+[2024-12-18 20:41:11] Activity Logs Deleted for Item ID: 32
+[2024-12-18 20:41:11] Inventory Transactions Table Does Not Exist
+[2024-12-18 20:41:11] Item Deleted - Item ID: 32, Name: Eggs
+[2024-12-18 20:41:11] Item successfully deleted - Item ID: 32
+[2024-12-18 20:41:11] Response: {"success":true,"message":"Item deleted successfully","item_id":32}

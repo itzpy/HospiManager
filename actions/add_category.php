@@ -45,10 +45,10 @@ try {
         throw new Exception('Failed to add category');
     }
     
-    echo json_encode([
-        'success' => true,
-        'message' => 'Category added successfully'
-    ]);
+    // Redirect back to the page after successful category addition
+    $_SESSION['success_message'] = 'Category added successfully';
+    header('Location: ../view/admin/dashboard.php');
+    exit();
 
 } catch (Exception $e) {
     http_response_code(400);

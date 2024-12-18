@@ -10,9 +10,9 @@ ini_set('display_errors', 1);
 // $dbname = 'hospital_management'; 
 
 $servername = "localhost";
-$username = "papa.badu";
-$password = "password";
-$dbname = "webtech_fall2024_papa_badu";
+$username = "root";
+$password = "";
+$dbname = "hospital_management";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

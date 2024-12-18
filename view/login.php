@@ -6,6 +6,7 @@
     <meta name="Author" content="Papa Yaw Badu" />
     <title>Login - Hospital Management System</title>
     <link rel="stylesheet" href="../assets/css/login.css">
+    <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
   </head>
   <body>
     <div class="wrapper">

@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link rel="stylesheet" href="./assets/css/index.css" />
-  <link rel="shortcut icon" href="../EVPH-Project/assets/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon">
 
 
   <title>Hospi Manager | Home</title>

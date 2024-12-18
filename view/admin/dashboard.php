@@ -168,6 +168,7 @@ $items = $items ?: [];
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
     <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="shortcut icon" href="../../assets/images/favicon.ico" type="image/x-icon">
     <!-- <link rel="stylesheet" href="../../assets/css/style.css"> -->
     <style>
         /* Notification styles */
@@ -752,6 +753,14 @@ $items = $items ?: [];
                 <h1>Welcome back, <?= htmlspecialchars($_SESSION['first_name']) ?>!</h1>
                 <p class="date"><?= date('l, F j, Y') ?></p>
             </div>
+
+            <?php 
+            // Check for success message
+            if (isset($_SESSION['success_message'])) {
+                echo '<div class="alert alert-success">' . htmlspecialchars($_SESSION['success_message']) . '</div>';
+                unset($_SESSION['success_message']); // Clear the message after displaying
+            }
+            ?>
 
             <!-- Analytics Section -->
             <div class="analytics-section">

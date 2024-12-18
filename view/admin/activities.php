@@ -69,6 +69,7 @@ function getActivityIcon($action) {
     <title>All Activities - Hospital Management</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
+    <link rel="shortcut icon" href="../../assets/images/favicon.ico" type="image/x-icon">
     <style>
         .activities-container {
             background-color: #fff;

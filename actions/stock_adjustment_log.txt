@@ -410,3 +410,80 @@ Quantity: 5
 Notes: update
 User Role: admin
 
+2024-12-18 20:45:11 - Incoming Request:
+Array
+(
+    [item_id] => 29
+    [quantity] => 1
+    [adjust_type] => add
+    [notes] => 
+)
+
+Session Data:
+Array
+(
+    [user_id] => 10
+    [first_name] => Tester
+    [role] => admin
+)
+
+
+2024-12-18 20:45:11 - Processed Data:
+Item ID: 29
+Action: add
+Quantity: 1
+Notes: 
+User Role: admin
+
+2024-12-18 20:45:11 - Error: Notes are required
+
+2024-12-18 20:45:16 - Incoming Request:
+Array
+(
+    [item_id] => 29
+    [quantity] => 1
+    [adjust_type] => add
+    [notes] => add
+)
+
+Session Data:
+Array
+(
+    [user_id] => 10
+    [first_name] => Tester
+    [role] => admin
+)
+
+
+2024-12-18 20:45:16 - Processed Data:
+Item ID: 29
+Action: add
+Quantity: 1
+Notes: add
+User Role: admin
+
+2024-12-18 20:45:30 - Incoming Request:
+Array
+(
+    [item_id] => 29
+    [quantity] => 1
+    [adjust_type] => remove
+    [notes] => remove
+)
+
+Session Data:
+Array
+(
+    [user_id] => 10
+    [first_name] => Tester
+    [role] => admin
+)
+
+
+2024-12-18 20:45:30 - Processed Data:
+Item ID: 29
+Action: remove
+Quantity: 1
+Notes: remove
+User Role: admin
+

@@ -84,6 +84,7 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
     <link rel="stylesheet" href="../../assets/css/users.css">
     <link rel="stylesheet" href="../../assets/css/styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" href="../../assets/images/favicon.ico" type="image/x-icon">
     <style>
         body, html {
             margin: 0;

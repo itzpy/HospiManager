@@ -210,6 +210,7 @@ $lowStockItems = $lowStockItems ?: [];
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" href="../../assets/images/favicon.ico" type="image/x-icon">
     <style>
         /* Existing styles... */
         .sortable {
