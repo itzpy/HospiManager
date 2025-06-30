@@ -1,4 +1,4 @@
-# Hospital Management System
+# HospiManger
 
 A web-based inventory management system for hospitals to track medical supplies, lab instruments, and other inventory items.
 
