@@ -13,8 +13,13 @@ require_once BASE_PATH . '/functions/inventory_functions.php';
 require_once BASE_PATH . '/functions/user_functions.php';
 
 // Error handling
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+if (defined('APP_ENV') && APP_ENV === 'development') {
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+} else {
+    error_reporting(0);
+    ini_set('display_errors', 0);
+}
 
 // Check if user is logged in and is a superadmin
 if (!isLoggedIn()) {

@@ -1,27 +1,16 @@
 <?php
-// Enable detailed error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+require_once dirname(__DIR__) . '/config/env.php';
 
-//sDatabase configuration
-// $servername = 'localhost';  
-// $username = 'root';           
-// $password = '';              
-// $dbname = 'hospital_management'; 
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "hospital_management";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
 if ($conn->connect_errno) {
-    die("Connection failed: " . $conn->connect_error);
+    if (APP_ENV === 'development') {
+        die("Connection failed: " . $conn->connect_error);
+    } else {
+        error_log("DB connection failed: " . $conn->connect_error);
+        http_response_code(500);
+        die(json_encode(['success' => false, 'message' => 'A server error occurred. Please try again later.']));
+    }
 }
 
-// Uncomment the next line to confirm connection
-// echo "Connected successfully";
-?>
+$conn->set_charset('utf8mb4');

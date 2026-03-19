@@ -1,0 +1,23 @@
+# Hospi Manager — Root .htaccess
+
+Options -Indexes
+
+RewriteEngine On
+
+# Block direct HTTP access to backend directories
+RewriteRule ^(config|db|functions|logs|vendor)(/|$) - [F,L]
+
+# Protect sensitive files
+<FilesMatch "\.(sql|log|txt|env|phar|lock|json)$">
+    Require all denied
+</FilesMatch>
+
+<Files "composer.json">
+    Require all denied
+</Files>
+<Files "composer.lock">
+    Require all denied
+</Files>
+<Files "composer.phar">
+    Require all denied
+</Files>

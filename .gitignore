@@ -1,0 +1,35 @@
+# Environment & credentials — NEVER commit these
+config/env.php
+config/database_production.php
+.env
+
+# Dev/diagnostic files
+db/config.php
+config/create_test_user.php
+
+# Logs
+logs/
+*.log
+actions/stock_adjustment_log.txt
+user_login_debug.log
+
+# Composer
+vendor/
+composer.phar
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# GitHub Copilot
+.github/copilot-instructions.md
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

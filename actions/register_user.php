@@ -1,236 +1,78 @@
 <?php
-
-// Enable error reporting
-
-error_reporting(E_ALL);
-
-ini_set('display_errors', 1);
-
-
-
-// Ensure JSON response
+error_reporting(0);
+ini_set('display_errors', 0);
 
 header('Content-Type: application/json');
 
-
-
-// Database connection
-
 require_once '../db/database.php';
 
+$response = ['success' => false, 'errors' => []];
 
-
-// Response array
-
-$response = [
-
-    'success' => false,
-
-    'errors' => []
-
-];
-
-
-
-// Check if form is submitted via POST
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    // Sanitize and validate inputs
-
-    $first_name = mysqli_real_escape_string($conn, trim($_POST['first-name']));
-
-    $last_name = mysqli_real_escape_string($conn, trim($_POST['last-name']));
-
-    $email = mysqli_real_escape_string($conn, trim($_POST['email']));
-
-    $password = $_POST['password'];
-
-    $confirm_password = $_POST['confirm-password'];
-
-
-
-    // Validation
-
-    $errors = [];
-
-
-
-    // Validate First Name
-
-    if (empty($first_name)) {
-
-        $errors['first_name'] = "First name is required";
-
-    } elseif (strlen($first_name) < 2) {
-
-        $errors['first_name'] = "First name must be at least 2 characters";
-
-    }
-
-
-
-    // Validate Last Name
-
-    if (empty($last_name)) {
-
-        $errors['last_name'] = "Last name is required";
-
-    } elseif (strlen($last_name) < 2) {
-
-        $errors['last_name'] = "Last name must be at least 2 characters";
-
-    }
-
-
-
-    // Validate Email
-
-    if (empty($email)) {
-
-        $errors['email'] = "Email is required";
-
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
-        $errors['email'] = "Invalid email format";
-
-    }
-
-
-
-    // Validate Password
-
-    if (empty($password)) {
-
-        $errors['password'] = "Password is required";
-
-    } elseif (strlen($password) < 8) {
-
-        $errors['password'] = "Password must be at least 8 characters";
-
-    }
-
-
-
-    // Confirm Password
-
-    if ($password !== $confirm_password) {
-
-        $errors['confirm_password'] = "Passwords do not match";
-
-    }
-
-
-
-    // Check if there are any validation errors
-
-    if (!empty($errors)) {
-
-        $response['errors'] = $errors;
-
-        echo json_encode($response);
-
-        exit();
-
-    }
-
-
-
-    // Check for existing user
-
-    $check_query = "SELECT * FROM users WHERE email = '$email'";
-
-    $check_result = mysqli_query($conn, $check_query);
-
-
-
-    if (mysqli_num_rows($check_result) > 0) {
-
-        $response['errors']['email'] = "Email already exists";
-
-        echo json_encode($response);
-
-        exit();
-
-    }
-
-
-
-    // Hash the password
-
-    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-
-
-    // Prepare SQL insert statement
-
-    $insert_query = "INSERT INTO users (
-
-        first_name, 
-
-        last_name, 
-
-        email, 
-
-        password, 
-
-        role, 
-
-        created_at
-
-    ) VALUES (
-
-        '$first_name', 
-
-        '$last_name', 
-
-        '$email', 
-
-        '$hashed_password', 
-
-        '', 
-
-        NOW()
-
-    )";
-
-
-
-    // Execute the query
-
-    if (mysqli_query($conn, $insert_query)) {
-
-        // Registration successful
-
-        $response['success'] = true;
-
-        echo json_encode($response);
-
-        exit();
-
-    } else {
-
-        // Database insertion error
-
-        $response['errors']['general'] = "Registration failed: " . mysqli_error($conn);
-
-        echo json_encode($response);
-
-        exit();
-
-    }
-
-} else {
-
-    // If not a POST request
-
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $response['errors']['general'] = "Invalid request method";
-
     echo json_encode($response);
-
     exit();
-
 }
 
-?>
+$first_name = trim($_POST['first-name'] ?? '');
+$last_name  = trim($_POST['last-name'] ?? '');
+$email      = trim($_POST['email'] ?? '');
+$password   = $_POST['password'] ?? '';
+$confirm    = $_POST['confirm-password'] ?? '';
 
+// Validation
+if (empty($first_name) || strlen($first_name) < 2) {
+    $response['errors']['first_name'] = empty($first_name) ? "First name is required" : "First name must be at least 2 characters";
+}
+if (empty($last_name) || strlen($last_name) < 2) {
+    $response['errors']['last_name'] = empty($last_name) ? "Last name is required" : "Last name must be at least 2 characters";
+}
+if (empty($email)) {
+    $response['errors']['email'] = "Email is required";
+} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $response['errors']['email'] = "Invalid email format";
+}
+if (empty($password)) {
+    $response['errors']['password'] = "Password is required";
+} elseif (strlen($password) < 8) {
+    $response['errors']['password'] = "Password must be at least 8 characters";
+}
+if ($password !== $confirm) {
+    $response['errors']['confirm_password'] = "Passwords do not match";
+}
+
+if (!empty($response['errors'])) {
+    echo json_encode($response);
+    exit();
+}
+
+// Check for existing user — prepared statement
+$stmt = $conn->prepare("SELECT user_id FROM users WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$stmt->store_result();
+
+if ($stmt->num_rows > 0) {
+    $response['errors']['email'] = "Email already exists";
+    echo json_encode($response);
+    $stmt->close();
+    exit();
+}
+$stmt->close();
+
+// Insert — prepared statement. New registrations default to 'staff' role.
+$hashed_password = password_hash($password, PASSWORD_BCRYPT);
+$role = 'staff';
+
+$stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, role, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
+$stmt->bind_param("sssss", $first_name, $last_name, $email, $hashed_password, $role);
+
+if ($stmt->execute()) {
+    $response['success'] = true;
+} else {
+    error_log("Registration DB error: " . $stmt->error);
+    $response['errors']['general'] = "Registration failed. Please try again.";
+}
+$stmt->close();
+
+echo json_encode($response);
